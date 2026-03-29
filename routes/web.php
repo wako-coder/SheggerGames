@@ -7,6 +7,6 @@ Route::get('/', [GamesController::class, 'home'])->name('home');
 
 // Route for game details page
 Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
-Route::get('/games', [GamesController::class, 'allGames'])->name('games.all');
+Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');
 
 

@@ -43,7 +43,7 @@
                                 
                                 </div>
                             </div>
-                            <div class="game_details_thumb_inner slick__activation slick_navigation" data-slick='{
+                            <div class="game_details_thumb_inner slick__activation slick_navigation position-relative" data-slick='{
                                 "slidesToShow": 1,
                                 "slidesToScroll": 1,
                                 "arrows": true,
@@ -55,15 +55,12 @@
                                 {"breakpoint":576, "settings": { "slidesToShow": 1 } }  
                                 ]                                                     
                             }'>
-                                <div class="game_details_thumb">
-                                    <img width="1170" height="540" src="{{ asset('assets/img/others/game-details-thumb.webp') }}" alt="{{ $gameName ?? 'Game screenshot' }}">
+                                <div class="game_details_thumb position-relative">
+                                    <iframe src="{{ $gameUrl ?? '#' }}" width="1170" height="540" frameborder="0" allowfullscreen title="{{ $gameName ?? 'Game' }}"></iframe>
                                 </div>
-                                <div class="game_details_thumb">
-                                    <img width="1170" height="540" src="{{ asset('assets/img/others/game-details-thumb.webp') }}" alt="{{ $gameName ?? 'Game screenshot' }}">
+                                <div class="game_details_thumb position-relative">
+                                    <iframe src="{{ $gameUrl ?? '#' }}" width="1170" height="540" frameborder="0" allowfullscreen title="{{ $gameName ?? 'Game' }}"></iframe>
                                 </div>
-                            </div>
-                            <div class="start_now_btn">
-                                <a class="btn btn-link" href="{{ $gameUrl ?? '#' }}">PLAY NOW <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
 
                           

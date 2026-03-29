@@ -292,15 +292,15 @@
                 <div class="popular_gaming_inner wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">
                     <div class="row">
                         @if(isset($popularGames) && count($popularGames) > 0)
-                            @foreach($popularGames as $game)
+                            @foreach($popularGames as $index => $game)
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="popular_gaming_thumb">
-                                        <a href="{{ $game['external_url'] }}" target="_blank">
+                                        <a href="{{ route('game.details', ['id' => $index + 1]) }}">
                                             <img width="570" height="330" src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
                                         </a>
                                         <div class="gaming_details_btn">
-                                            <a class="btn btn-link" href="{{ $game['external_url'] }}" target="_blank">
-                                                Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> 
+                                            <a class="btn btn-link" href="{{ route('game.details', ['id' => $index + 1]) }}">
+                                                Game Details <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> 
                                             </a>
                                         </div>
                                     </div>
