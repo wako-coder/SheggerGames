@@ -41,6 +41,19 @@
                     </ul>
                 </li>
                 <li class="menu-item-has-children"><a href="/contact">Contact Us</a></li>
+                @auth
+                    <li class="menu-item-has-children">
+                        <span class="text-white">Welcome, {{ Auth::user()->name }}</span>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link text-white">Logout</button>
+                        </form>
+                    </li>
+                @else
+                    <li class="menu-item-has-children"><a href="{{ route('login') }}">Login</a></li>
+                @endauth
             </ul>
         </div>
     </div>

@@ -44,9 +44,19 @@
                         </div>
                         <!--main menu end-->
                         <div class="header_right_sidebar d-flex align-items-center">
-                            <div class="sing_up_btn">
-                                <a class="btn btn-link" href="/register">JOIN US <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""> </a>
-                            </div>
+                            @auth
+                                <div class="sing_up_btn">
+                                    <span class="text-white me-3">Welcome, {{ Auth::user()->name }}</span>
+                                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link">Logout <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""></button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="sing_up_btn">
+                                    <a class="btn btn-link" href="{{ route('login') }}">Login <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""> </a>
+                                </div>
+                            @endauth
                             <div class="canvas_open">
                                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"><i class="icofont-navigation-menu"></i></button>
                             </div>

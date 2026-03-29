@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    @yield('styles')
 </head>
 
 <body class="body__bg" data-bgimg="{{ asset('assets/img/bg/body-bg.webp') }}">
@@ -59,6 +60,7 @@
 <!-- Main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+@yield('scripts')
 
 </body>
 
