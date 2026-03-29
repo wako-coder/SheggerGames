@@ -6,13 +6,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Bonx - Gaming Website Template HTML Version</title>
-    <meta name="description" content="Bonx is a terrific esports website template with a slick and modern look.  It’s a robust gaming HTML template for bloggers and online gamers who want to share their enthusiasm for games on the internet."/>
-    <meta name="keywords" content="	bootstrap, clean, esports, game, game portal, Game website, gamer, games, gaming, magazine, match, modern, online game, sport, sports">
-    <meta name="author" content="Code Carnival">
+    <title>SheggerGames - Ethiopian Gaming Platform</title>
+    <meta name="description" content="SheggerGames is Ethiopia's premier gaming platform connecting players across the country and beyond. Experience the best of gaming with our community-driven platform."/>
+    <meta name="keywords" content="Ethiopian games, Ethiopian gaming, SheggerGames, Ethiopian gamers, gaming platform, esports Ethiopia, online games Ethiopia">
+    <meta name="author" content="SheggerGames Team">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Add site Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo/favicon.ico') }}" type="image/png">
 
     <!-- CSS 
     ========================= -->
@@ -32,140 +32,32 @@
 
 <body class="body__bg" data-bgimg="{{ asset('assets/img/bg/body-bg.webp') }}">
 
-
+@include('layouts.header')
     @yield('content')
 
+@include('layouts.footer')
 
-
-    <!--footer area start-->
-    <footer class="footer_widgets">
-        <div class="main_footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="main_footer_inner d-flex">
-                            <div class="footer_widget_list">
-                                <div class="footer_logo">
-                                    <a href="#"><img aria-label="logo" width="215" height="79" src="assets/img/logo/logo.webp" alt=""></a>
-                                </div>
-                                <div class="footer_contact_desc">
-                                    <p>It long estabhed fact that reader
-                                        will ditracted the readable content
-                                        looking using readable.</p>
-                                </div>
-                                <div class="footer_social">
-                                    <ul class="d-flex">
-                                        <li><a aria-label="facebook" class="facebook" href="https://www.facebook.com/"><i class="icofont-facebook"></i></a></li>
-                                        <li><a aria-label="dribble" class="dribbble" href="https://dribbble.com/"><i class="icofont-dribbble"></i></a></li>
-                                        <li><a aria-label="youtube" class="youtube" href="https://www.youtube.com/"><i class="icofont-youtube-play"></i></a></li>
-                                        <li><a aria-label="twitter" class="twitter" href="https://twitter.com/"><i class="icofont-twitter"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="footer_widget_list contact">
-                                <h3>Contact</h3>
-                                <div class="footer_contact_info">
-                                    <div class="footer_contact_info_list">
-                                        <span>Location:</span>
-                                        <p>136 Harding Ave
-                                            Wheeling, West Virginia</p>
-                                    </div>
-                                    <div class="footer_contact_info_list">
-                                        <span>Phone:</span>
-                                        <p><a href="#">00 (62) 632 867 4497</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="footer_widget_list">
-                                <h3>today’s winners</h3>
-                                <div class="footer_winners_gallery">
-                                    <div class="footer_winners_list d-flex">
-                                        <div class="footer_winners_thumb">
-                                            <a href="game-details.html"><img aria-label="game-team" width="75" height="75" src="assets/img/others/winners1.webp" alt=""></a>
-                                        </div>
-                                        <div class="footer_winners_thumb">
-                                            <a href="game-details.html"><img aria-label="game-team" width="75" height="75" src="assets/img/others/winners2.webp" alt=""></a>
-                                        </div>
-                                        <div class="footer_winners_thumb">
-                                            <a href="game-details.html"><img aria-label="game-team" width="75" height="75" src="assets/img/others/winners3.webp" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="footer_winners_list d-flex">
-                                        <div class="footer_winners_thumb">
-                                            <a href="game-details.html"><img aria-label="game-team" width="75" height="75" src="assets/img/others/winners4.webp" alt=""></a>
-                                        </div>
-                                        <div class="footer_winners_thumb">
-                                            <a href="game-details.html"><img aria-label="game-team" width="75" height="75" src="assets/img/others/winners5.webp" alt=""></a>
-                                        </div>
-                                        <div class="footer_winners_thumb">
-                                            <a href="game-details.html"><img aria-label="game-team" width="75" height="75" src="assets/img/others/winners6.webp" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="footer_widget_list footer_list_menu">
-                                <h3>Content</h3>
-                                <div class="footer_menu">
-                                    <ul>
-                                        <li><a href="about.html"> Copywriting</a></li>
-                                        <li><a href="about.html">Social Media</a></li>
-                                        <li><a href="about.html">Interactive Media</a></li>
-                                        <li><a href="about.html">Motion Design</a></li>
-                                        <li><a href="about.html">Illustration</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="footer_bottom_inner d-flex justify-content-between">
-                            <div class="copyright_right">
-                                <p> © 2021  BONX  Made with  <i class="icofont-heart"></i>  by <a href="https://hasthemes.com/">HasThemes</a></p>
-                            </div>
-                            <div class="footer_bottom_link_menu">
-                                <ul class="d-flex">
-                                    <li><a href="about.html">Terms & Condition  </a></li>
-                                    <li><a href="about.html">Privacy Policy  </a></li>
-                                </ul>
-                            </div>
-
-                            <div class="scroll__top_icon">
-                                <a id="scroll-top" href="#"><img aria-label="scroll-top" width="46" height="40" src="assets/img/icon/scroll-top.webp" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!--footer area end-->
-
+  
    
 <!-- JS
 ============================================ -->
 <!--modernizr min js here-->
-<script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+<script src="{{ asset('assets/js/vendor/modernizr-3.7.1.min.js') }}"></script>
 
 <!-- Vendor JS -->
-<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-<script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
-<script src="assets/js/vendor/popper.js"></script>
-<script src="assets/js/vendor/bootstrap.min.js"></script>
-<script src="assets/js/slick.min.js"></script>
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/jquery.nice-select.js"></script>
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<script src="assets/js/jquery.counterup.min.js"></script>
-<script src="assets/js/jquery-waypoints.js"></script>
+<script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/popper.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/slick.min.js') }}"></script>
+<script src="{{ asset('assets/js/wow.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.nice-select.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-waypoints.js') }}"></script>
 
 <!-- Main JS -->
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 
 
 </body>

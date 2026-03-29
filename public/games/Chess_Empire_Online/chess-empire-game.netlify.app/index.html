@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CHESS EMPIRE Multiplayer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="selection:bg-yellow-600 selection:text-white">
+
+    <!-- === PRELOADER === -->
+    <div id="view-preloader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1a1a1a] transition-opacity duration-1000">
+        <!-- ICON PLACEHOLDER: Replace src with your image -->
+        <img src="assets/loading.png" alt="Game Logo" class="w-[100px] h-[100px] mb-6 rounded-xl shadow-[0_0_30px_#d4af37] border-2 border-[#d4af37] object-cover">
+        
+        <div class="loader mb-4"></div>
+        <h2 class="text-[#d4af37] font-serif tracking-[0.5em] text-sm animate-pulse">INITIALIZING GAME...</h2>
+    </div>
+
+    <div id="app" class="relative w-full max-w-6xl mx-auto min-h-screen flex flex-col p-4">
+        
+        <!-- HEADER -->
+        <header class="flex justify-between items-center py-4 mb-4 border-b border-gray-700">
+            <h1 class="text-3xl font-bold tracking-wide flex items-center gap-2 gold-text">
+                <span class="text-4xl">♛</span> CHESS EMPIRE
+            </h1>
+            <div class="flex items-center gap-4">
+                <div id="connection-status" class="flex items-center gap-2 px-3 py-1 rounded bg-red-900/50 border border-red-700 text-xs text-red-200">
+                    <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> OFFLINE
+                </div>
+                <div id="user-info" class="hidden flex items-center gap-4">
+                    <div class="text-right">
+                        <div id="display-name" class="font-bold text-lg text-gray-300 leading-none"></div>
+                        <div id="user-wins" class="text-xs text-[#d4af37]">Wins: 0</div>
+                    </div>
+                    <button onclick="logout()" class="text-xs text-gray-400 hover:text-white uppercase tracking-widest border border-gray-600 px-3 py-1 rounded transition">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- === VIEW: LOGIN === -->
+        <div id="view-login" class="hidden flex-1 flex flex-col items-center justify-center fade-in">
+            <div class="modern-modal p-8 rounded-lg w-full max-w-md text-center">
+                <h2 class="text-2xl mb-2 font-bold text-white tracking-widest font-serif">IDENTITY REQUIRED</h2>
+                <p class="text-xs text-gray-400 mb-6">Enter a unique codename (Alphanumeric only)</p>
+                <input type="text" id="username-input" placeholder="Username" maxlength="15"
+                    class="w-full bg-[#111] border border-gray-600 rounded px-4 py-4 mb-2 text-white text-center focus:outline-none focus:border-[#d4af37] transition font-serif text-xl uppercase tracking-wider">
+                <p id="login-error" class="text-red-500 text-xs mb-4 h-4"></p>
+                <button id="login-btn" onclick="attemptLogin()" 
+                    class="w-full btn-gold py-4 rounded font-bold shadow-lg text-lg tracking-wide uppercase transition-all">
+                    ENTER LOBBY
+                </button>
+            </div>
+        </div>
+
+        <!-- === VIEW: LOBBY === -->
+        <div id="view-lobby" class="hidden flex-1 flex flex-col gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Room List -->
+                <div class="classic-panel p-6 md:col-span-2 flex flex-col h-[500px]">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
+                        <h2 class="text-xl font-bold text-[#c5a059]">BATTLEGROUNDS</h2>
+                        <button onclick="forceRefreshLobby()" class="text-gray-400 text-sm hover:text-white">↻ Refresh</button>
+                    </div>
+                    <!-- Search Bar -->
+                    <div class="mb-4">
+                        <input type="text" id="room-search" placeholder="Search rooms..." onkeyup="filterRooms()"
+                            class="w-full bg-[#111] border border-gray-700 rounded p-2 text-white focus:border-[#c5a059] outline-none">
+                    </div>
+                    <div id="room-list" class="flex-1 overflow-y-auto pr-2 space-y-2">
+                        <!-- Rooms injected here -->
+                    </div>
+                </div>
+
+                <!-- Sidebar: Actions & Leaderboard -->
+                <div class="flex flex-col gap-4 h-[500px]">
+                    <!-- Actions -->
+                    <div class="classic-panel p-6">
+                        <h2 class="text-lg font-bold text-[#c5a059] mb-3">QUICK ACTION</h2>
+                        <button onclick="findRandomMatch()" class="w-full btn-primary py-3 rounded text-lg shadow-lg mb-3 flex items-center justify-center gap-2">
+                            <span>🎲</span> RANDOM MATCH
+                        </button>
+                        <button onclick="showCreateModal()" class="w-full bg-[#3d3a36] hover:bg-[#4d4945] border border-gray-600 py-3 rounded transition font-medium text-gray-200">
+                            + CREATE ROOM
+                        </button>
+                    </div>
+
+                    <!-- Leaderboard -->
+                    <div class="classic-panel p-4 flex-1 flex flex-col overflow-hidden">
+                        <h2 class="text-lg font-bold text-[#c5a059] mb-2 text-center border-b border-gray-700 pb-2">🏆 TOP 50 ELITE</h2>
+                        <div id="leaderboard-list" class="flex-1 overflow-y-auto text-sm space-y-1">
+                            <!-- Leaderboard Items -->
+                            <div class="text-center text-gray-500 mt-4">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- === VIEW: GAME === -->
+        <div id="view-game" class="hidden flex-1 flex flex-col lg:flex-row gap-6 justify-center items-start pt-4">
+            
+            <!-- Left Panel -->
+            <div class="classic-panel p-4 w-full lg:w-64 flex flex-col gap-4 order-2 lg:order-1 border-t-4 border-red-800">
+                <div class="bg-[#1a1a1a] p-3 rounded border border-gray-700 text-center flex items-center justify-between px-4">
+                    <div class="text-left">
+                         <div class="text-xs text-gray-500 uppercase tracking-widest mb-1">OPPONENT</div>
+                         <div id="opponent-name" class="font-bold text-lg text-white">...</div>
+                    </div>
+                    <div id="opponent-status" class="w-3 h-3 rounded-full bg-red-500"></div>
+                </div>
+
+                <div class="flex-1 flex flex-col justify-center items-center py-4 bg-[#1a1a1a] rounded border border-gray-700 my-2 shadow-inner">
+                    <div id="game-status" class="text-lg font-bold text-center mb-2 text-[#c5a059] font-serif tracking-widest">WAITING</div>
+                    <div id="turn-indicator" class="px-6 py-2 rounded bg-[#403d39] text-sm border border-gray-600 transition-all duration-300 font-bold uppercase">
+                        White's Turn
+                    </div>
+                </div>
+
+                <div class="bg-[#1a1a1a] p-3 rounded border border-gray-700 text-center flex items-center justify-between px-4">
+                    <div class="text-left">
+                        <div class="text-xs text-gray-500 uppercase tracking-widest mb-1">YOU</div>
+                        <div id="my-name" class="font-bold text-lg text-white">...</div>
+                    </div>
+                    <div id="my-color-indicator" class="w-6 h-6 border border-gray-500 bg-white shadow-md"></div> 
+                </div>
+
+                <button onclick="resignGame()" class="mt-auto w-full btn-danger py-2 rounded text-sm font-bold uppercase tracking-wider">
+                    RESIGN / EXIT
+                </button>
+            </div>
+
+            <!-- Board -->
+            <div class="w-full max-w-[600px] order-1 lg:order-2">
+                <div id="board" class="chess-board"></div>
+            </div>
+
+            <!-- History -->
+            <div class="classic-panel p-0 w-full lg:w-48 h-64 lg:h-auto overflow-hidden flex flex-col order-3 border-t-4 border-[#c5a059]">
+                <h3 class="text-sm font-bold text-[#c5a059] p-3 bg-[#1a1a1a] uppercase tracking-widest border-b border-gray-700">Moves</h3>
+                <div id="move-history" class="flex-1 overflow-y-auto text-sm font-mono p-2 bg-[#2a2825]">
+                    <table class="w-full text-left text-gray-300"><tbody id="move-history-body"></tbody></table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- === MODALS === -->
+    
+    <!-- Join Preloader -->
+    <div id="modal-loader" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-8 rounded-lg flex flex-col items-center gap-6">
+            <div class="loader"></div>
+            <div class="text-[#c5a059] font-serif tracking-widest text-lg animate-pulse uppercase">Please wait joining board...</div>
+        </div>
+    </div>
+
+    <!-- Alert Modal (Replaces native alert) -->
+    <div id="modal-alert" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-6 rounded-lg w-full max-w-sm m-4 text-center">
+            <h3 id="alert-title" class="text-xl font-bold mb-4 text-[#c5a059] font-serif uppercase">NOTICE</h3>
+            <p id="alert-message" class="text-gray-300 mb-6 font-sans">Message goes here.</p>
+            <button onclick="closeModal('modal-alert')" class="w-full btn-gold py-2 rounded font-bold uppercase tracking-wider">ACKNOWLEDGE</button>
+        </div>
+    </div>
+
+    <!-- Confirm Modal (Replaces native confirm) -->
+    <div id="modal-confirm" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-6 rounded-lg w-full max-w-sm m-4 text-center">
+            <h3 id="confirm-title" class="text-xl font-bold mb-4 text-red-500 font-serif uppercase">CONFIRM ACTION</h3>
+            <p id="confirm-message" class="text-gray-300 mb-6 font-sans">Are you sure?</p>
+            <div class="flex gap-2">
+                <button onclick="closeModal('modal-confirm')" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded font-bold uppercase">CANCEL</button>
+                <button id="confirm-btn-yes" class="flex-1 btn-danger py-2 rounded font-bold uppercase">PROCEED</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="modal-create" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-6 rounded w-full max-w-sm m-4">
+            <h3 class="text-xl font-bold mb-4 text-[#c5a059] font-serif uppercase text-center">Create Room</h3>
+            <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Room Name</label>
+            <input id="create-room-name" type="text" class="w-full bg-[#111] border border-gray-600 rounded p-2 mb-3 text-white focus:border-[#c5a059] outline-none">
+            <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Security</label>
+            <select id="create-room-type" class="w-full bg-[#111] border border-gray-600 rounded p-2 mb-3 text-white outline-none" onchange="togglePassField()">
+                <option value="public">Public (Open)</option>
+                <option value="private">Private (Password)</option>
+            </select>
+            <div id="pass-field" class="hidden">
+                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Pass Key</label>
+                <input id="create-room-pass" type="text" class="w-full bg-[#111] border border-gray-600 rounded p-2 mb-3 text-white outline-none">
+            </div>
+            <div class="flex gap-2 mt-4">
+                <button onclick="closeModal('modal-create')" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded font-bold">CANCEL</button>
+                <button onclick="createRoom()" class="flex-1 btn-gold py-2 rounded font-bold">CREATE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="modal-pass" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-6 rounded w-full max-w-sm m-4 text-center">
+            <h3 class="text-lg font-bold mb-2 font-serif text-[#c5a059]">RESTRICTED ACCESS</h3>
+            <p class="text-sm text-gray-400 mb-4">Enter Pass Key</p>
+            <input id="join-pass-input" type="password" class="w-full bg-[#111] border border-gray-600 rounded p-2 mb-4 text-white focus:border-[#c5a059] outline-none text-center">
+            <div class="flex gap-2">
+                <button onclick="closeModal('modal-pass')" class="flex-1 bg-gray-700 py-2 rounded text-white">CANCEL</button>
+                <button onclick="submitJoinPass()" class="flex-1 btn-gold py-2 rounded font-bold">UNLOCK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promotion Modal -->
+    <div id="modal-promotion" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-6 rounded text-center">
+            <h3 class="text-lg font-bold mb-4 font-serif text-[#c5a059] uppercase">Pawn Promotion</h3>
+            <div class="flex gap-4 justify-center">
+                <button onclick="promotePawn('q')" class="w-16 h-16 bg-[#b58863] hover:bg-[#c5a059] rounded border border-[#403d39] flex items-center justify-center shadow-inner"><img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg" class="w-12"></button>
+                <button onclick="promotePawn('r')" class="w-16 h-16 bg-[#b58863] hover:bg-[#c5a059] rounded border border-[#403d39] flex items-center justify-center shadow-inner"><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg" class="w-12"></button>
+                <button onclick="promotePawn('b')" class="w-16 h-16 bg-[#b58863] hover:bg-[#c5a059] rounded border border-[#403d39] flex items-center justify-center shadow-inner"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg" class="w-12"></button>
+                <button onclick="promotePawn('n')" class="w-16 h-16 bg-[#b58863] hover:bg-[#c5a059] rounded border border-[#403d39] flex items-center justify-center shadow-inner"><img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg" class="w-12"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="modal-gameover" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+        <div class="modern-modal p-8 rounded-lg text-center max-w-sm w-full">
+            <div class="flex justify-center mb-4 text-6xl">🏆</div>
+            <h2 id="gameover-title" class="text-4xl font-bold mb-2 font-serif text-[#c5a059] tracking-widest">VICTORY</h2>
+            <p id="gameover-reason" class="text-gray-300 mb-8 font-serif italic text-lg">Opponent Resigned</p>
+            <button onclick="leaveGame()" class="w-full btn-gold font-bold py-3 rounded shadow-lg uppercase tracking-widest">
+                Return to Lobby
+            </button>
+        </div>
+    </div>
+
+    <!-- === LOGIC === -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCf2JtW7lavngdnY1RYBPUy1N-ZruobE8",
+            authDomain: "chess-game-642c2.firebaseapp.com",
+            projectId: "chess-game-642c2",
+            storageBucket: "chess-game-642c2.firebasestorage.app",
+            messagingSenderId: "581337232648",
+            appId: "1:581337232648:web:13fb2482a926531fe328bd",
+            measurementId: "G-YK1D5CZJ7L"
+        };
+        
+        let app, auth, db;
+        try {
+            if (!firebase.apps.length) app = firebase.initializeApp(firebaseConfig);
+            else app = firebase.app();
+            auth = firebase.auth();
+            db = firebase.firestore();
+        } catch (e) { 
+            console.error(e); 
+            setTimeout(() => alert("Connection Error"), 500); 
+        }
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        let currentUser = null;
+        let unsubscribeRoom = null;
+        let unsubscribeLobby = null; 
+        let currentRoomId = null;
+        let playerColor = null; 
+        let gameState = null;
+        let selectedSquare = null;
+        let validMoves = [];
+        let promotionMove = null;
+        let fetchedRooms = []; 
+        
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // --- CUSTOM ALERTS ---
+        function showAlert(message, title = "Notice") {
+            document.getElementById('alert-title').textContent = title;
+            document.getElementById('alert-message').textContent = message;
+            document.getElementById('modal-alert').classList.remove('hidden');
+        }
+
+        let confirmCallback = null;
+        function showConfirm(message, callback, title = "Confirm Action") {
+            document.getElementById('confirm-title').textContent = title;
+            document.getElementById('confirm-message').textContent = message;
+            confirmCallback = callback;
+            document.getElementById('modal-confirm').classList.remove('hidden');
+        }
+
+        document.getElementById('confirm-btn-yes').onclick = () => {
+            if (confirmCallback) confirmCallback();
+            closeModal('modal-confirm');
+        };
+
+        function updateStatus(isOnline) {
+            const el = document.getElementById('connection-status');
+            if (isOnline) {
+                el.className = "flex items-center gap-2 px-3 py-1 rounded bg-green-900/50 border border-green-700 text-xs text-green-200";
+                el.innerHTML = '<div class="w-2 h-2 rounded-full bg-green-500"></div> ONLINE';
+            } else {
+                el.className = "flex items-center gap-2 px-3 py-1 rounded bg-red-900/50 border border-red-700 text-xs text-red-200";
+                el.innerHTML = '<div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> OFFLINE';
+            }
+        }
+
+        // --- AUTH & USER SYSTEM ---
+
+        // PRELOADER LOGIC
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('view-preloader');
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+                
+                // If user is not logged in after preloader fades, show login
+                if (!currentUser) {
+                    document.getElementById('view-login').classList.remove('hidden');
+                }
+            }, 2500); // 2.5s Splash time
+        });
+
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                updateStatus(true);
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    setupUserSession(userData.username, userData.wins || 0);
+                } else {
+                    // Preloader handles showing Login if no user session found yet
+                }
+            } else {
+                currentUser = null;
+                updateStatus(false);
+            }
+        });
+
+        function setupUserSession(name, wins) {
+            document.getElementById('display-name').textContent = name;
+            document.getElementById('user-wins').textContent = `Wins: ${wins}`;
+            document.getElementById('user-info').classList.remove('hidden');
+            
+            // Hide login if visible
+            document.getElementById('view-login').classList.add('hidden');
+            
+            switchView('view-lobby');
+            refreshLobby(); 
+            loadLeaderboard();
+        }
+
+        async function attemptLogin() {
+            const input = document.getElementById('username-input');
+            const errorEl = document.getElementById('login-error');
+            const btn = document.getElementById('login-btn');
+            const name = input.value.trim();
+            errorEl.textContent = "";
+
+            // Validation: No spaces, Alphanumeric
+            const regex = /^[a-zA-Z0-9]+$/;
+            if (!name) { errorEl.textContent = "Username cannot be empty."; return; }
+            if (!regex.test(name)) { errorEl.textContent = "Only letters and numbers. No spaces."; return; }
+
+            // Set Loading State
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="btn-loader"></span> VERIFYING...';
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            const resetBtn = () => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            };
+
+            // Ensure Auth
+            if (!auth.currentUser) {
+                try { await auth.signInAnonymously(); } 
+                catch (e) { 
+                    errorEl.textContent = "Auth Error. Enable Anonymous Auth."; 
+                    resetBtn();
+                    return; 
+                }
+            }
+
+            // Check Uniqueness
+            try {
+                const snapshot = await db.collection('users').where('username', '==', name).get();
+                if (!snapshot.empty) {
+                    let isMe = false;
+                    snapshot.forEach(doc => { if(doc.id === auth.currentUser.uid) isMe = true; });
+                    
+                    if (!isMe) {
+                        errorEl.textContent = "Username already taken. Choose another.";
+                        resetBtn();
+                        return;
+                    }
+                }
+
+                // Save User
+                await db.collection('users').doc(auth.currentUser.uid).set({
+                    username: name,
+                    wins: 0,
+                    uid: auth.currentUser.uid,
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                setupUserSession(name, 0);
+                // No resetBtn() needed here as view changes
+
+            } catch (e) {
+                console.error(e);
+                errorEl.textContent = "Server Error: " + e.message;
+                resetBtn();
+            }
+        }
+
+        function logout() {
+            if (unsubscribeRoom) unsubscribeRoom();
+            stopLobbyListener(); 
+            auth.signOut();
+            document.getElementById('username-input').value = "";
+            switchView('view-login');
+        }
+
+        function switchView(viewId) {
+            ['view-login', 'view-lobby', 'view-game'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        // --- LOBBY & LEADERBOARD ---
+
+        async function loadLeaderboard() {
+            const listEl = document.getElementById('leaderboard-list');
+            listEl.innerHTML = '<div class="text-center text-gray-500 mt-4">Updating...</div>';
+            
+            try {
+                const snapshot = await db.collection('users').orderBy('wins', 'desc').limit(50).get();
+                listEl.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    listEl.innerHTML = '<div class="text-center text-gray-500 italic">No players yet.</div>';
+                    return;
+                }
+
+                let rank = 1;
+                snapshot.forEach(doc => {
+                    const u = doc.data();
+                    const isMe = currentUser && currentUser.uid === doc.id;
+                    const row = document.createElement('div');
+                    row.className = `flex justify-between items-center p-2 rounded ${isMe ? 'bg-[#4d3319] border border-[#d4af37]' : 'hover:bg-[#2a2825]'}`;
+                    row.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold w-6 text-right ${rank <= 3 ? 'text-[#d4af37]' : 'text-gray-500'}">#${rank}</span>
+                            <span class="font-bold text-gray-200">${u.username}</span>
+                        </div>
+                        <span class="text-xs text-gray-400">${u.wins} Wins</span>
+                    `;
+                    listEl.appendChild(row);
+                    rank++;
+                });
+            } catch (e) {
+                console.error("Leaderboard error", e);
+                listEl.innerHTML = '<div class="text-red-500 text-xs text-center">Failed to load rankings.</div>';
+            }
+        }
+
+        function forceRefreshLobby() {
+            stopLobbyListener();
+            refreshLobby();
+        }
+
+        async function refreshLobby() {
+            if (unsubscribeLobby) return; // Already listening
+
+            const listEl = document.getElementById('room-list');
+            listEl.innerHTML = '<div class="text-center mt-4"><div class="loader mx-auto"></div></div>';
+
+            unsubscribeLobby = db.collection('rooms').orderBy('timestamp', 'desc').limit(50).onSnapshot(snapshot => {
+                fetchedRooms = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    // Filter active rooms here (waiting or playing)
+                    if (data.status !== 'finished') {
+                        fetchedRooms.push({ id: doc.id, ...data });
+                    }
+                });
+                renderRoomList(fetchedRooms);
+            }, err => {
+                console.error("Lobby Error", err);
+                if (err.message.includes('index')) listEl.innerHTML = '<div class="text-yellow-400 text-center text-xs">Setup Required: Create Firestore Index.</div>';
+                else listEl.innerHTML = '<div class="text-red-400 text-center">Connection Error</div>';
+            });
+        }
+
+        function stopLobbyListener() {
+            if (unsubscribeLobby) {
+                unsubscribeLobby();
+                unsubscribeLobby = null;
+            }
+        }
+
+        function filterRooms() {
+            const query = document.getElementById('room-search').value.toLowerCase();
+            const filtered = fetchedRooms.filter(r => r.name.toLowerCase().includes(query));
+            renderRoomList(filtered);
+        }
+
+        function renderRoomList(rooms) {
+            const listEl = document.getElementById('room-list');
+            listEl.innerHTML = '';
+            
+            if (rooms.length === 0) {
+                listEl.innerHTML = '<div class="text-center text-gray-500 mt-10 italic">No active rooms found.</div>';
+                return;
+            }
+
+            rooms.forEach(room => {
+                const isPrivate = room.type === 'private';
+                const isFull = room.status === 'playing';
+                
+                const el = document.createElement('div');
+                el.className = `flex justify-between items-center p-3 rounded border border-gray-700 mb-2 ${isFull ? 'bg-[#2a2825] opacity-60' : 'bg-[#363330] hover:bg-[#403d39] transition'}`;
+                el.innerHTML = `
+                    <div>
+                        <div class="font-bold text-[#c5a059] font-serif">${room.name}</div>
+                        <div class="text-xs text-gray-400">Host: ${room.hostName} • ${isPrivate ? '🔒 Private' : '🌐 Public'}</div>
+                    </div>
+                    <button onclick="${isFull ? '' : (isPrivate ? `promptPass('${room.id}')` : `joinRoom('${room.id}')`)}" 
+                        class="px-4 py-1 rounded text-sm font-bold border border-gray-600 ${isFull ? 'text-gray-500 cursor-not-allowed' : 'btn-primary'}">
+                        ${isFull ? 'LIVE' : 'JOIN'}
+                    </button>
+                `;
+                listEl.appendChild(el);
+            });
+        }
+
+        // --- ROOM MANAGEMENT ---
+
+        function showCreateModal() {
+            document.getElementById('modal-create').classList.remove('hidden');
+            const myName = document.getElementById('display-name').innerText;
+            document.getElementById('create-room-name').value = `${myName}'s Arena`;
+        }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        function togglePassField() {
+            const type = document.getElementById('create-room-type').value;
+            document.getElementById('pass-field').className = type === 'private' ? 'block' : 'hidden';
+        }
+
+        async function createRoom() {
+            const name = document.getElementById('create-room-name').value || "Unknown Arena";
+            const type = document.getElementById('create-room-type').value;
+            const pass = document.getElementById('create-room-pass').value;
+            const myName = document.getElementById('display-name').innerText;
+
+            closeModal('modal-create');
+
+            const newRoom = {
+                hostId: currentUser.uid,
+                hostName: myName,
+                guestId: null, guestName: null,
+                name: name, type: type, pass: pass || null,
+                status: 'waiting', turn: 'w',
+                board: JSON.stringify(getInitialBoard()),
+                lastMove: null, winner: null, check: false, moves: [],
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            try {
+                const ref = await db.collection('rooms').add(newRoom);
+                playerColor = 'w';
+                connectToRoom(ref.id);
+            } catch (e) { showAlert("Error: " + e.message, "Creation Failed"); }
+        }
+
+        async function findRandomMatch() {
+            try {
+                const snapshot = await db.collection('rooms').where('status', '==', 'waiting').where('type', '==', 'public').limit(20).get();
+                let foundId = null;
+                snapshot.forEach(doc => { if (doc.data().hostId !== currentUser.uid) foundId = doc.id; });
+
+                if (foundId) joinRoom(foundId);
+                else {
+                    const myName = document.getElementById('display-name').innerText;
+                    document.getElementById('create-room-name').value = `${myName}'s Random Table`;
+                    document.getElementById('create-room-type').value = 'public';
+                    createRoom();
+                }
+            } catch (e) { showAlert("Error finding match: " + e.message, "Matchmaking Error"); }
+        }
+
+        let pendingJoinId = null;
+        function promptPass(roomId) {
+            pendingJoinId = roomId;
+            document.getElementById('modal-pass').classList.remove('hidden');
+        }
+        function submitJoinPass() {
+            const pass = document.getElementById('join-pass-input').value;
+            closeModal('modal-pass');
+            joinRoom(pendingJoinId, pass);
+        }
+
+        async function joinRoom(roomId, password = null) {
+            if (!currentUser) { showAlert("Not logged in!", "Authentication Required"); return; }
+            
+            // Show Loader
+            document.getElementById('modal-loader').classList.remove('hidden');
+
+            const ref = db.collection('rooms').doc(roomId);
+            const myName = document.getElementById('display-name').innerText;
+            try {
+                await db.runTransaction(async (t) => {
+                    const doc = await t.get(ref);
+                    if (!doc.exists) throw "Room closed";
+                    const data = doc.data();
+                    if (data.status !== 'waiting') throw "Room full";
+                    if (data.type === 'private' && data.pass !== password) throw "Incorrect Password";
+                    t.update(ref, { guestId: currentUser.uid, guestName: myName, status: 'playing' });
+                });
+                playerColor = 'b';
+                connectToRoom(roomId);
+                document.getElementById('modal-loader').classList.add('hidden');
+            } catch (e) { 
+                document.getElementById('modal-loader').classList.add('hidden');
+                if (e === "Incorrect Password" || e.message === "Incorrect Password") {
+                    showAlert("Wrong password, enter correct room password", "Access Denied");
+                    if(password !== null) {
+                        pendingJoinId = roomId;
+                        // Small delay so user sees alert
+                        setTimeout(() => document.getElementById('modal-pass').classList.remove('hidden'), 2000);
+                    }
+                } else {
+                    showAlert("Join Failed: " + e, "Error"); 
+                }
+            }
+        }
+
+        // --- GAME LOGIC ---
+
+        function connectToRoom(roomId) {
+            stopLobbyListener(); // Stop fetching lobby data while in game
+            currentRoomId = roomId;
+            switchView('view-game');
+            createBoardUI();
+
+            unsubscribeRoom = db.collection('rooms').doc(roomId).onSnapshot(doc => {
+                if (!doc.exists) { leaveGame(); return; }
+                const data = doc.data();
+                if (typeof data.board === 'string') data.board = JSON.parse(data.board);
+                gameState = data;
+
+                // UI Updates
+                const isHost = data.hostId === currentUser.uid;
+                document.getElementById('my-name').textContent = isHost ? data.hostName : (data.guestName || "You");
+                document.getElementById('opponent-name').textContent = isHost ? (data.guestName || "Waiting...") : data.hostName;
+                document.getElementById('my-color-indicator').className = `w-6 h-6 border border-gray-500 shadow-md ${playerColor === 'w' ? 'bg-white' : 'bg-black'}`;
+                
+                const oppStatusEl = document.getElementById('opponent-status');
+                if (data.status === 'waiting') oppStatusEl.className = "w-3 h-3 rounded-full bg-yellow-500 animate-pulse";
+                else if (data.status === 'playing') oppStatusEl.className = "w-3 h-3 rounded-full bg-green-500";
+                
+                const statusEl = document.getElementById('game-status');
+                const turnEl = document.getElementById('turn-indicator');
+
+                if (data.status === 'waiting') {
+                    statusEl.textContent = "WAITING FOR OPPONENT";
+                    statusEl.className = "text-lg font-bold text-center mb-2 text-yellow-400 font-serif tracking-widest animate-pulse";
+                } else if (data.status === 'playing') {
+                    statusEl.textContent = data.check ? "⚠️ CHECK!" : "GAME IN PROGRESS";
+                    statusEl.className = data.check ? "text-lg font-bold text-center mb-2 text-red-500 font-serif animate-pulse" : "text-lg font-bold text-center mb-2 text-[#c5a059] font-serif tracking-widest";
+                    
+                    turnEl.textContent = data.turn === 'w' ? "White's Turn" : "Black's Turn";
+                    const isMyTurn = data.turn === playerColor;
+                    turnEl.className = `px-6 py-2 rounded text-sm border font-bold uppercase transition-all duration-300 ${isMyTurn ? 'bg-[#81b64c] border-[#81b64c] text-white shadow-lg' : 'bg-[#403d39] border-gray-600 text-gray-400'}`;
+                    
+                    renderBoard(data.board, data.lastMove);
+                    renderHistory(data.moves);
+                } else if (data.status === 'finished') {
+                    handleGameOver(data.winner, data.winReason);
+                }
+                if (data.check) playSound('check');
+            });
+        }
+
+        async function resignGame() {
+            if (!currentRoomId || !playerColor) return;
+            
+            showConfirm("Are you sure you want to resign? You will forfeit the game.", async () => {
+                const winner = playerColor === 'w' ? 'b' : 'w';
+                try {
+                    await db.collection('rooms').doc(currentRoomId).update({
+                        status: 'finished',
+                        winner: winner,
+                        winReason: 'Opponent Resigned'
+                    });
+                    leaveGame();
+                } catch (e) { console.error(e); }
+            }, "CONFIRM RESIGNATION");
+        }
+
+        function leaveGame() {
+            if (unsubscribeRoom) unsubscribeRoom();
+            currentRoomId = null;
+            gameState = null;
+            closeModal('modal-gameover');
+            switchView('view-lobby');
+            refreshLobby(); // Restart listener
+            loadLeaderboard(); // Update rankings
+        }
+
+        async function handleGameOver(winner, reason) {
+            document.getElementById('modal-gameover').classList.remove('hidden');
+            const title = document.getElementById('gameover-title');
+            const reasonEl = document.getElementById('gameover-reason');
+            
+            if (winner === playerColor) {
+                title.textContent = "VICTORY";
+                title.className = "text-4xl font-bold mb-2 font-serif text-green-500 tracking-widest";
+                playSound('win');
+                // Increment Win Count for ME
+                await db.collection('users').doc(currentUser.uid).update({
+                    wins: firebase.firestore.FieldValue.increment(1)
+                });
+            } else if (winner === 'draw') {
+                title.textContent = "DRAW";
+                title.className = "text-4xl font-bold mb-2 font-serif text-gray-400 tracking-widest";
+            } else {
+                title.textContent = "DEFEAT";
+                title.className = "text-4xl font-bold mb-2 font-serif text-red-500 tracking-widest";
+            }
+            reasonEl.textContent = reason;
+        }
+
+        // --- BOARD UTILS ---
+        const PIECE_IMAGES = {
+            'wP': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
+            'wR': 'https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg',
+            'wN': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg',
+            'wB': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg',
+            'wQ': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg',
+            'wK': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg',
+            'bP': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
+            'bR': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg',
+            'bN': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg',
+            'bB': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg',
+            'bQ': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg',
+            'bK': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg'
+        };
+
+        const initialBoardSetup = [
+            ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+            ['bP','bP','bP','bP','bP','bP','bP','bP'],
+            ['','','','','','','',''],
+            ['','','','','','','',''],
+            ['','','','','','','',''],
+            ['','','','','','','',''],
+            ['wP','wP','wP','wP','wP','wP','wP','wP'],
+            ['wR','wN','wB','wQ','wK','wB','wN','wR']
+        ];
+        function getInitialBoard() { return JSON.parse(JSON.stringify(initialBoardSetup)); }
+
+        function createBoardUI() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            if (playerColor === 'b') boardEl.classList.add('board-flipped');
+            else boardEl.classList.remove('board-flipped');
+
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const sq = document.createElement('div');
+                    sq.className = `square ${(r + c) % 2 === 0 ? 'light' : 'dark'}`;
+                    sq.dataset.r = r; sq.dataset.c = c;
+                    sq.onclick = () => onSquareClick(r, c);
+                    boardEl.appendChild(sq);
+                }
+            }
+        }
+
+        function renderBoard(boardMatrix, lastMove) {
+            const squares = document.querySelectorAll('.square');
+            squares.forEach(sq => {
+                const r = parseInt(sq.dataset.r);
+                const c = parseInt(sq.dataset.c);
+                const piece = boardMatrix[r][c];
+                sq.innerHTML = '';
+                sq.className = `square ${(r + c) % 2 === 0 ? 'light' : 'dark'}`; // Reset classes
+                
+                if (lastMove && ((lastMove.from.r===r && lastMove.from.c===c) || (lastMove.to.r===r && lastMove.to.c===c))) 
+                    sq.classList.add('last-move');
+                
+                if (gameState.check && piece && piece[1] === 'K' && piece[0] === gameState.turn) 
+                    sq.classList.add('check');
+
+                if (piece) {
+                    const img = document.createElement('img');
+                    img.src = PIECE_IMAGES[piece];
+                    img.className = 'piece-img';
+                    img.draggable = false;
+                    sq.appendChild(img);
+                }
+            });
+
+            if (selectedSquare) {
+                const selSq = document.querySelector(`.square[data-r="${selectedSquare.r}"][data-c="${selectedSquare.c}"]`);
+                if(selSq) selSq.classList.add('selected');
+                
+                validMoves.forEach(m => {
+                    const target = document.querySelector(`.square[data-r="${m.r}"][data-c="${m.c}"]`);
+                    if (target) {
+                        if (boardMatrix[m.r][m.c]) target.classList.add('valid-capture');
+                        else target.classList.add('valid-move');
+                    }
+                });
+            }
+        }
+
+        function renderHistory(moves) {
+            const histBody = document.getElementById('move-history-body');
+            histBody.innerHTML = '';
+            if (!moves) return;
+            for (let i = 0; i < moves.length; i += 2) {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-700 hover:bg-[#403d39]';
+                row.innerHTML = `<td class="p-2 text-gray-500 w-8 font-serif">${Math.floor(i/2)+1}.</td><td class="p-2 text-white font-bold w-1/2">${moves[i]}</td><td class="p-2 text-white font-bold w-1/2">${moves[i+1]||''}</td>`;
+                histBody.appendChild(row);
+            }
+            const histDiv = document.getElementById('move-history');
+            histDiv.scrollTop = histDiv.scrollHeight;
+        }
+
+        // --- MOVEMENT LOGIC ---
+        function onSquareClick(r, c) {
+            if (!gameState || gameState.status !== 'playing' || gameState.turn !== playerColor) return;
+            const piece = gameState.board[r][c];
+            const isMyPiece = piece && piece[0] === playerColor;
+
+            if (isMyPiece) {
+                selectedSquare = {r, c, piece};
+                validMoves = getValidMoves(gameState.board, r, c, piece);
+                renderBoard(gameState.board, gameState.lastMove);
+                playSound('click');
+                return;
+            }
+
+            if (selectedSquare) {
+                const move = validMoves.find(m => m.r === r && m.c === c);
+                if (move) executeMove(selectedSquare, move);
+                else {
+                    selectedSquare = null; validMoves = [];
+                    renderBoard(gameState.board, gameState.lastMove);
+                }
+            }
+        }
+
+        function executeMove(from, to) {
+            const board = JSON.parse(JSON.stringify(gameState.board));
+            const piece = board[from.r][from.c];
+            if (piece[1] === 'P' && (to.r === 0 || to.r === 7)) {
+                promotionMove = {from, to};
+                document.getElementById('modal-promotion').classList.remove('hidden');
+                return;
+            }
+            finalizeMove(from, to, piece, board);
+        }
+
+        function promotePawn(type) {
+            document.getElementById('modal-promotion').classList.add('hidden');
+            if (!promotionMove) return;
+            const board = JSON.parse(JSON.stringify(gameState.board));
+            const piece = playerColor + type.toUpperCase();
+            finalizeMove(promotionMove.from, promotionMove.to, piece, board, true);
+        }
+
+        function finalizeMove(from, to, piece, board, isPromotion = false) {
+            const captured = board[to.r][to.c];
+            board[to.r][to.c] = isPromotion ? piece : board[from.r][from.c];
+            board[from.r][from.c] = '';
+
+            // Castling
+            if (piece[1] === 'K' && Math.abs(to.c - from.c) === 2) {
+                if (to.c === 6) { board[to.r][5] = board[to.r][7]; board[to.r][7] = ''; }
+                else if (to.c === 2) { board[to.r][3] = board[to.r][0]; board[to.r][0] = ''; }
+            }
+
+            const nextTurn = playerColor === 'w' ? 'b' : 'w';
+            const isCheck = isKingInCheck(board, nextTurn);
+            const isCheckmate = isCheck && isMate(board, nextTurn);
+            
+            let moveNote = (piece[1] === 'P' ? '' : piece[1]) + String.fromCharCode(97 + to.c) + (8 - to.r);
+            if (isPromotion) moveNote += "=" + piece[1];
+            if (isCheckmate) moveNote += "#"; else if (isCheck) moveNote += "+";
+
+            const updateData = {
+                board: JSON.stringify(board),
+                turn: nextTurn,
+                lastMove: {from, to},
+                check: isCheck,
+                moves: firebase.firestore.FieldValue.arrayUnion(moveNote)
+            };
+
+            if (isCheckmate) {
+                updateData.status = 'finished';
+                updateData.winner = playerColor;
+                updateData.winReason = "Checkmate";
+                playSound('win');
+                // I won, so I increment my wins immediately
+                db.collection('users').doc(currentUser.uid).update({ wins: firebase.firestore.FieldValue.increment(1) });
+            } else {
+                playSound(captured ? 'capture' : 'move');
+            }
+
+            db.collection('rooms').doc(currentRoomId).update(updateData);
+            selectedSquare = null; validMoves = [];
+        }
+
+        // --- RULES (Helper Functions from before) ---
+        function getValidMoves(board, r, c, piece) {
+            const type = piece[1]; const color = piece[0]; const moves = [];
+            const add = (dr, dc) => {
+                let nr = r + dr, nc = c + dc;
+                while (nr >= 0 && nr < 8 && nc >= 0 && nc < 8) {
+                    const target = board[nr][nc];
+                    if (target === '') moves.push({r: nr, c: nc});
+                    else { if (target[0] !== color) moves.push({r: nr, c: nc}); break; }
+                    if (['N','K','P'].includes(type)) break;
+                    nr += dr; nc += dc;
+                }
+            };
+            const dirs = {
+                'R': [[1,0],[-1,0],[0,1],[0,-1]], 'B': [[1,1],[1,-1],[-1,1],[-1,-1]],
+                'Q': [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]],
+                'K': [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]],
+                'N': [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]]
+            };
+            if (type === 'P') {
+                const dir = color === 'w' ? -1 : 1; const start = color === 'w' ? 6 : 1;
+                if (!board[r+dir][c]) {
+                    moves.push({r: r+dir, c: c});
+                    if (r === start && !board[r+dir*2][c]) moves.push({r: r+dir*2, c: c});
+                }
+                if (c>0 && board[r+dir][c-1] && board[r+dir][c-1][0]!==color) moves.push({r: r+dir, c: c-1});
+                if (c<7 && board[r+dir][c+1] && board[r+dir][c+1][0]!==color) moves.push({r: r+dir, c: c+1});
+            } else dirs[type].forEach(d => add(d[0], d[1]));
+
+            if (type === 'K' && c === 4) { // Castling Logic
+                 const row = color === 'w' ? 7 : 0;
+                 if (r === row) {
+                     if (board[row][5]==='' && board[row][6]==='' && board[row][7] && board[row][7][1]==='R') moves.push({r: row, c: 6});
+                     if (board[row][1]==='' && board[row][2]==='' && board[row][3]==='' && board[row][0] && board[row][0][1]==='R') moves.push({r: row, c: 2});
+                 }
+            }
+            return moves.filter(m => {
+                const nb = JSON.parse(JSON.stringify(board));
+                nb[m.r][m.c] = nb[r][c]; nb[r][c] = '';
+                return !isKingInCheck(nb, color);
+            });
+        }
+
+        function isKingInCheck(board, color) {
+            let kr, kc;
+            for(let r=0; r<8; r++) for(let c=0; c<8; c++) if(board[r][c] === color+'K') { kr=r; kc=c; }
+            if(kr===undefined) return true;
+            const opp = color === 'w' ? 'b' : 'w';
+            const kMoves = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]];
+            for(let d of kMoves) { const nr=kr+d[0], nc=kc+d[1]; if(nr>=0 && nr<8 && nc>=0 && nc<8 && board[nr][nc] === opp+'N') return true; }
+            const pDir = color === 'w' ? -1 : 1;
+            if (color==='w') {
+                 if(kr-1>=0 && kc-1>=0 && board[kr-1][kc-1]==='bP') return true;
+                 if(kr-1>=0 && kc+1<8 && board[kr-1][kc+1]==='bP') return true;
+            } else {
+                 if(kr+1<8 && kc-1>=0 && board[kr+1][kc-1]==='wP') return true;
+                 if(kr+1<8 && kc+1<8 && board[kr+1][kc+1]==='wP') return true;
+            }
+            const dirs = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
+            for(let i=0; i<8; i++) {
+                let d = dirs[i], nr=kr+d[0], nc=kc+d[1];
+                while(nr>=0 && nr<8 && nc>=0 && nc<8) {
+                    const cell = board[nr][nc];
+                    if(cell) {
+                        if(cell[0]===opp) {
+                            const t = cell[1];
+                            const ortho = i<4, diag = i>=4;
+                            if ((t==='Q') || (ortho && t==='R') || (diag && t==='B')) return true;
+                            if (t==='K' && Math.abs(nr-kr)<=1 && Math.abs(nc-kc)<=1) return true;
+                        } break;
+                    } nr+=d[0]; nc+=d[1];
+                }
+            }
+            return false;
+        }
+
+        function isMate(board, color) {
+            for(let r=0; r<8; r++) for(let c=0; c<8; c++) 
+                if(board[r][c] && board[r][c][0]===color && getValidMoves(board, r, c, board[r][c]).length>0) return false;
+            return true;
+        }
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+            if (type === 'move') {
+                osc.type = 'sine'; osc.frequency.setValueAtTime(300, now); osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'capture') {
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(150, now); osc.frequency.linearRampToValueAtTime(50, now + 0.15);
+                gain.gain.setValueAtTime(0.4, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                osc.start(now); osc.stop(now + 0.15);
+            } else if (type === 'check') {
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(400, now + 0.3);
+                gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'click') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(800, now);
+                gain.gain.setValueAtTime(0.05, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                osc.start(now); osc.stop(now + 0.05);
+            } else if (type === 'win') {
+                [440, 554, 659, 880].forEach((freq, i) => {
+                    const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                    o.connect(g); g.connect(audioCtx.destination);
+                    o.frequency.value = freq;
+                    g.gain.setValueAtTime(0.2, now + i*0.1); g.gain.exponentialRampToValueAtTime(0.01, now + i*0.1 + 0.5);
+                    o.start(now + i*0.1); o.stop(now + i*0.1 + 0.5);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

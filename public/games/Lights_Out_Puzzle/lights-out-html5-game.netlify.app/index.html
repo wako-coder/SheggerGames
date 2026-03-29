@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lights Out Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Help Button -->
+<button class="help-btn" id="help-btn">?</button>
+
+<!-- Help Modal -->
+<div class="help-modal" id="help-modal">
+    <div class="help-content">
+        <span class="close-help">&times;</span>
+        <h2>How to Play Lights Out</h2>
+        <p>The goal is to turn all the lights ON (colored).</p>
+        <p>Clicking on a light toggles it and its adjacent lights (up, down, left, right).</p>
+        <p>Each move increases your move count. Try to solve the puzzle in as few moves as possible!</p>
+        <p>Choose different difficulty levels from the main menu.</p>
+    </div>
+</div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-logo"><img src="assets/logo.png" width="200" height="200"></div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loading-progress"></div>
+        </div>
+    </div>
+    
+    <!-- Ad Screen -->
+    <div class="ad-screen" id="ad-screen">
+        <div class="ad-content">
+            <div class="ad-close-timer" id="ad-timer">5</div>
+            <div class="ad-text">Advertisement</div>
+            <div class="ad-mockup">Your Ad Here</div>
+            <button class="skip-ad-btn" id="skip-ad-btn">Wait</button>
+        </div>
+    </div>
+    
+    <!-- Main Menu -->
+    <div class="main-menu" id="main-menu">
+        <div class="game-logo">LIGHTS OUT</div>
+        <p class="game-instruction">
+            Click on a light to toggle it and its adjacent lights. 
+            Turn all lights ON to win the game! Choose your difficulty level below.
+        </p>
+        
+        <div class="level-selector">
+            <button class="level-btn easy" id="easy-btn">Easy (3×3)</button>
+            <button class="level-btn normal" id="normal-btn">Normal (5×5)</button>
+            <button class="level-btn hard" id="hard-btn">Hard (8×8)</button>
+        </div>
+    </div>
+    
+    <!-- Game Screen -->
+    <div class="game-screen" id="game-screen">
+        <div class="game-header">
+            <div class="game-info">
+                <div class="info-box">Moves: <span id="moves">0</span></div>
+                <div class="info-box">Time: <span id="timer">00:00</span></div>
+            </div>
+            <button class="menu-btn" onclick="returnToMenu()">Home</button>
+        </div>
+        
+        <div class="game-container" id="game-container">
+            <!-- Grid will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Win Screen -->
+    <div class="win-screen" id="win-screen">
+        <div class="win-message">You Win!</div>
+        <div class="win-stats">
+            <div>Difficulty: <span id="win-level">Normal (5×5)</span></div>
+            <div>Moves: <span id="win-moves">0</span></div>
+            <div>Time: <span id="win-time">00:00</span></div>
+        </div>
+        <div>
+            <button class="menu-btn" onclick="returnToMenu()">Home</button>
+            <button class="menu-btn" onclick="playAgain()">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="clickSound" src="assets/click.wav" preload="auto"></audio>
+    <audio id="winSound" src="assets/win.wav" preload="auto"></audio>
+
+    
+     <script src="script.js"></script>
+</body>
+</html>

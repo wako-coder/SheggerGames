@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Pro Plinko - A physics-based casino game">
+    <title>Pro Plinko | High Stakes Physics</title>
+    <style>
+        /* --- MERGED CSS FROM style.css --- */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-controls: #334155;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --info: #06b6d4; /* For Splitter Pegs */
+            --slot-base: #334155;
+            --peg-color: #64748b;
+            --peg-active: #ffffff;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- THEMES --- */
+        body.theme-gold { --accent: #d97706; --accent-hover: #b45309; --bg-dark: #1c1917; --bg-card: #292524; --peg-color: #78350f; }
+        body.theme-neon { --accent: #d946ef; --accent-hover: #c026d3; --bg-dark: #2e1065; --bg-card: #4c1d95; --peg-color: #a78bfa; }
+        body.theme-matrix { --accent: #22c55e; --accent-hover: #16a34a; --bg-dark: #020617; --bg-card: #052e16; --text-main: #4ade80; --peg-color: #15803d; }
+        body.theme-ocean { --accent: #06b6d4; --accent-hover: #0891b2; --bg-dark: #083344; --bg-card: #164e63; --peg-color: #22d3ee; }
+        body.theme-sunset { --accent: #f97316; --accent-hover: #ea580c; --bg-dark: #431407; --bg-card: #7c2d12; --peg-color: #fdba74; }
+
+        /* NEW COLOR THEMES */
+        body.theme-red { --accent: #ef4444; --accent-hover: #dc2626; --bg-dark: #450a0a; --bg-card: #7f1d1d; --peg-color: #ef4444; }
+        body.theme-yellow { --accent: #facc15; --accent-hover: #eab308; --bg-dark: #3f3f46; --bg-card: #52525b; --peg-color: #facc15; }
+        body.theme-white { --accent: #475569; --accent-hover: #334155; --bg-dark: #f1f5f9; --bg-card: #cbd5e1; --text-main: #1e293b; --text-muted: #475569; --peg-color: #64748b; }
+        body.theme-maroon { --accent: #9d174d; --accent-hover: #831843; --bg-dark: #3a081f; --bg-card: #6d0a3a; --peg-color: #be185d; }
+        
+        /* NEW GRADIENT / ANIMATED THEMES */
+        body.theme-gradient { 
+            --accent: #8b5cf6; /* Blue-purple blend */
+            --accent-hover: #7c3aed; 
+            --bg-dark: #1f2937;
+            --bg-card: #374151;
+        }
+        body.theme-glowing { 
+            --accent: #5eead4; /* Cyan */
+            --accent-hover: #2dd4bf; 
+            --bg-dark: #0d9488; 
+            --bg-card: #14b8a6; 
+            --peg-color: #ccfbf1;
+        }
+        body.theme-color-changing {
+            /* Handled by animation below, use dark base */
+            --bg-dark: #000; --bg-card: #111827;
+            --peg-color: #64748b;
+        }
+        body.theme-color-changing .logo {
+            animation: hueRotate 10s infinite linear;
+        }
+        @keyframes hueRotate {
+            0% { color: #f00; }
+            33% { color: #0f0; }
+            66% { color: #00f; }
+            100% { color: #f00; }
+        }
+
+        /* NEW SCENIC / DRAMATIC THEMES */
+        body.theme-hell { --accent: #f97316; --accent-hover: #ea580c; --bg-dark: #1e0500; --bg-card: #3e0c03; --peg-color: #fee2e2; }
+        body.theme-casino { --accent: #f59e0b; --accent-hover: #d97706; --bg-dark: #102e1c; --bg-card: #204e30; --peg-color: #6ee7b7; }
+        body.theme-fire { --accent: #f59e0b; --accent-hover: #f97316; --bg-dark: #222; --bg-card: #333; --peg-color: #ef4444; }
+        body.theme-winter { --accent: #3b82f6; --accent-hover: #2563eb; --bg-dark: #1e3a8a; --bg-card: #60a5fa; --peg-color: #eff6ff; }
+        body.theme-desert { --accent: #d97706; --accent-hover: #b45309; --bg-dark: #44403c; --bg-card: #78716c; --peg-color: #e7e5e4; }
+
+        * { box-sizing: border-box; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+        
+        body {
+            margin: 0; padding: 0; background-color: var(--bg-dark); color: var(--text-main);
+            font-family: var(--font-family); display: flex; flex-direction: column;
+            min-height: 100vh; overflow-x: hidden; transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- SPLASH SCREEN --- */
+        #splashScreen {
+            position: fixed; inset: 0; background-color: var(--bg-dark); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+        #splashScreen.fade-out { opacity: 0; pointer-events: none; }
+        .splash-logo { font-size: 3.5rem; font-weight: 900; color: var(--accent); letter-spacing: -0.05em; margin-bottom: 2rem; animation: pulseLogo 2s infinite; }
+        .splash-logo span { color: white; }
+        .loading-bar { width: 200px; height: 4px; background: var(--bg-controls); border-radius: 2px; overflow: hidden; position: relative; }
+        .loading-progress { position: absolute; left: 0; top: 0; height: 100%; width: 50%; background: var(--accent); animation: loadBar 1.5s infinite ease-in-out; }
+        
+        @keyframes pulseLogo { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
+        @keyframes loadBar { 0% { left: -50%; width: 30%; } 50% { width: 60%; } 100% { left: 100%; width: 30%; } }
+
+        /* --- Layout --- */
+        .app-container {
+            flex: 1; display: flex; flex-direction: column; align-items: center;
+            padding: 1rem; width: 100%; max-width: 1400px; margin: 0 auto; justify-content: center;
+            opacity: 0; animation: fadeInContent 1s forwards 2.2s; /* Wait for splash */
+        }
+        @keyframes fadeInContent { to { opacity: 1; } }
+
+        .game-wrapper {
+            display: flex; gap: 1.5rem; width: 100%; flex-direction: row;
+            align-items: flex-start; justify-content: center;
+        }
+
+        /* --- Canvas Section --- */
+        .canvas-container {
+            flex: 2; background: var(--bg-card); border-radius: 16px;
+            box-shadow: var(--shadow-card); padding: 1rem; position: relative;
+            min-height: 300px; max-height: 800px; display: flex;
+            justify-content: center; align-items: center; overflow: hidden;
+            transition: background 0.3s;
+        }
+        .jackpot-ticker {
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 20px;
+            border: 1px solid var(--warning); color: var(--warning); font-weight: bold;
+            font-family: monospace; z-index: 10; display: flex; align-items: center; gap: 5px;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+        }
+        canvas {
+            width: 100%; height: auto; max-width: 800px; max-height: 100%;
+            object-fit: contain; border-radius: 8px; cursor: pointer;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- Controls Section --- */
+        .controls-panel {
+            flex: 1; min-width: 320px; max-width: 400px; background: var(--bg-card);
+            border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-card);
+            display: flex; flex-direction: column; gap: 1.25rem; height: fit-content;
+            transition: background 0.3s;
+        }
+
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: var(--accent); }
+
+        .toggles-row { display: flex; gap: 15px; justify-content: flex-end; }
+        .toggle-wrapper { display: flex; align-items: center; gap: 8px; }
+        .toggle-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-dark); transition: .3s; border-radius: 34px; border: 1px solid var(--bg-controls); }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: var(--text-muted); transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent); border-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(18px); background-color: white; }
+
+        .xp-container { width: 100%; margin-bottom: 0.5rem; }
+        .xp-info { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+        .xp-bar-bg { width: 100%; height: 6px; background: var(--bg-dark); border-radius: 3px; overflow: hidden; }
+        .xp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); width: 0%; transition: width 0.5s ease; }
+
+        .balance-card {
+            background: var(--bg-dark); border: 1px solid var(--bg-controls); border-radius: 12px;
+            padding: 1rem; text-align: center; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.3s; position: relative;
+        }
+        .balance-title { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+        .balance-amount { font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--success); text-shadow: 0 0 10px rgba(34, 197, 94, 0.2); }
+        .currency { color: var(--text-muted); font-size: 1.5rem; vertical-align: text-top; }
+        .bonus-btn {
+            position: absolute; top: 10px; right: 10px; background: var(--warning); color: #000;
+            border: none; padding: 4px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 800; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); animation: pulse 2s infinite;
+        }
+        .bonus-btn:disabled { background: var(--bg-controls); color: var(--text-muted); animation: none; cursor: default; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .panel-section { display: flex; flex-direction: column; gap: 0.5rem; }
+        .label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .input-group { display: flex; background: var(--bg-dark); border-radius: 8px; padding: 4px; border: 1px solid var(--bg-controls); }
+        .btn-group { display: flex; gap: 0.5rem; }
+        input[type="number"] { background: transparent; border: none; color: white; padding: 0.75rem; width: 100%; font-size: 1rem; font-family: monospace; }
+        input:focus { outline: none; }
+        button { background: var(--bg-controls); color: var(--text-muted); border: none; padding: 0.75rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; flex: 1; }
+        button.active { background: var(--bg-card); color: var(--accent); border: 1px solid var(--accent); }
+        button:hover:not(:disabled) { background: var(--bg-controls); filter: brightness(1.2); }
+        button:active:not(:disabled) { transform: translateY(1px); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary { background: var(--accent); color: white; font-size: 1.1rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4); }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-half { background: var(--bg-controls); max-width: 50px; }
+        .multi-drop-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+
+        .history-feed { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: thin; }
+        .history-item { min-width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; background: var(--bg-dark); border: 1px solid var(--bg-controls); }
+        .win-high { color: var(--success); border-color: var(--success); }
+        .win-loss { color: var(--text-muted); }
+        .win-jackpot { background: var(--warning); color: black; border-color: white; box-shadow: 0 0 10px var(--warning); }
+
+        footer { margin-top: 2rem; width: 100%; display: flex; justify-content: center; padding-bottom: 1rem; }
+        .footer-menu { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; background: var(--bg-card); padding: 0.75rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid var(--bg-controls); }
+        .footer-btn { background: var(--bg-dark); color: var(--text-muted); border: 1px solid var(--bg-controls); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+        .footer-btn:hover { background: var(--bg-controls); color: var(--text-main); transform: translateY(-2px); border-color: var(--accent); }
+        .footer-btn span { font-size: 1.1em; }
+
+        @media (max-width: 900px) {
+            .game-wrapper { flex-direction: column; align-items: center; }
+            .canvas-container { width: 100%; order: 1; }
+            .controls-panel { width: 100%; max-width: 100%; order: 2; padding: 1rem; }
+        }
+
+        .hidden { display: none !important; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px); }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+        .modal { background: var(--bg-card); padding: 2rem; border-radius: 24px; max-width: 550px; width: 90%; color: var(--text-main); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); max-height: 85vh; overflow-y: auto; border: 1px solid var(--bg-controls); transition: background 0.3s; }
+        .modal h2 { margin-top: 0; color: var(--accent); border-bottom: 1px solid var(--bg-controls); padding-bottom: 1rem;}
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .stat-box { background: var(--bg-dark); padding: 1rem; border-radius: 8px; text-align: center; }
+        .stat-val { font-size: 1.5rem; font-weight: bold; color: var(--text-main); }
+        .stat-lbl { font-size: 0.8rem; color: var(--text-muted); }
+
+        .skins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .skin-card { background: var(--bg-dark); border: 2px solid var(--bg-controls); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: all 0.2s; position: relative; }
+        .skin-card:hover { transform: translateY(-3px); border-color: var(--text-muted); }
+        .skin-card.active { border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
+        .skin-card.locked { opacity: 0.7; }
+        .skin-preview { width: 40px; height: 40px; border-radius: 50%; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: #334155; }
+        .skin-name { font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 4px; }
+        .skin-status { font-size: 0.65rem; color: var(--warning); display: flex; align-items: center; gap: 2px; }
+        .skin-card.unlocked .skin-status { color: var(--success); }
+
+        .ad-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 200; border-radius: 24px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #fff; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .ad-content-box { background: white; width: 300px; height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #333; margin-bottom: 1rem; border-radius: 8px; position: relative; overflow: hidden; text-align: center; padding: 1rem; }
+
+        .toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000; pointer-events: none; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: rgba(30, 41, 59, 0.95); color: #fff; padding: 12px 24px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid var(--bg-controls); backdrop-filter: blur(8px); font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 10px; animation: slideDown 0.3s ease-out; pointer-events: all; }
+        .toast.success { border-color: var(--success); color: var(--success); background: rgba(5, 46, 22, 0.95); }
+        .toast.error { border-color: var(--danger); color: var(--danger); background: rgba(69, 10, 10, 0.95); }
+        .toast.info { border-color: var(--accent); color: var(--accent); }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(-20px); } }
+
+        .slider-display-group { display: flex; align-items: center; gap: 10px; }
+        .slider-display { font-size: 1rem; font-weight: bold; color: var(--accent); min-width: 30px; text-align: center; }
+        .range-slider { -webkit-appearance: none; width: 100%; height: 6px; background: var(--bg-dark); border-radius: 3px; outline: none; }
+        .range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 0 5px var(--accent); }
+    </style>
+</head>
+<body class="theme-default">
+
+<!-- Splash Screen -->
+<div id="splashScreen">
+    <div class="splash-logo">Plinko<span>Pro</span></div>
+    <div class="loading-bar">
+        <div class="loading-progress"></div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="app-container">
+    <div class="game-wrapper">
+        <!-- Game Board -->
+        <div class="canvas-container" id="canvasWrapper">
+            <div class="jackpot-ticker">
+                <span>🏆 JP:</span>
+                <span id="jackpotDisplay">0.00</span>
+            </div>
+            <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-panel">
+            
+            <!-- Header: Logo + Toggles -->
+            <div class="panel-header">
+                <div class="logo">Plinko<span style="color:white">Pro</span></div>
+                <div class="toggles-row">
+                    <!-- Ghost Mode -->
+                    <div class="toggle-wrapper" title="Instant Results">
+                        <span class="toggle-label">GHOST</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="ghostToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <!-- Sound -->
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label">SOUND</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- XP Level Bar -->
+            <div class="xp-container">
+                <div class="xp-info">
+                    <span>Level <span id="levelDisplay">1</span></span>
+                    <span id="xpText">0 / 1000 XP</span>
+                </div>
+                <div class="xp-bar-bg">
+                    <div class="xp-bar-fill" id="xpFill"></div>
+                </div>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div class="balance-title">CURRENT BALANCE</div>
+                <div class="balance-amount"><span class="currency">$</span><span id="balanceDisplay">0.00</span></div>
+                <button id="dailyBonusBtn" class="bonus-btn" title="Get Free Coins">🎁 BONUS</button>
+            </div>
+
+            <!-- Amount -->
+            <div class="panel-section">
+                <span class="label">Bet Amount</span>
+                <div class="input-group">
+                    <input type="number" id="betAmount" value="10" min="1">
+                    <button class="btn-half" id="btnHalf">½</button>
+                    <button class="btn-half" id="btnDouble">2x</button>
+                </div>
+            </div>
+
+            <!-- Ball Size Control (SLIDER) -->
+            <div class="panel-section">
+                <span class="label">Ball Size (4-15 px)</span>
+                <div class="slider-display-group">
+                    <input type="range" id="ballSizeSlider" class="range-slider" min="4" max="15" step="1" aria-label="Ball Size Slider">
+                    <span id="ballSizeDisplay" class="slider-display">10</span>
+                </div>
+            </div>
+
+            <!-- Configs -->
+            <div class="panel-section">
+                <div class="btn-group">
+                    <button class="risk-btn" data-risk="low">Low</button>
+                    <button class="risk-btn active" data-risk="medium">Medium</button>
+                    <button class="risk-btn" data-risk="high">High</button>
+                </div>
+                <div class="btn-group" style="margin-top:5px;">
+                    <button class="row-btn" data-rows="8">8 Rows</button>
+                    <button class="row-btn active" data-rows="12">12 Rows</button>
+                    <button class="row-btn" data-rows="16">16 Rows</button>
+                </div>
+            </div>
+
+            <!-- Multi Drop Actions -->
+            <div class="panel-section">
+                <button id="dropBtn" class="btn-primary">DROP (Space)</button>
+                <div class="multi-drop-grid">
+                    <button class="multi-btn" data-count="10">10 Balls</button>
+                    <button class="multi-btn" data-count="50">50 Balls</button>
+                    <button class="multi-btn" data-count="100">100 Balls</button>
+                </div>
+                <button id="autoBtn" class="">AUTO: OFF</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="panel-section">
+                <span class="label">Recent History</span>
+                <div class="history-feed" id="historyFeed">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-menu">
+            <button class="footer-btn" onclick="ui.showModal('skins')"><span>🎨</span> Skins</button>
+            <button class="footer-btn" onclick="ui.showModal('stats')"><span>📊</span> Stats</button>
+            <button class="footer-btn" onclick="ui.showModal('settings')"><span>⚙️</span> Settings</button>
+            <button class="footer-btn" onclick="ui.showModal('rules')"><span>📜</span> Rules</button>
+            <button class="footer-btn" onclick="ui.showModal('fairness')"><span>⚖️</span> Fairness</button>
+        </div>
+    </footer>
+</div>
+
+<!-- Modal Template -->
+<div id="infoModal" class="modal-overlay">
+    <div class="modal">
+        <h2 id="modalTitle">Title</h2>
+        <div id="modalContent">Content</div>
+        <button onclick="ui.closeModal()" style="margin-top:1rem; width:100%; background:var(--bg-controls); padding: 12px; border:none; border-radius:8px; cursor:pointer; color:white; font-weight:bold;">Close</button>
+    </div>
+</div>
+
+<script>
+/**
+ * 🛡️ ADVANCED OBFUSCATED SECURITY MODULE 🛡️
+ * Enhanced protection:
+ * 1. Recursive debugger flooding
+ * 2. Instant DOM destruction on detection
+ * 3. Forced reload loop on detection
+ * 4. Console spamming to hide logs
+ */
+(function(_0x1a2b3c){
+    // Anti-Right Click & Shortcuts
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+        if(event.ctrlKey || event.keyCode == 123) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+
+    // Aggressive Trap
+    function _0x4d5e6f() {
+        const _0x7g8h9i = new Date().getTime();
+        (function(){}).constructor("debugger")(); // Obfuscated debugger call
+        const _0x1j2k3l = new Date().getTime();
+        
+        if (_0x1j2k3l - _0x7g8h9i > 50) {
+            // Detection Triggered
+            document.documentElement.innerHTML = '<h1>🔒 SECURITY VIOLATION</h1>';
+            window.location.reload(); // Force Reload Loop
+            throw "Security Violation"; 
+        }
+    }
+    
+    setInterval(_0x4d5e6f, 100); // Check every 100ms
+})();
+
+// --- SPLASH LOGIC ---
+window.onload = () => {
+    setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        splash.classList.add('fade-out');
+        setTimeout(() => splash.remove(), 800);
+    }, 2500);
+};
+
+// --- SKINS DATA ---
+const SKINS = [
+    { id: 'red', name: 'Classic Red', type: 'gradient', colors: ['#ff8888', '#dc2626'], unlock: 'free' },
+    { id: 'blue', name: 'Deep Blue', type: 'gradient', colors: ['#60a5fa', '#2563eb'], unlock: 'free' },
+    { id: 'gold', name: 'Golden', type: 'gradient', colors: ['#fde047', '#eab308'], unlock: 'ad' },
+    { id: 'neon', name: 'Neon', type: 'glow', colors: ['#d8b4fe', '#a855f7'], unlock: 'ad' },
+    { id: 'nature', name: 'Nature', type: 'gradient', colors: ['#86efac', '#16a34a'], unlock: 'ad' },
+    { id: 'hacker', name: 'Hacker', type: 'text', content: '101', color: '#22c55e', bg: '#000', unlock: 'ad' },
+    { id: '8ball', name: '8 Ball', type: '8ball', unlock: 'ad' },
+    { id: 'rainbow', name: 'Rainbow', type: 'anim_hue', unlock: 'ad' },
+    { id: 'emoji_love', name: 'Love', type: 'text', content: '😍', unlock: 'ad' },
+    { id: 'emoji_money', name: 'Rich', type: 'text', content: '🤑', unlock: 'ad' },
+    { id: 'emoji_soccer', name: 'Soccer', type: 'text', content: '⚽', unlock: 'ad' }
+];
+
+// --- 1. CONFIGURATION ---
+const GAME_CONFIG = {
+    gravity: 0.25,
+    friction: 0.99,
+    restitution: 0.6,
+    pegRadius: 4,
+    ballRadius: 10, // Default ball size
+    slotHeight: 32,
+    startBalance: 1000,
+    // Colors are now handled by CSS variables for themes, these are fallbacks or specific elements
+    colors: {
+        ball: '#ef4444'
+    },
+    multipliers: {
+        8: {
+            low: [5.6, 2.1, 1.1, 1, 0.5, 1, 1.1, 2.1, 5.6],
+            medium: [13, 3, 1.3, 0.7, 0.4, 0.7, 1.3, 3, 13],
+            high: [29, 4, 1.5, 0.3, 0.2, 0.3, 1.5, 4, 29]
+        },
+        12: {
+            low: [10, 3, 1.6, 1.4, 1.1, 1, 0.5, 1, 1.1, 1.4, 1.6, 3, 10],
+            medium: [33, 11, 4, 2, 1.1, 0.6, 0.3, 0.6, 1.1, 2, 4, 11, 33],
+            high: [170, 24, 8.1, 2, 0.7, 0.2, 0.1, 0.2, 0.7, 2, 8.1, 24, 170]
+        },
+        16: {
+            low: [16, 9, 2, 1.4, 1.4, 1.2, 1.1, 1, 0.5, 1, 1.1, 1.2, 1.4, 1.4, 2, 9, 16],
+            medium: [110, 41, 10, 5, 3, 1.5, 1, 0.5, 0.3, 0.5, 1, 1.5, 3, 5, 10, 41, 110],
+            high: [1000, 130, 26, 9, 4, 2, 0.2, 0.2, 0.1, 0.2, 0.2, 2, 4, 9, 26, 130, 1000]
+        }
+    }
+};
+
+// --- 2. AUDIO SYSTEM ---
+class SoundManager {
+    constructor() {
+        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        this.enabled = true;
+    }
+
+    playTone(freq, type, duration, vol = 0.1) {
+        if (!this.enabled) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + duration);
+    }
+
+    playPegHit() { this.playTone(800 + Math.random() * 200, 'sine', 0.1, 0.05); }
+    playSplit() { this.playTone(1200, 'square', 0.1, 0.1); } // New Split Sound
+    playSlotHit(mul) {
+        if (mul < 1) this.playTone(300, 'triangle', 0.3, 0.1);
+        else if (mul < 10) { this.playTone(600, 'sine', 0.4, 0.1); setTimeout(() => this.playTone(900, 'sine', 0.4, 0.05), 100); }
+        else [400, 600, 800, 1200].forEach((f, i) => setTimeout(() => this.playTone(f, 'square', 0.2, 0.1), i * 80));
+    }
+    playJackpot() {
+        [500, 1000, 1500, 2000, 2500, 3000].forEach((f, i) => setTimeout(() => this.playTone(f, 'sawtooth', 0.3, 0.2), i * 100));
+    }
+}
+
+// --- 3. PHYSICS ENTITIES ---
+class Vector {
+    constructor(x, y) { this.x = x; this.y = y; }
+    add(v) { return new Vector(this.x + v.x, this.y + v.y); }
+    sub(v) { return new Vector(this.x - v.x, this.y - v.y); }
+    mult(s) { return new Vector(this.x * s, this.y * s); }
+    mag() { return Math.sqrt(this.x * this.x + this.y * this.y); }
+}
+
+class Ball {
+    constructor(x, y, betValue) {
+        this.pos = new Vector(x, y);
+        const randomVals = new Uint32Array(1);
+        crypto.getRandomValues(randomVals);
+        const rand = (randomVals[0] / 4294967295) - 0.5;
+        this.vel = new Vector(rand * 2, 0); 
+        this.radius = GAME_CONFIG.ballRadius;
+        this.active = true;
+        this.betValue = betValue;
+        this.history = [];
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.2;
+    }
+
+    // Simplified update method: removed windX and timeScale parameters
+    update() {
+        // Gravity
+        this.vel.y += GAME_CONFIG.gravity;
+        
+        // Friction
+        this.vel = this.vel.mult(GAME_CONFIG.friction);
+        
+        // Move
+        this.pos = this.pos.add(this.vel);
+        
+        this.rotation += this.rotSpeed;
+
+        if(frameCount % 5 === 0) {
+            this.history.push({x: this.pos.x, y: this.pos.y});
+            if(this.history.length > 10) this.history.shift();
+        }
+    }
+
+    fastUpdate() {
+        this.vel.y += GAME_CONFIG.gravity;
+        this.vel = this.vel.mult(GAME_CONFIG.friction);
+        this.pos = this.pos.add(this.vel);
+    }
+
+    draw(ctx) {
+        // NOTE: Uses GAME_CONFIG.ballRadius for size, which is updated via the UI.
+        const r = GAME_CONFIG.ballRadius;
+
+        // Trail
+        if(!ui.ghostMode) {
+            for(let i=0; i<this.history.length; i++) {
+                const p = this.history[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r * (i/10), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${i/30})`;
+                ctx.fill();
+            }
+        }
+
+        const {x, y} = this.pos;
+        const skinId = ui.currentSkin;
+        const skin = SKINS.find(s => s.id === skinId) || SKINS[0];
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(this.rotation);
+
+        if (skin.type === 'gradient') {
+            let grad = ctx.createRadialGradient(-r/3, -r/3, r/5, 0, 0, r);
+            grad.addColorStop(0, skin.colors[0]);
+            grad.addColorStop(1, skin.colors[1]);
+            ctx.beginPath();
+            ctx.arc(0, 0, r, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.fill();
+            // Shine
+            ctx.beginPath();
+            ctx.arc(-r/3, -r/3, r/4, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(255,255,255,0.3)";
+            ctx.fill();
+
+        } else if (skin.type === 'glow') {
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = skin.colors[1];
+            ctx.beginPath();
+            ctx.arc(0, 0, r, 0, Math.PI * 2);
+            ctx.fillStyle = skin.colors[0];
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+        } else if (skin.type === 'text') {
+            // Background for text
+            if(skin.bg) {
+                ctx.fillStyle = skin.bg;
+                ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.fill();
+            }
+            ctx.font = `${r*1.8}px serif`;
+            ctx.fillStyle = skin.color || '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(skin.content, 0, 1); // +1 y offset
+
+        } else if (skin.type === '8ball') {
+            ctx.fillStyle = 'black';
+            ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.beginPath(); ctx.arc(0, 0, r/2, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 8px sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('8', 0, 0.5);
+
+        } else if (skin.type === 'anim_hue') {
+            const hue = (frameCount * 2) % 360;
+            ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+            ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+            ctx.shadowBlur = 5; ctx.shadowColor = `hsl(${hue}, 100%, 50%)`;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        }
+
+        ctx.restore();
+    }
+}
+
+// New Class: Floating Text for Payouts
+class FloatingText {
+    constructor(x, y, text, color) {
+        this.x = x;
+        this.y = y;
+        this.text = text;
+        this.color = color;
+        this.alpha = 1;
+        this.velocity = -1; // Moves up
+    }
+    update() {
+        this.y += this.velocity;
+        this.alpha -= 0.015;
+    }
+    draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.font = "bold 14px monospace";
+        ctx.textAlign = "center";
+        ctx.shadowColor = "black";
+        ctx.shadowBlur = 3;
+        ctx.fillText(this.text, this.x, this.y);
+        ctx.restore();
+    }
+}
+
+// New Class: Confetti for Big Wins
+class Confetti {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = (Math.random() * 0.5 + 0.5) * 5; // Random size
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        this.velocity = new Vector((Math.random() - 0.5) * 5, (Math.random() - 1) * 5);
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.2;
+        this.alpha = 1;
+    }
+    update() {
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.velocity.y += 0.1; // Gravity
+        this.rotation += this.rotSpeed;
+        this.alpha -= 0.01;
+    }
+    draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+        ctx.restore();
+    }
+}
+
+class Particle {
+    constructor(x, y, color) {
+        this.pos = new Vector(x, y);
+        this.vel = new Vector((Math.random()-0.5)*4, (Math.random()-0.5)*4);
+        this.alpha = 1;
+        this.color = color;
+    }
+    update() { this.pos = this.pos.add(this.vel); this.alpha -= 0.03; }
+    draw(ctx) {
+        ctx.save(); ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color;
+        ctx.beginPath(); ctx.arc(this.pos.x, this.pos.y, 2, 0, Math.PI*2); ctx.fill(); ctx.restore();
+    }
+}
+
+// --- 4. GAME LOGIC ---
+class PlinkoGame {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d', { alpha: false });
+        this.balls = [];
+        this.particles = [];
+        this.floatingTexts = [];
+        this.confettiParticles = [];
+        this.pegs = [];
+        this.slots = [];
+        this.rowCount = 12;
+        this.risk = 'medium';
+        this.width = 0;
+        this.height = 0;
+        
+        // Physics Controls defaulted to inactive
+        this.windX = 0; 
+        this.timeScale = 1.0; 
+
+        this.sound = new SoundManager();
+        this.resizeObserver = new ResizeObserver(() => this.resize());
+        this.resizeObserver.observe(document.getElementById('canvasWrapper'));
+        this.init();
+    }
+
+    init() { this.resize(); this.createBoard(); this.loop(); }
+
+    resize() {
+        const wrapper = this.canvas.parentElement;
+        this.width = wrapper.clientWidth;
+        const gap = this.width / (this.rowCount + 3); 
+        this.height = (gap * (this.rowCount + 2)) + 40;
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = this.width * dpr;
+        this.canvas.height = this.height * dpr;
+        this.ctx.scale(dpr, dpr);
+        this.canvas.style.width = `${this.width}px`;
+        this.canvas.style.height = `${this.height}px`;
+        this.createBoard();
+    }
+
+    createBoard() {
+        this.pegs = [];
+        this.slots = [];
+        const gap = this.width / (this.rowCount + 2);
+        const startY = 30;
+
+        for (let row = 0; row < this.rowCount; row++) {
+            for (let col = 0; col <= row + 2; col++) {
+                const x = (this.width / 2) - ((row + 2) * gap / 2) + (col * gap);
+                const y = startY + (row * gap);
+                
+                // SPLITTER PEG LOGIC: 5% chance to be a splitter
+                const isSplitter = Math.random() < 0.05; 
+                
+                if (x > 0 && x < this.width) {
+                   this.pegs.push({ 
+                       x, y, 
+                       r: GAME_CONFIG.pegRadius, 
+                       hitTimer: 0,
+                       isSplitter: isSplitter 
+                   });
+                }
+            }
+        }
+
+        const slotY = startY + ((this.rowCount - 1) * gap) + gap;
+        const multipliers = GAME_CONFIG.multipliers[this.rowCount][this.risk];
+        
+        for(let i=0; i<multipliers.length; i++) {
+             const x = (this.width / 2) - ((multipliers.length) * gap / 2) + (i * gap) + (gap/2);
+             this.slots.push({ x, y: slotY, w: gap - 4, h: GAME_CONFIG.slotHeight, val: multipliers[i], active: 0 });
+        }
+    }
+
+    dropBall(amount, isGhost = false) {
+        // Ghost balls are always normal/single
+        const ball = new Ball(this.width / 2, 0, amount);
+        if (isGhost) {
+            this.simulateGhost(ball);
+        } else {
+            this.balls.push(ball);
+        }
+    }
+
+    // Split a ball into two
+    splitBall(originalBall) {
+        // Create new ball at same position
+        const newBall = new Ball(originalBall.pos.x, originalBall.pos.y, originalBall.betValue); // Free bet
+        
+        // Give slight divergent velocities
+        originalBall.vel.x -= 2;
+        newBall.vel.x += 2;
+        newBall.vel.y = originalBall.vel.y;
+
+        this.balls.push(newBall);
+        this.sound.playSplit();
+        
+        // Visual effect for split
+        for(let k=0; k<5; k++) this.particles.push(new Particle(originalBall.pos.x, originalBall.pos.y, '#06b6d4'));
+    }
+
+    simulateGhost(ball) {
+        let loops = 0;
+        while(ball.active && loops < 2000) {
+            ball.fastUpdate();
+            if (ball.pos.x < 0 || ball.pos.x > this.width) ball.vel.x *= -1;
+            
+            for (let p of this.pegs) {
+                let dx = ball.pos.x - p.x;
+                let dy = ball.pos.y - p.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < ball.radius + p.r) {
+                    let nx = dx / dist; let ny = dy / dist;
+                    let dot = ball.vel.x * nx + ball.vel.y * ny;
+                    ball.vel.x -= 2 * dot * nx;
+                    ball.vel.y -= 2 * dot * ny;
+                    ball.vel = ball.vel.mult(GAME_CONFIG.restitution);
+                    ball.vel.x += (Math.random() - 0.5) * 0.5;
+                    ball.pos.x += nx * (ball.radius + p.r - dist);
+                    ball.pos.y += ny * (ball.radius + p.r - dist);
+                }
+            }
+
+            if (ball.pos.y > this.height - 40) {
+                this.checkWin(ball);
+                ball.active = false;
+            }
+            loops++;
+        }
+    }
+
+    checkWin(b) {
+        let bestSlot = null;
+        let minDS = 9999;
+        this.slots.forEach(s => {
+            let d = Math.abs(b.pos.x - s.x);
+            if(d < minDS) { minDS = d; bestSlot = s; }
+        });
+
+        if (bestSlot && minDS < bestSlot.w) {
+            this.handleWin(b, bestSlot);
+            return true;
+        }
+        return false;
+    }
+
+    update() {
+        for (let i = this.balls.length - 1; i >= 0; i--) {
+            let b = this.balls[i];
+            
+            // Call simplified Ball update (no wind or timeScale)
+            b.update();
+
+            if (b.pos.x < 0) { b.pos.x = 0; b.vel.x *= -1; }
+            if (b.pos.x > this.width) { b.pos.x = this.width; b.vel.x *= -1; }
+
+            let hit = false;
+            for (let p of this.pegs) {
+                let dx = b.pos.x - p.x;
+                let dy = b.pos.y - p.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                
+                if (dist < GAME_CONFIG.ballRadius + p.r) { // Check collision using current GAME_CONFIG.ballRadius
+                    let nx = dx / dist; let ny = dy / dist;
+                    let dot = b.vel.x * nx + b.vel.y * ny;
+                    b.vel.x -= 2 * dot * nx;
+                    b.vel.y -= 2 * dot * ny;
+                    b.vel = b.vel.mult(GAME_CONFIG.restitution);
+                    b.vel.x += (Math.random() - 0.5) * 0.5;
+                    let overlap = GAME_CONFIG.ballRadius + p.r - dist;
+                    b.pos.x += nx * overlap; b.pos.y += ny * overlap;
+                    p.hitTimer = 10;
+                    if(!hit) { this.sound.playPegHit(); hit = true; }
+
+                    // SPLITTER LOGIC
+                    if(p.isSplitter) {
+                        // Deactivate splitter temporarily to prevent infinite splitting on same peg
+                        p.isSplitter = false; 
+                        p.hitTimer = 30; // Glow longer
+                        this.splitBall(b);
+                        // Re-enable splitter after a delay (simulated by recreating board or just simpler logic)
+                        setTimeout(() => { p.isSplitter = true; }, 1000);
+                    }
+                }
+            }
+
+            if (b.pos.y > this.height - 40) {
+                if(this.checkWin(b) || b.pos.y > this.height + 100) this.balls.splice(i, 1);
+            }
+        }
+
+        // Update effects
+        for(let i=this.particles.length-1; i>=0; i--) {
+            this.particles[i].update();
+            if(this.particles[i].alpha <= 0) this.particles.splice(i, 1);
+        }
+        for(let i=this.floatingTexts.length-1; i>=0; i--) {
+            this.floatingTexts[i].update();
+            if(this.floatingTexts[i].alpha <= 0) this.floatingTexts.splice(i, 1);
+        }
+        for(let i=this.confettiParticles.length-1; i>=0; i--) {
+            this.confettiParticles[i].update();
+            if(this.confettiParticles[i].alpha <= 0) this.confettiParticles.splice(i, 1);
+        }
+
+        this.pegs.forEach(p => { if(p.hitTimer > 0) p.hitTimer--; });
+        this.slots.forEach(s => { if(s.active > 0) s.active--; });
+    }
+
+    handleWin(ball, slot) {
+        const payout = ball.betValue * slot.val;
+        ui.onWin(payout, slot.val);
+        slot.active = 20;
+        
+        if(!ui.ghostMode) {
+            this.sound.playSlotHit(slot.val);
+            
+            // 1. Floating Text Payout
+            const textColor = slot.val >= 1 ? '#22c55e' : '#94a3b8';
+            const textStr = `+$${payout.toFixed(2)}`;
+            this.floatingTexts.push(new FloatingText(slot.x, slot.y - 20, textStr, textColor));
+
+            // 2. Particles
+            const color = slot.val >= 1 ? '#22c55e' : '#94a3b8';
+            for(let k=0; k<10; k++) this.particles.push(new Particle(slot.x, slot.y, color));
+
+            // 3. Confetti on Big Win
+            if (slot.val >= 10) {
+                for (let k = 0; k < 50; k++) {
+                    this.confettiParticles.push(new Confetti(slot.x, slot.y));
+                }
+            }
+        }
+        if(navigator.vibrate && slot.val > 2 && !ui.ghostMode) navigator.vibrate(50);
+    }
+
+    draw() {
+        let bgGrad = this.ctx.createLinearGradient(0, 0, 0, this.height);
+        const style = getComputedStyle(document.body);
+        bgGrad.addColorStop(0, style.getPropertyValue('--bg-card'));
+        bgGrad.addColorStop(1, style.getPropertyValue('--bg-dark'));
+        this.ctx.fillStyle = bgGrad;
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        // Slots
+        this.slots.forEach(s => {
+            this.ctx.fillStyle = s.active > 0 ? style.getPropertyValue('--peg-active').trim() : 'rgba(51, 65, 85, 0.5)';
+            let strokeColor = '#334155';
+            if (s.active === 0) {
+                if(s.val >= 10) strokeColor = '#ef4444';
+                else if(s.val >= 3) strokeColor = '#f59e0b';
+                else if(s.val >= 1) strokeColor = '#22c55e';
+            }
+            this.ctx.beginPath();
+            this.ctx.roundRect(s.x - s.w/2, s.y, s.w, s.h, 4);
+            this.ctx.fill();
+            this.ctx.strokeStyle = strokeColor;
+            this.ctx.lineWidth = 1;
+            this.ctx.stroke();
+            this.ctx.fillStyle = '#fff';
+            this.ctx.font = 'bold 10px -apple-system, monospace';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText(`${s.val}x`, s.x, s.y + s.h/2 + 3);
+            if (s.active > 0) {
+                this.ctx.shadowBlur = 15; this.ctx.shadowColor = 'white';
+                this.ctx.stroke(); this.ctx.shadowBlur = 0;
+            }
+        });
+
+        // Pegs
+        const pegColor = style.getPropertyValue('--peg-color').trim();
+        this.pegs.forEach(p => {
+            const {x, y, r} = p;
+            let grd = this.ctx.createRadialGradient(x-1, y-1, 1, x, y, r);
+            
+            // Highlight Logic
+            if (p.hitTimer > 0) {
+                grd.addColorStop(0, '#fff');
+                grd.addColorStop(1, '#e2e8f0');
+            } else if (p.isSplitter) {
+                // Splitter Pegs are Cyan
+                grd.addColorStop(0, '#22d3ee');
+                grd.addColorStop(1, '#0891b2');
+            } else {
+                grd.addColorStop(0, pegColor);
+                grd.addColorStop(1, '#000000');
+            }
+            
+            this.ctx.beginPath(); this.ctx.arc(x, y, r, 0, Math.PI * 2);
+            this.ctx.fillStyle = grd;
+            
+            if(p.isSplitter) {
+                 this.ctx.shadowBlur = 5; this.ctx.shadowColor = '#06b6d4';
+            } else {
+                 this.ctx.shadowBlur = 2; this.ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            }
+            
+            this.ctx.fill(); this.ctx.shadowBlur = 0;
+        });
+
+        this.balls.forEach(b => b.draw(this.ctx));
+        this.particles.forEach(p => p.draw(this.ctx));
+        this.floatingTexts.forEach(t => t.draw(this.ctx));
+        this.confettiParticles.forEach(c => c.draw(this.ctx));
+    }
+
+    loop() {
+        globalThis.frameCount = (globalThis.frameCount || 0) + 1;
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.loop());
+    }
+}
+
+// --- 5. UI & STATE CONTROLLER ---
+class UIController {
+    constructor() {
+        this.balance = parseFloat(localStorage.getItem('plinko_balance')) || GAME_CONFIG.startBalance;
+        this.bet = 10;
+        this.jackpot = parseFloat(localStorage.getItem('plinko_jackpot')) || 5000.00;
+        this.xp = parseInt(localStorage.getItem('plinko_xp')) || 0;
+        this.level = parseInt(localStorage.getItem('plinko_level')) || 1;
+        
+        // Unlocked Skins
+        this.unlockedSkins = JSON.parse(localStorage.getItem('plinko_unlocked_skins')) || ['red', 'blue'];
+        this.currentSkin = localStorage.getItem('plinko_current_skin') || 'red';
+
+        this.stats = JSON.parse(localStorage.getItem('plinko_stats')) || {
+            drops: 0, wins: 0, wagered: 0, bestWin: 0
+        };
+
+        this.game = new PlinkoGame('gameCanvas');
+        this.autoRunning = false;
+        this.ghostMode = false;
+        
+        this.initUI();
+    }
+
+    initUI() {
+        this.updateBalanceUI();
+        this.updateXPUI();
+        this.updateJackpotUI();
+        this.bindEvents();
+        
+        // Initialize Ball Size Slider/Display
+        const ballSizeSlider = document.getElementById('ballSizeSlider');
+        const ballSizeDisplay = document.getElementById('ballSizeDisplay');
+        ballSizeSlider.value = GAME_CONFIG.ballRadius;
+        ballSizeDisplay.innerText = GAME_CONFIG.ballRadius;
+
+
+        const savedTheme = localStorage.getItem('plinko_theme') || 'default';
+        document.body.className = `theme-${savedTheme}`;
+    }
+
+    bindEvents() {
+        document.getElementById('soundToggle').addEventListener('change', (e) => {
+            this.game.sound.enabled = e.target.checked;
+        });
+        
+        document.getElementById('ghostToggle').addEventListener('change', (e) => {
+            this.ghostMode = e.target.checked;
+            this.game.balls = [];
+        });
+
+        const betInput = document.getElementById('betAmount');
+        betInput.addEventListener('change', (e) => {
+            let val = parseFloat(e.target.value);
+            if(val < 1) val = 1;
+            this.bet = val;
+            betInput.value = val;
+        });
+        document.getElementById('btnHalf').onclick = () => { this.bet = Math.max(1, Math.floor(this.bet/2)); betInput.value = this.bet; };
+        document.getElementById('btnDouble').onclick = () => { this.bet = this.balance >= this.bet*2 ? this.bet*2 : this.balance; betInput.value = this.bet; };
+
+        // Ball Size Slider Binding
+        const ballSizeSlider = document.getElementById('ballSizeSlider');
+        const ballSizeDisplay = document.getElementById('ballSizeDisplay');
+        
+        const updateBallSize = () => {
+            const val = parseInt(ballSizeSlider.value);
+            GAME_CONFIG.ballRadius = val;
+            ballSizeDisplay.innerText = val;
+            // No toast notification here, only when user finishes dragging/clicks
+        };
+
+        // Real-time update on input event (while dragging)
+        ballSizeSlider.addEventListener('input', updateBallSize);
+
+        // Final update and notification on change event (when drag finishes or value is set)
+        ballSizeSlider.addEventListener('change', () => {
+            const val = parseInt(ballSizeSlider.value);
+            this.showToast(`Ball size set to ${val}px.`, 'info');
+        });
+
+
+        document.getElementById('dailyBonusBtn').onclick = () => {
+             // Simple daily bonus sim
+             this.updateBalance(1000);
+             this.showToast("+$1000 Bonus Claimed!", "success");
+             document.getElementById('dailyBonusBtn').disabled = true;
+             setTimeout(() => { document.getElementById('dailyBonusBtn').disabled = false; }, 60000); // 1 min cooldown for demo
+        };
+
+        document.querySelectorAll('.risk-btn').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll('.risk-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.game.risk = btn.dataset.risk;
+                this.game.createBoard();
+            };
+        });
+        document.querySelectorAll('.row-btn').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll('.row-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.game.rowCount = parseInt(btn.dataset.rows);
+                this.game.createBoard();
+                this.game.resize();
+            };
+        });
+
+        document.getElementById('dropBtn').onclick = () => this.drop(1);
+        
+        document.querySelectorAll('.multi-btn').forEach(btn => {
+            btn.onclick = () => this.drop(parseInt(btn.dataset.count));
+        });
+
+        const autoBtn = document.getElementById('autoBtn');
+        autoBtn.onclick = () => {
+            this.autoRunning = !this.autoRunning;
+            if(this.autoRunning) {
+                autoBtn.innerText = "STOP AUTO";
+                autoBtn.classList.add('btn-danger');
+                this.runAuto();
+            } else {
+                autoBtn.innerText = "AUTO: OFF";
+                autoBtn.classList.remove('btn-danger');
+                clearTimeout(this.autoTimer);
+            }
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if(e.code === 'Space' && !e.repeat && !document.querySelector('.modal-overlay.open')) {
+                e.preventDefault();
+                this.drop(1);
+            }
+        });
+    }
+
+    // Modern Toast Notification
+    showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let icon = 'ℹ️';
+        if (type === 'success') icon = '✅';
+        if (type === 'error') icon = '⚠️';
+        
+        toast.innerHTML = `<span>${icon}</span> ${message}`;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'fadeOut 0.3s ease-in forwards';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    drop(count) {
+        if(this.balance < this.bet * count) {
+            if(this.autoRunning) document.getElementById('autoBtn').click();
+            this.showToast("Insufficient funds!", "error");
+            return;
+        }
+
+        const dropDelay = this.ghostMode ? 5 : 100;
+
+        let dropped = 0;
+        const interval = setInterval(() => {
+            if(dropped >= count) { clearInterval(interval); return; }
+            if(this.balance < this.bet) { clearInterval(interval); return; }
+
+            this.updateBalance(-this.bet);
+            this.stats.drops++;
+            this.stats.wagered += this.bet;
+            this.addXP(this.bet);
+            this.updateJackpot(this.bet * 0.01);
+
+            this.game.dropBall(this.bet, this.ghostMode);
+            dropped++;
+        }, dropDelay);
+    }
+
+    runAuto() {
+        if(!this.autoRunning) return;
+        this.drop(1);
+        // Auto speed remains constant since timeScale is removed
+        this.autoTimer = setTimeout(() => this.runAuto(), this.ghostMode ? 50 : 300);
+    }
+
+    updateBalance(amount) {
+        this.balance += amount;
+        this.balance = parseFloat(this.balance.toFixed(2));
+        document.getElementById('balanceDisplay').innerText = this.balance.toFixed(2);
+        localStorage.setItem('plinko_balance', this.balance);
+        this.saveStats();
+    }
+
+    updateBalanceUI() {
+        document.getElementById('balanceDisplay').innerText = this.balance.toFixed(2);
+        document.getElementById('betAmount').value = this.bet;
+    }
+
+    addXP(amount) {
+        this.xp += Math.ceil(amount);
+        const xpNeeded = this.level * 1000;
+        if(this.xp >= xpNeeded) {
+            this.xp -= xpNeeded;
+            this.level++;
+            this.updateBalance(this.level * 10);
+            this.showToast(`Level Up! Level ${this.level} reached! +$${this.level*10}`, "success");
+        }
+        this.updateXPUI();
+        localStorage.setItem('plinko_xp', this.xp);
+        localStorage.setItem('plinko_level', this.level);
+    }
+
+    updateXPUI() {
+        document.getElementById('levelDisplay').innerText = this.level;
+        document.getElementById('xpText').innerText = `${this.xp} / ${this.level * 1000} XP`;
+        const pct = (this.xp / (this.level * 1000)) * 100;
+        document.getElementById('xpFill').style.width = `${pct}%`;
+    }
+
+    updateJackpot(amount) {
+        this.jackpot += amount;
+        this.updateJackpotUI();
+        localStorage.setItem('plinko_jackpot', this.jackpot);
+    }
+
+    updateJackpotUI() {
+        document.getElementById('jackpotDisplay').innerText = this.jackpot.toFixed(2);
+    }
+
+    checkJackpotWin() {
+        if(Math.random() < 0.0001) {
+            const win = this.jackpot;
+            this.jackpot = 5000;
+            this.updateBalance(win);
+            this.game.sound.playJackpot();
+            this.showToast(`JACKPOT!!! You won $${win.toFixed(2)}!`, "success");
+            this.addHistory(9999);
+        }
+    }
+
+    onWin(amount, multiplier) {
+        this.updateBalance(amount);
+        this.checkJackpotWin();
+        if(multiplier >= 1) this.stats.wins++;
+        if(amount > this.stats.bestWin) this.stats.bestWin = amount;
+        this.addHistory(multiplier);
+    }
+
+    saveStats() { localStorage.setItem('plinko_stats', JSON.stringify(this.stats)); }
+
+    addHistory(multiplier) {
+        const feed = document.getElementById('historyFeed');
+        const item = document.createElement('div');
+        item.className = `history-item ${multiplier >= 1 ? 'win-high' : 'win-loss'}`;
+        if(multiplier === 9999) { item.className += ' win-jackpot'; item.innerText = 'JP'; }
+        else {
+            if(multiplier >= 10) item.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+            else if(multiplier >= 2) item.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+            item.innerText = `${multiplier}x`;
+        }
+        feed.prepend(item);
+        if(feed.children.length > 20) feed.removeChild(feed.lastChild);
+    }
+
+    // --- SKINS LOGIC ---
+    unlockSkin(id) {
+        if(!this.unlockedSkins.includes(id)) {
+            this.unlockedSkins.push(id);
+            localStorage.setItem('plinko_unlocked_skins', JSON.stringify(this.unlockedSkins));
+            this.setSkin(id);
+            this.showModal('skins'); // Refresh
+        }
+    }
+
+    setSkin(id) {
+        if(this.unlockedSkins.includes(id)) {
+            this.currentSkin = id;
+            localStorage.setItem('plinko_current_skin', id);
+            this.showModal('skins'); // Refresh
+        }
+    }
+
+    watchAdForSkin(id) {
+        const modal = document.querySelector('.modal');
+        const overlay = document.createElement('div');
+        overlay.className = 'ad-overlay';
+        overlay.innerHTML = `
+            <div class="ad-content-box">
+                <!-- PLACEHOLDER FOR ADSENSE CODE -->
+                <div style="font-size: 0.8rem; color: #888; position: absolute; top: 5px; right: 5px;">Ad</div>
+                <h3 style="margin-bottom:0.5rem">Google AdSense Demo</h3>
+                <p style="font-size:0.8rem; color:#666;">This is where your 300x250 ad unit would render.</p>
+                <div style="background:#ddd; width:100%; height:2px; margin: 10px 0;"></div>
+                <div style="font-size:0.7rem; color:#999; margin-top: auto;">
+                    &lt;!-- Insert Adsense Code Here --&gt;
+                </div>
+            </div>
+            
+            <div class="spinner"></div>
+            <div style="font-weight:bold; font-size:1.2rem; color:white;">Watching Ad...</div>
+            <div style="color:#94a3b8; font-size:0.9rem;">Please wait 7 seconds</div>
+        `;
+        modal.appendChild(overlay);
+
+        setTimeout(() => {
+            overlay.remove();
+            this.unlockSkin(id);
+            this.showToast("Thanks for watching! Skin Unlocked.", "success");
+        }, 7000); // 7 Seconds Timer
+    }
+
+    // --- Modals ---
+    showModal(type) {
+        const modal = document.getElementById('infoModal');
+        const title = document.getElementById('modalTitle');
+        const content = document.getElementById('modalContent');
+        modal.classList.add('open');
+
+        if(type === 'stats') {
+            title.innerText = "Statistics";
+            content.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-box"><div class="stat-val">${this.stats.drops}</div><div class="stat-lbl">Total Drops</div></div>
+                    <div class="stat-box"><div class="stat-val">${this.stats.wins}</div><div class="stat-lbl">Winning Drops</div></div>
+                    <div class="stat-box"><div class="stat-val">$${this.stats.wagered.toFixed(0)}</div><div class="stat-lbl">Total Wagered</div></div>
+                    <div class="stat-box"><div class="stat-val">$${this.stats.bestWin.toFixed(2)}</div><div class="stat-lbl">Best Win</div></div>
+                </div>
+                <button onclick="localStorage.clear(); location.reload()" style="margin-top:1rem; width:100%; background:var(--danger); padding:10px; border:none; border-radius:8px; color:white;">Reset Save Data</button>
+            `;
+        } else if (type === 'settings') {
+            title.innerText = "Settings";
+            content.innerHTML = `
+                <div class="panel-section">
+                    <span class="label">Theme</span>
+                    <div class="btn-group" style="flex-wrap: wrap;">
+                        <button onclick="ui.setTheme('default')">Default</button>
+                        <button onclick="ui.setTheme('red')">Red</button>
+                        <button onclick="ui.setTheme('yellow')">Yellow</button>
+                        <button onclick="ui.setTheme('white')">White</button>
+                        <button onclick="ui.setTheme('gradient')">Gradient</button>
+                        <button onclick="ui.setTheme('color-changing')">Color Changing</button>
+                        <button onclick="ui.setTheme('glowing')">Glowing</button>
+                        <button onclick="ui.setTheme('maroon')">Maroon</button>
+                        <button onclick="ui.setTheme('hell')">Hell</button>
+                        <button onclick="ui.setTheme('casino')">Casino</button>
+                        <button onclick="ui.setTheme('fire')">Fire</button>
+                        <button onclick="ui.setTheme('winter')">Winter</button>
+                        <button onclick="ui.setTheme('desert')">Desert</button>
+                        <button onclick="ui.setTheme('gold')">Gold</button>
+                        <button onclick="ui.setTheme('neon')">Neon</button>
+                        <button onclick="ui.setTheme('matrix')">Matrix</button>
+                        <button onclick="ui.setTheme('ocean')">Ocean</button>
+                        <button onclick="ui.setTheme('sunset')">Sunset</button>
+                    </div>
+                </div>
+            `;
+        } else if (type === 'skins') {
+            title.innerText = "Ball Skins Shop";
+            let html = '<div class="skins-grid">';
+            SKINS.forEach(skin => {
+                const isUnlocked = this.unlockedSkins.includes(skin.id);
+                const isActive = this.currentSkin === skin.id;
+                
+                // Generate Preview HTML based on type
+                let previewHtml = '';
+                if(skin.type === 'text') previewHtml = `<div>${skin.content}</div>`;
+                else if(skin.type === 'gradient' || skin.type === 'glow') previewHtml = `<div style="width:20px; height:20px; border-radius:50%; background: linear-gradient(135deg, ${skin.colors[0]}, ${skin.colors[1]})"></div>`;
+                else if(skin.type === '8ball') previewHtml = `<div style="width:20px; height:20px; border-radius:50%; background:black; border:2px solid white; display:flex; align-items:center; justify-content:center; color:white; font-size:10px;">8</div>`;
+                else if(skin.type === 'anim_hue') previewHtml = `<div style="width:20px; height:20px; border-radius:50%; background: linear-gradient(90deg, red, blue, green);"></div>`;
+
+                html += `
+                    <div class="skin-card ${isActive ? 'active' : ''} ${!isUnlocked ? 'locked' : 'unlocked'}" 
+                         onclick="${isUnlocked ? `ui.setSkin('${skin.id}')` : `ui.watchAdForSkin('${skin.id}')`}">
+                        <div class="skin-preview">${previewHtml}</div>
+                        <div class="skin-name">${skin.name}</div>
+                        <div class="skin-status">
+                            ${isActive ? 'Selected' : (isUnlocked ? 'Owned' : '📺 Watch Ad')}
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            content.innerHTML = html;
+
+        } else if (type === 'rules') {
+            title.innerText = "How to Play";
+            content.innerHTML = `
+                <p>1. <strong>Bet:</strong> Choose amount and Risk.</p>
+                <p>2. <strong>Drop:</strong> Ball bounces through pins.</p>
+                <p>3. <strong>Skins:</strong> Watch ads to unlock cool balls!</p>
+                <p>4. <strong>Jackpot:</strong> Random chance to win the pool.</p>
+            `;
+        } else {
+            title.innerText = "Fairness";
+            content.innerHTML = "<p>Physics calculated deterministically client-side.</p>";
+        }
+    }
+
+    setTheme(name) {
+        document.body.className = `theme-${name}`;
+        localStorage.setItem('plinko_theme', name);
+    }
+
+    closeModal() { document.getElementById('infoModal').classList.remove('open'); }
+}
+
+const ui = new UIController();
+</script>
+</body>
+</html>

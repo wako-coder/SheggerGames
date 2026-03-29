@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html, charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+    
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="src/phaser_new.js"></script>
+    <script src="src/levelsConfig.js"></script>
+    <script src="src/pieces.js"></script>
+    <script src="src/game.js"></script>
+    <script src="src/jquery.js"></script>
+    <script src="src/crypto.js"></script>
+
+ <!-- Web App Manifest-->
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js');
+        };
+    </script>
+
+
+    <script type="text/javascript">
+        
+        (function(i) {
+            var e = /iPhone/i,
+                n = /iPod/i,
+                o = /iPad/i,
+                t = /(?=.*\bAndroid\b)(?=.*\bMobile\b)/i,
+                r = /Android/i,
+                d = /BlackBerry/i,
+                s = /Opera Mini/i,
+                a = /IEMobile/i,
+                b = /(?=.*\bFirefox\b)(?=.*\bMobile\b)/i,
+                h = RegExp("(?:Nexus 7|BNTV250|Kindle Fire|Silk|GT-P1000)", "i"),
+                c = function(i, e) {
+                    return i.test(e)
+                },
+                l = function(i) {
+                    var l = i || navigator.userAgent;
+                    this.apple = {
+                        phone: c(e, l),
+                        ipod: c(n, l),
+                        tablet: c(o, l),
+                        device: c(e, l) || c(n, l) || c(o, l)
+                    }, this.android = {
+                        phone: c(t, l),
+                        tablet: !c(t, l) && c(r, l),
+                        device: c(t, l) || c(r, l)
+                    }, this.other = {
+                        blackberry: c(d, l),
+                        opera: c(s, l),
+                        windows: c(a, l),
+                        firefox: c(b, l),
+                        device: c(d, l) || c(s, l) || c(a, l) || c(b, l)
+                    }, this.seven_inch = c(h, l), this.any = this.apple.device || this.android.device || this.other.device || this.seven_inch
+                },
+                v = i.isMobile = new l;
+            v.Class = l
+        })(window);
+    </script>
+    <style>
+        body {
+            background-color: black;
+            background-image: url("assets/title/desktop/game_bg.jpg");
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        @font-face {
+            font-family: Source;
+            src: url('fonts/source-sans-pro.regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: Exo;
+            src: url('fonts/Exo2-ExtraBold.ttf') format('truetype');
+        }
+
+        canvas {
+            
+
+        }
+
+        #turn {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: white;
+            background-image: url('https://sport-quest.netlify.app/assets/loader/desktop/playportrait.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: none;
+           
+        }
+    </style>
+
+    
+    <script type="text/javascript" src="https://sport-quest.netlify.app/js/game_function.js"></script>
+    <script type="text/javascript" src="https://sport-quest.netlify.app/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://sport-quest.netlify.app/game-files/css/bootstrap.css" type="text/css">
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://sport-quest.netlify.app/game-files/css/font-awesome.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://sport-quest.netlify.app/game-files/css/style.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://sport-quest.netlify.app/game-files/css/responsive.css" type="text/css">
+
+    <title>Sport Quest</title>
+
+    
+</head>
+
+<body>
+    <canvas width="768" height="1024" style="display: block; width: 403px; height: 537px; touch-action: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: inherit; margin-left: -80px; margin-top: -550px;"></canvas>
+    <p style="font-family:Source;position:absolute;z-index:-1000;opacity:0;">Jewels Story</p>
+    <p style="font-family:Exo;position:absolute;z-index:-1000;opacity:0;">Jewels Story</p>
+</body>
+
+</html>

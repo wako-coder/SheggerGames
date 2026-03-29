@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dimension Escape</title>
+     <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+
+    <div id="danger-overlay"></div>
+
+    <!-- MAIN MENU -->
+    <div id="main-menu" class="menu-screen" style="display: flex;">
+        <h1 class="title-3d">DIMENSION ESCAPE</h1>
+        <p class="sub">Choose Your Fate</p>
+        
+        <button class="btn btn-mode-normal" onclick="selectMode('normal')"> NORMAL MODE</button>
+        <div class="mode-desc">Just puzzles. No ghost. Peaceful.</div>
+        
+        <button class="btn btn-mode-ghost" onclick="selectMode('ghost')"> NIGHTMARE MODE</button>
+        <div class="mode-desc" style="color:#ff5555">Extreme Horror. The Phantom hunts you.</div>
+
+        <!-- NEW: How to Play Button -->
+        <button class="btn btn-info" onclick="showHowToPlay()">❓ HOW TO PLAY</button>
+    </div>
+
+    <!-- HOW TO PLAY MODAL -->
+    <div id="how-to-play-modal" class="menu-screen" style="display: none; background: rgba(0,0,0,0.95); z-index: 200;">
+        <div class="ad-content instruction-content">
+            <h2>SURVIVAL GUIDE</h2>
+            <ul>
+                <li><strong>OBJECTIVE:</strong> Find <strong>3 Keys (🔑)</strong> hidden in the maze.</li>
+                <li><strong>ESCAPE:</strong> Once you have 3 keys, find the <strong>Red Door</strong>. It will turn <strong>Green</strong>. Walk into it to win.</li>
+                <li><strong>LIGHT:</strong> Your flashlight runs on battery. Collect <strong>Batteries (🔋)</strong> to stay in the light. If it hits 0%, you lose.</li>
+                <li><strong>THE GHOST (💀):</strong> In Nightmare Mode, a phantom hunts you. If you hear a heartbeat or see static... <strong>RUN!</strong></li>
+            </ul>
+            <div style="text-align: center; margin-top: 20px; border-top: 1px solid #444; padding-top: 10px;">
+                <p style="color:#aaa; margin-bottom: 5px;">CONTROLS</p>
+                <p><span class="key-hint">WASD</span> Move &nbsp; <span class="key-hint">SHIFT</span> Run</p>
+                <p><span class="key-hint">MOUSE</span> Look Around</p>
+            </div>
+            <button class="btn" style="width: 100%; margin: 20px 0 0 0; background: #4caf50; border-color: #388e3c;" onclick="closeHowToPlay()">UNDERSTOOD</button>
+        </div>
+    </div>
+
+    <!-- LEVEL SELECT -->
+    <div id="level-select" class="menu-screen">
+        <h2 id="mode-title">SELECT LEVEL</h2>
+        <div id="level-grid"></div>
+        <button class="btn" style="margin-top:20px; background:#444;" onclick="goToHome()">Back</button>
+    </div>
+
+    <div id="ad-modal" class="menu-screen">
+        <div class="ad-content">
+            <h2 style="color:#000; margin:0; font-size:1.5rem;">Sponsored</h2>
+            <div id="ad-placeholder"><img src="assets/ad.png" alt="Ad" style="max-width:100%; max-height:100%;"></div>
+            <p id="ad-timer">Reward available in 10s...</p>
+            <button id="ad-close-btn" onclick="closeAd()">X</button>
+        </div>
+    </div>
+
+    <div id="game-over-screen" class="menu-screen">
+        <h1 style="color: #d32f2f;" class="title-3d" id="death-reason">Darkness Consumed You</h1>
+        <p class="sub">Try again, traveler...</p>
+        <div><button class="btn btn-restart" onclick="restartCurrentLevel()">Restart Level</button><button class="btn btn-home" onclick="goToHome()">Home</button></div>
+    </div>
+
+    <div id="win-screen" class="menu-screen" style="background: rgba(0,0,0,0.95);">
+        <h1 style="color: #4caf50;" class="title-3d">Dimension Escaped!</h1>
+        <p class="sub">Portal Opened.</p>
+        <div><button class="btn btn-next" onclick="loadNextLevel()">Enter Next Dimension</button></div>
+    </div>
+
+    <div id="ui-layer">
+        <div id="level-indicator">LEVEL 1</div>
+        <div id="enemy-warning"> RUN! HE IS HERE! </div>
+        <div id="hud">
+            <div style="display:flex; gap:10px;">
+                <div class="hud-box"><span class="icon">🔑</span><span id="keys-count">0 / 3</span></div>
+                <div id="light-timer-box" class="hud-box"><span class="icon">💡</span><span id="light-timer">60s</span></div>
+            </div>
+            <div class="hud-box" style="flex-direction: column; align-items: flex-end;">
+                <div style="display:flex; align-items:center; gap:10px;"><span>BATTERY</span><span class="icon">🔋</span></div>
+                <div id="battery-bar-container"><div id="battery-fill"></div></div>
+            </div>
+        </div>
+        <div id="powers-container" style="display:none;">
+            <div id="btn-power-speed" class="power-btn" onclick="requestAd('speed')"><span class="lock-icon">🔒</span> ⚡ Run Fast</div>
+            <div id="btn-power-battery" class="power-btn" onclick="requestAd('battery')"><span class="lock-icon">🔒</span> 🔋 Full Battery</div>
+        </div>
+        <div id="notify">PORTAL OPEN! FOLLOW THE PATH!</div>
+        <div id="instructions"><span class="key-hint">WASD</span> Move &nbsp; <span class="key-hint">SHIFT</span> Run &nbsp; <span class="key-hint">MOUSE</span> Look</div>
+    </div>
+    
+    <div id="crosshair"></div>
+
+    <!-- Three.js and Simplex Noise -->
+    <script src="main.js"></script>
+    <script src="simplex.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

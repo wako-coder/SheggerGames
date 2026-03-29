@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Swipe Soccer - Multiplayer</title>
+    <script src="main.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Start Screen -->
+<div id="start-screen">
+    <div class="logo-large">SWIPE<span>SOCCER</span></div>
+    
+    <div class="menu-box">
+        <div class="input-group">
+            <input type="text" id="username" placeholder="ENTER PLAYER NAME" maxlength="12">
+            <button class="btn btn-save" id="btn-save" onclick="GameApp.saveName()">
+                <span>SAVE NAME</span>
+            </button>
+        </div>
+
+        <button class="btn btn-start" id="btn-start" onclick="GameApp.startGame()">
+            <i class="fa-solid fa-play"></i>
+            <span>START GAME</span>
+        </button>
+        
+        <button class="btn btn-lb" onclick="GameApp.openLeaderboard()">
+            <i class="fa-solid fa-trophy"></i>
+            <span>LEADERBOARD</span>
+        </button>
+        
+        <div id="loading-text" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 10px;">Connecting to Stadium Server...</div>
+    </div>
+</div>
+
+<!-- Leaderboard Popup -->
+<div id="lb-popup">
+    <div class="popup-content">
+        <h2 style="color:var(--neon-gold); font-family:'Orbitron'; margin:0 0 10px 0;">TOP 50 STRIKERS</h2>
+        <div class="lb-list" id="lb-content">
+            <div style="text-align:center; padding:20px;">Loading...</div>
+        </div>
+        <button class="btn btn-lb" style="padding:15px 40px; margin:0 auto; font-size:0.9rem;" onclick="GameApp.closeLeaderboard()">
+            <span>CLOSE</span>
+        </button>
+    </div>
+</div>
+
+<!-- Game Container -->
+<div id="game-container">
+    <div class="header">
+        <div class="logo">SWIPE<span>SOCCER</span></div>
+        <div class="score-board">SCORE: <span id="score">0</span></div>
+    </div>
+
+    <div id="taunt-bubble">Too Slow!</div>
+
+    <div id="game-over-overlay">
+        <div class="oops-msg" id="oops-text">OOPS!</div>
+        <button class="btn btn-restart" onclick="GameApp.restartGame()">
+            <span>RESTART</span>
+        </button>
+        <button class="btn btn-menu" onclick="GameApp.goToMenu()">
+            <span>MAIN MENU</span>
+        </button>
+    </div>
+
+    <!-- Floating Game Controls -->
+    <div class="controls-overlay" id="game-ui" style="display:none;">
+        <div id="hint">Swipe / Drag Up to Shoot ⬆️</div>
+        
+        <!-- Floating Action Button for Distance -->
+        <div class="fab-container">
+            <div class="fab-options" id="fab-options">
+                <button class="fab-opt-btn" onclick="GameApp.setDistance('FAR')" id="btn-far">FAR</button>
+                <button class="fab-opt-btn active" onclick="GameApp.setDistance('MEDIUM')" id="btn-medium">MEDIUM</button>
+                <button class="fab-opt-btn" onclick="GameApp.setDistance('CLOSE')" id="btn-close">CLOSE</button>
+            </div>
+            <button class="fab-main" id="fab-main" onclick="GameApp.toggleFab()">
+                <i class="fa-solid fa-crosshairs"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase Logic -->
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+    import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+    import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+
+    // add you fibase config code here -->
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3X_Bt9tZf9g-cCH7i-bcHujtoNAvAweU",
+      authDomain: "footeball-game.firebaseapp.com",
+      projectId: "footeball-game",
+      storageBucket: "footeball-game.firebasestorage.app",
+      messagingSenderId: "535624426180",
+      appId: "1:535624426180:web:6231fe8893d739fe40df91",
+      measurementId: "G-CDG11LKTWK"
+    };
+
+    // firebase config code end
+
+    const appId = 'football-pro-v1'; 
+
+    let db;
+    let auth;
+    let currentUser;
+
+    async function initFirebase() {
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        try {
+            await signInAnonymously(auth);
+        } catch (error) {
+            console.error("Auth Failed:", error);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('loading-text').innerText = "● LIVE SERVER CONNECTED";
+                document.getElementById('loading-text').style.color = "var(--neon-green)";
+            }
+        });
+    }
+
+    async function checkUsernameAvailability(desiredName) {
+        if (!currentUser) return false;
+        try {
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard');
+            const snapshot = await getDocs(colRef);
+            let isTaken = false;
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                if(data.username && data.username.toLowerCase() === desiredName.toLowerCase()) {
+                    if (data.userId !== currentUser.uid) isTaken = true;
+                }
+            });
+            return isTaken;
+        } catch (e) { return false; }
+    }
+
+    async function saveScore(username, score) {
+        if (!currentUser || score <= 0) return;
+        try {
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard');
+            await addDoc(colRef, {
+                username: username,
+                score: score,
+                userId: currentUser.uid,
+                timestamp: serverTimestamp()
+            });
+        } catch (e) { console.error(e); }
+    }
+
+    async function loadLeaderboard() {
+        if (!currentUser) return;
+        const listEl = document.getElementById('lb-content');
+        listEl.innerHTML = "<div style='text-align:center'>Loading...</div>";
+        try {
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard');
+            const snapshot = await getDocs(colRef);
+            let scores = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                if(data.username && data.score !== undefined) scores.push(data);
+            });
+            scores.sort((a, b) => b.score - a.score);
+            scores = scores.slice(0, 50); 
+            listEl.innerHTML = "";
+            if (scores.length === 0) { listEl.innerHTML = "<div style='text-align:center; color:#888'>No scores yet.</div>"; return; }
+            scores.forEach((s, i) => {
+                const div = document.createElement('div');
+                div.className = 'lb-item';
+                div.innerHTML = `<span style="width:30px">#${i+1}</span><span style="flex:1; text-align:left; padding-left:15px; font-weight:bold;">${s.username}</span><span style="color:var(--neon-blue)">${s.score}</span>`;
+                listEl.appendChild(div);
+            });
+        } catch (e) { listEl.innerHTML = "Error loading data."; }
+    }
+
+    window.DB = { saveScore, loadLeaderboard, checkUsernameAvailability, init: initFirebase };
+    initFirebase();
+</script>
+
+<!-- Game Logic -->
+<script>
+const CONFIG = {
+    CLOSE: { z: 0, speed: 5.0, name: "CLOSE" },
+    MEDIUM: { z: 15, speed: 3.0, name: "MEDIUM" },
+    FAR: { z: 30, speed: 1.5, name: "FAR" }
+};
+
+const TAUNTS = ["Too slow!", "Weak shot!", "Try harder!", "I'm bored...", "Nice shoes!", "Is that it?"];
+const OOPS_MSGS = ["OOPS!", "YOU MISSED!", "EPIC FAIL!", "TRY AGAIN!", "ZERO!", "BLOCKED!"];
+
+const GameApp = {
+    score: 0,
+    state: 'MENU', 
+    mode: 'MEDIUM',
+    username: 'Player',
+    validatedName: null, // Tracks if current name is validated
+
+    async saveName() {
+        const input = document.getElementById('username');
+        const btn = document.getElementById('btn-save');
+        const span = btn.querySelector('span');
+        const name = input.value.trim();
+        
+        if(!name) return;
+
+        const originalText = span.innerText;
+        span.innerText = "CHECKING...";
+        btn.disabled = true;
+
+        if (window.DB) {
+            const isTaken = await window.DB.checkUsernameAvailability(name);
+            
+            if (isTaken) {
+                span.innerText = "NAME TAKEN ❌";
+                btn.style.background = "var(--neon-red)";
+                btn.style.borderColor = "var(--neon-red)";
+                
+                setTimeout(() => {
+                    span.innerText = originalText;
+                    btn.style.background = "#111";
+                    btn.style.borderColor = "#444";
+                    btn.disabled = false;
+                }, 2000);
+            } else {
+                this.username = name;
+                this.validatedName = name; // Confirm validation
+                span.innerText = "NAME SAVED ✅";
+                btn.classList.add('saved');
+                btn.disabled = false;
+            }
+        }
+    },
+
+    async startGame() {
+        const input = document.getElementById('username');
+        const name = input.value.trim();
+        const startBtn = document.getElementById('btn-start');
+        const span = startBtn.querySelector('span');
+        const icon = startBtn.querySelector('i');
+
+        if(!name) {
+            input.focus();
+            input.style.borderColor = "var(--neon-red)";
+            setTimeout(() => input.style.borderColor = "#333", 1000);
+            return;
+        }
+
+        // If validation is needed (User skipped Save button)
+        if (name !== this.validatedName) {
+            // Visual Feedback
+            const originalText = span.innerText;
+            span.innerText = "VERIFYING...";
+            icon.className = "fa-solid fa-spinner fa-spin";
+            startBtn.disabled = true;
+
+            if (window.DB) {
+                const isTaken = await window.DB.checkUsernameAvailability(name);
+                
+                if (isTaken) {
+                    // Reset Start Button
+                    span.innerText = originalText;
+                    icon.className = "fa-solid fa-play";
+                    startBtn.disabled = false;
+
+                    // Show error on Save Button to guide user
+                    const btnSave = document.getElementById('btn-save');
+                    const saveSpan = btnSave.querySelector('span');
+                    saveSpan.innerText = "NAME TAKEN ❌";
+                    btnSave.style.background = "var(--neon-red)";
+                    btnSave.style.borderColor = "var(--neon-red)";
+                    setTimeout(() => {
+                        saveSpan.innerText = "SAVE NAME";
+                        btnSave.style.background = "#111";
+                        btnSave.style.borderColor = "#444";
+                    }, 2000);
+                    return; // STOP HERE
+                } else {
+                    // Name is good, proceed
+                    this.username = name;
+                    this.validatedName = name;
+                }
+            }
+        } else {
+            this.username = name;
+        }
+        
+        // Launch Game
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('game-ui').style.display = 'block';
+        this.resetGameLogic();
+        Scene3D.init();
+        this.startTauntLoop();
+    },
+
+    openLeaderboard() {
+        document.getElementById('lb-popup').style.display = 'flex';
+        if(window.DB) window.DB.loadLeaderboard();
+    },
+
+    closeLeaderboard() {
+        document.getElementById('lb-popup').style.display = 'none';
+    },
+
+    resetGameLogic() {
+        this.score = 0;
+        document.getElementById('score').innerText = 0;
+        document.getElementById('game-over-overlay').style.display = 'none';
+        document.getElementById('game-ui').style.display = 'block';
+        this.state = 'IDLE';
+    },
+
+    restartGame() {
+        this.resetGameLogic();
+        Scene3D.resetRound();
+    },
+
+    goToMenu() {
+        document.getElementById('game-ui').style.display = 'none';
+        document.getElementById('game-over-overlay').style.display = 'none';
+        document.getElementById('start-screen').style.display = 'flex';
+        this.state = 'MENU';
+        
+        // Reset Start Button UI just in case
+        const startBtn = document.getElementById('btn-start');
+        startBtn.disabled = false;
+        startBtn.querySelector('span').innerText = "START GAME";
+        startBtn.querySelector('i').className = "fa-solid fa-play";
+    },
+
+    // New Toggle for Floating Button
+    toggleFab() {
+        const menu = document.getElementById('fab-options');
+        const btn = document.getElementById('fab-main');
+        menu.classList.toggle('show');
+        btn.classList.toggle('active');
+    },
+
+    setDistance(mode) {
+        if(this.state !== 'IDLE') return;
+        this.mode = mode;
+        // Update Active State
+        document.querySelectorAll('.fab-opt-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`btn-${mode.toLowerCase()}`).classList.add('active');
+        
+        // Close Menu
+        this.toggleFab();
+        
+        Scene3D.resetRound();
+    },
+
+    onGoal() {
+        this.score++;
+        document.getElementById('score').innerText = this.score;
+        Scene3D.showFX("GOAL!");
+        Scene3D.celebrate();
+    },
+
+    onMiss(reason) {
+        if(this.score > 0 && window.DB) {
+            window.DB.saveScore(this.username, this.score);
+        }
+
+        this.score = 0; 
+        document.getElementById('score').innerText = 0;
+
+        const msg = OOPS_MSGS[Math.floor(Math.random() * OOPS_MSGS.length)];
+        document.getElementById('oops-text').innerText = msg;
+        
+        document.getElementById('game-ui').style.display = 'none';
+        document.getElementById('game-over-overlay').style.display = 'flex';
+        
+        this.state = 'GAME_OVER';
+    },
+
+    startTauntLoop() {
+        setInterval(() => {
+            if(this.state === 'IDLE') {
+                const msg = TAUNTS[Math.floor(Math.random() * TAUNTS.length)];
+                Scene3D.showTaunt(msg);
+            }
+        }, 4000);
+    }
+};
+
+/* --- THREE.JS ENGINE --- */
+const Scene3D = {
+    scene: null, camera: null, renderer: null,
+    objs: {}, animating: false, crowdParticles: null, trail: [],
+    ballVelocity: new THREE.Vector3(), gravity: -25,
+    isDragging: false, dragStart: {x:0, y:0}, roundEnded: false, shootTime: 0, initialized: false,
+
+    init() {
+        if(this.initialized) { this.resetRound(); return; }
+        const container = document.getElementById('game-container');
+        if (!container) return; 
+
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0x050510);
+        this.scene.fog = new THREE.Fog(0x050510, 20, 100);
+
+        this.camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+        
+        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.renderer.setSize(container.clientWidth, container.clientHeight);
+        this.renderer.shadowMap.enabled = true;
+        container.appendChild(this.renderer.domElement);
+
+        this.resetCamera();
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+        this.scene.add(ambient);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.2); 
+        dirLight.position.set(10, 30, 10);
+        dirLight.castShadow = true;
+        this.scene.add(dirLight);
+
+        this.buildStadium();
+        this.buildActors();
+        this.setupInputs(container);
+
+        this.animate();
+        this.initialized = true;
+
+        window.addEventListener('resize', () => {
+            if (this.camera && container) {
+                this.camera.aspect = container.clientWidth / container.clientHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(container.clientWidth, container.clientHeight);
+                // Re-adjust camera on resize for orientation change
+                this.resetCamera();
+            }
+        });
+    },
+
+    resetCamera() {
+        if (this.camera) {
+            const cfg = CONFIG[GameApp.mode];
+            // MOBILE ZOOM OUT LOGIC
+            const aspect = window.innerWidth / window.innerHeight;
+            const isMobile = window.innerWidth < 600 || aspect < 0.8; 
+            
+            // If mobile, move camera further back (Z) and slightly up (Y) to see more field
+            const zoomOffsetZ = isMobile ? 25 : 10; 
+            const heightOffsetY = isMobile ? 8 : 5;
+
+            this.camera.position.set(0, heightOffsetY, cfg.z + zoomOffsetZ); 
+            this.camera.lookAt(0, 2, -50);
+        }
+    },
+
+    setupInputs(el) {
+        const startDrag = (x, y) => {
+            if(GameApp.state !== 'IDLE') return;
+            // Prevent drag if touching FAB
+            if(document.elementFromPoint(x,y).closest('.fab-container')) return;
+            
+            this.isDragging = true;
+            this.dragStart.x = x; this.dragStart.y = y;
+            document.getElementById('hint').style.opacity = '0';
+            this.hideTaunt(); 
+        };
+
+        const endDrag = (x, y) => {
+            if(!this.isDragging) return;
+            this.isDragging = false;
+            const dx = x - this.dragStart.x;
+            const dy = y - this.dragStart.y;
+            if(dy < -30) { this.shoot(dx, dy); } else { document.getElementById('hint').style.opacity = '1'; }
+        };
+
+        el.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY));
+        window.addEventListener('mouseup', e => endDrag(e.clientX, e.clientY));
+        el.addEventListener('touchstart', e => startDrag(e.touches[0].clientX, e.touches[0].clientY));
+        let lastX, lastY;
+        el.addEventListener('touchmove', e => { e.preventDefault(); lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, {passive: false});
+        el.addEventListener('touchend', e => { if(lastX !== undefined) endDrag(lastX, lastY); lastX = undefined; });
+    },
+
+    shoot(dx, dy) {
+        GameApp.state = 'SHOOTING';
+        this.shootTime = Date.now();
+        const sensitivityX = 0.04;
+        const powerZ = 0.15; const liftY = 0.08;
+        const forwardForce = Math.min(Math.abs(dy) * powerZ, 55); 
+        const sideForce = dx * sensitivityX;
+        const upForce = Math.min(Math.abs(dy) * liftY, 15);
+        this.ballVelocity.set(sideForce, upForce, -forwardForce);
+    },
+
+    createBallTexture() {
+        const c = document.createElement('canvas'); c.width=512; c.height=256;
+        const x = c.getContext('2d');
+        x.fillStyle='#fff'; x.fillRect(0,0,512,256);
+        x.fillStyle='#000';
+        for(let i=0;i<6;i++){ x.beginPath(); x.arc(i*100+50,64,35,0,6.28); x.fill(); }
+        for(let i=0;i<6;i++){ x.beginPath(); x.arc(i*100,192,35,0,6.28); x.fill(); }
+        return new THREE.CanvasTexture(c);
+    },
+
+    buildStadium() {
+        const gr = new THREE.Group();
+        const m1 = new THREE.MeshStandardMaterial({color:0x1a5a1a, roughness:0.8});
+        const m2 = new THREE.MeshStandardMaterial({color:0x1e6e1e, roughness:0.8});
+        for(let i=0;i<15;i++){
+            const m = new THREE.Mesh(new THREE.PlaneGeometry(70,8), (i%2==0)?m1:m2);
+            m.rotation.x=-1.57; m.position.z=-50+(i*8); m.receiveShadow=true; gr.add(m);
+        }
+        this.scene.add(gr);
+        const lm = new THREE.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:0.8});
+        const lines = new THREE.Group(); lines.position.y=0.03;
+        const mk = (w,h,x,z) => { const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),lm); m.rotation.x=-1.57; m.position.set(x,0,z); lines.add(m); };
+        mk(0.3,100,-35,0); mk(0.3,100,35,0); mk(70,0.3,0,-50); 
+        mk(40,0.3,0,-34); mk(0.3,16,-20,-42); mk(0.3,16,20,-42); 
+        mk(18,0.3,0,-44); mk(0.3,6,-9,-47); mk(0.3,6,9,-47); 
+        this.scene.add(lines);
+        this.buildGoal();
+        const sm = new THREE.MeshStandardMaterial({color:0x222222});
+        const back = new THREE.Mesh(new THREE.BoxGeometry(90, 15, 20), sm); back.position.set(0,7,-65); this.scene.add(back);
+        const left = new THREE.Mesh(new THREE.BoxGeometry(20, 15, 120), sm); left.position.set(-50,7,-10); this.scene.add(left);
+        const right = new THREE.Mesh(new THREE.BoxGeometry(20, 15, 120), sm); right.position.set(50,7,-10); this.scene.add(right);
+        const geo = new THREE.BufferGeometry(); const pos=[]; const col=[];
+        const pal=[0xff0000, 0xffff00, 0x0000ff, 0xffffff];
+        for(let i=0;i<2000;i++){
+            const x = (Math.random()-0.5)*90; const y = Math.random()*10 + 5; const z = -62 - Math.random()*5;
+            pos.push(x,y,z); const c=new THREE.Color(pal[Math.floor(Math.random()*4)]); col.push(c.r,c.g,c.b);
+        }
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+        geo.setAttribute('color', new THREE.Float32BufferAttribute(col,3));
+        this.crowdParticles = new THREE.Points(geo, new THREE.PointsMaterial({size:0.6, vertexColors:true}));
+        this.scene.add(this.crowdParticles);
+    },
+
+    buildGoal() {
+        const pm = new THREE.MeshStandardMaterial({color:0xffffff});
+        const cyl = (r,h,x,y,z,rz) => { const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h),pm); m.position.set(x,y,z); m.rotation.z=rz; this.scene.add(m); };
+        cyl(0.15,3.2,-5,1.6,-50,0); cyl(0.15,3.2,5,1.6,-50,0); cyl(0.15,10.4,0,3.1,-50,1.57);
+        const nm = new THREE.MeshBasicMaterial({color:0xcccccc, wireframe:true, side:2});
+        const net = new THREE.Mesh(new THREE.BoxGeometry(10, 3.2, 2), nm);
+        net.position.set(0, 1.6, -51);
+        this.scene.add(net);
+    },
+
+    buildActors() {
+        const bg = new THREE.Group();
+        const ball = new THREE.Mesh(new THREE.SphereGeometry(0.4,32,32), new THREE.MeshStandardMaterial({map:this.createBallTexture()}));
+        ball.castShadow=true; bg.add(ball);
+        this.objs.ball = bg; this.scene.add(bg);
+        const kg = new THREE.Group();
+        const mat = new THREE.MeshStandardMaterial({color:0xffff00}); 
+        const skin = new THREE.MeshStandardMaterial({color:0xffccaa});
+        const black = new THREE.MeshStandardMaterial({color:0x111111});
+        const body = new THREE.Mesh(new THREE.BoxGeometry(0.7,0.9,0.3), mat); body.position.y=1.2; kg.add(body);
+        const head = new THREE.Mesh(new THREE.BoxGeometry(0.3,0.35,0.3), skin); head.position.y=1.85; kg.add(head);
+        const legL = new THREE.Mesh(new THREE.BoxGeometry(0.2,0.8,0.2), black); legL.position.set(-0.2,0.4,0); kg.add(legL);
+        const legR = new THREE.Mesh(new THREE.BoxGeometry(0.2,0.8,0.2), black); legR.position.set(0.2,0.4,0); kg.add(legR);
+        const armL = new THREE.Mesh(new THREE.BoxGeometry(0.15,0.7,0.15), mat); armL.position.set(-0.5,1.2,0); kg.add(armL);
+        const armR = new THREE.Mesh(new THREE.BoxGeometry(0.15,0.7,0.15), mat); armR.position.set(0.5,1.2,0); kg.add(armR);
+        this.objs.keeper = kg;
+        this.scene.add(kg);
+    },
+
+    resetRound() {
+        if(GameApp.state === 'MENU' || GameApp.state === 'GAME_OVER') return;
+        GameApp.state = 'IDLE'; this.roundEnded = false;
+        const cfg = CONFIG[GameApp.mode];
+        this.objs.ball.position.set(0, 0.4, cfg.z);
+        this.objs.ball.rotation.set(0,0,0);
+        this.ballVelocity.set(0,0,0);
+        this.objs.keeper.position.set(0, 0, -49.5);
+        this.objs.keeper.rotation.set(0,0,0);
+        this.trail.forEach(t => this.scene.remove(t));
+        this.trail = [];
+        this.resetCamera();
+        document.getElementById('hint').style.opacity = '1';
+        this.hideTaunt(); 
+    },
+
+    showFX(text) {
+        const div = document.createElement('div');
+        div.className = 'fx-text'; div.innerText = text;
+        document.getElementById('game-container').appendChild(div);
+        setTimeout(() => div.remove(), 1500);
+    },
+
+    showTaunt(text) {
+        const bubble = document.getElementById('taunt-bubble');
+        if(!bubble) return;
+        bubble.innerText = text; bubble.style.opacity = '1';
+        if(this.tauntTimeout) clearTimeout(this.tauntTimeout);
+        this.tauntTimeout = setTimeout(() => bubble.style.opacity = '0', 2000);
+    },
+
+    hideTaunt() {
+        const bubble = document.getElementById('taunt-bubble');
+        if(bubble) bubble.style.opacity = '0';
+    },
+
+    updateTauntPos() {
+        const bubble = document.getElementById('taunt-bubble');
+        const keeper = this.objs.keeper;
+        if(!bubble || !keeper || !this.camera) return;
+        const headPos = keeper.position.clone(); headPos.y += 2.2; headPos.project(this.camera);
+        const x = (headPos.x * 0.5 + 0.5) * this.renderer.domElement.clientWidth;
+        const y = (-(headPos.y * 0.5) + 0.5) * this.renderer.domElement.clientHeight;
+        bubble.style.left = `${x}px`; bubble.style.top = `${y}px`; bubble.style.transform = `translate(-50%, -100%)`; 
+    },
+
+    celebrate() {
+        let c=0; const i=setInterval(()=>{ c++; this.crowdParticles.position.y=Math.random()*0.5; if(c>20)clearInterval(i); }, 50);
+    },
+
+    animate() {
+        requestAnimationFrame(() => this.animate());
+        const dt = 0.016; 
+        if(GameApp.state === 'MENU') { this.renderer.render(this.scene, this.camera); return; }
+        this.updateTauntPos();
+
+        if (!this.roundEnded) {
+            const time = Date.now() * 0.002; const cfg = CONFIG[GameApp.mode];
+            let targetX = Math.sin(time * (cfg.speed * 0.5)) * 4;
+            if (GameApp.state === 'SHOOTING') {
+                if (this.objs.ball.position.z < -30) {
+                    const dx = this.objs.ball.position.x - this.objs.keeper.position.x;
+                    targetX = this.objs.keeper.position.x + Math.sign(dx) * (0.1 * cfg.speed); 
+                }
+            }
+            this.objs.keeper.position.x += (targetX - this.objs.keeper.position.x) * 0.1;
+            this.objs.keeper.position.y = Math.abs(Math.sin(time*2)) * 0.1; 
+        }
+
+        if (GameApp.state === 'SHOOTING') {
+            const b = this.objs.ball;
+            this.ballVelocity.y += this.gravity * dt;
+            b.position.addScaledVector(this.ballVelocity, dt);
+            b.rotation.x -= 0.15; 
+            
+            if (!this.roundEnded && (Date.now() - this.shootTime > 5000)) { this.roundEnded = true; GameApp.onMiss("TIMEOUT"); }
+            if (b.position.y <= 0.4) {
+                b.position.y = 0.4; this.ballVelocity.y *= -0.6; this.ballVelocity.z *= 0.8;  
+            }
+            if (!this.roundEnded && this.ballVelocity.length() < 0.5 && b.position.z > -48) { this.roundEnded = true; GameApp.onMiss("WEAK"); }
+            if (b.position.z <= -50) {
+                const inGoalX = Math.abs(b.position.x) < 4.8; const inGoalY = b.position.y < 3.1;
+                if (inGoalX && inGoalY) { if (!this.roundEnded) { this.roundEnded = true; GameApp.onGoal(); this.ballVelocity.set(0,0,0); setTimeout(() => this.resetRound(), 2500); } } 
+                else { if (!this.roundEnded) { this.roundEnded = true; GameApp.onMiss("MISS"); } }
+            }
+            const kPos = this.objs.keeper.position.clone(); kPos.y += 1.5; 
+            if (b.position.distanceTo(kPos) < 2.0 && !this.roundEnded) { this.roundEnded = true; this.ballVelocity.z *= -0.5; this.ballVelocity.y = 5; GameApp.onMiss("SAVE"); }
+            this.camera.position.z = Math.max(0, b.position.z + 15);
+            this.camera.lookAt(b.position);
+            
+            if (this.trail.length < 20) {
+                const t = new THREE.Mesh(new THREE.SphereGeometry(0.2), new THREE.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:0.5}));
+                t.position.copy(b.position); this.scene.add(t); this.trail.push(t);
+            }
+        }
+        
+        for(let i=this.trail.length-1; i>=0; i--) {
+            this.trail[i].scale.multiplyScalar(0.9); this.trail[i].material.opacity -= 0.05;
+            if(this.trail[i].material.opacity <= 0) { this.scene.remove(this.trail[i]); this.trail.splice(i,1); }
+        }
+        this.renderer.render(this.scene, this.camera);
+    }
+};
+</script>
+</body>
+</html>

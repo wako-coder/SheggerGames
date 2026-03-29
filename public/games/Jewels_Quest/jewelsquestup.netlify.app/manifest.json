@@ -1,0 +1,17 @@
+{
+  "name": "Jewels Quest",
+  "short_name": "Match jewels",
+  "icons": [{
+    "src": "img/app-icon.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }, {
+      "src": "img/app-icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#333333"
+}

@@ -1,0 +1,26 @@
+    #typingBox {
+        position: absolute;
+        z-index: 10000;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 15px;
+        border: 3px solid black;
+        /*    	width:620px;*/
+        color: black;
+        background: yellow;
+        /*    	height:60px;*/
+        font-size: 1em;
+        font-family: Prototype;
+        /*    	bottom:212px;*/
+        /*    	left:18%;*/
+    }
+
+    #typingBox:focus {
+        outline: 0;
+    }
+
+    canvas {
+        display: block;
+        margin: auto;
+        
+    }

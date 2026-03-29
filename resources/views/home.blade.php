@@ -2,72 +2,7 @@
 
 
 @section('content')
-        <!--header area start-->
-    <header class="header_section header_transparent sticky-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="main_header d-flex justify-content-between align-items-center">
-                        <div class="header_logo">
-                            <a class="sticky_none" href="index.html"><img aria-label="logo" width="215" height="79" src="assets/img/logo/logo.webp" alt=""></a>
-                        </div>
-                        <!--main menu start-->
-                        <div class="main_menu d-none d-lg-block"> 
-                            <nav>  
-                                <ul class="d-flex">
-                                    <li><a href="index.html">Home</a></li> 
-                                    <li><a href="match.html">Match</a>
-                                        <ul class="sub_menu">
-                                            <li><a href="match.html">Match Page</a></li>
-                                            <li><a href="match-details.html">Match Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="sub_menu">
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="all-game.html">All Game</a></li>
-                                            <li><a href="game-details.html">Game Details</a></li>
-                                            <li><a href="faq.html">Faq Page</a></li>
-                                            <li><a href="players.html">Players</a></li>
-                                            <li><a href="player-details.html">Player Details</a></li>
-                                            <li><a href="registration.html">Sign Up</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="404.html">Error 404</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog-left-sidebar.html">blog</a>
-                                        <ul class="sub_menu">
-                                            <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                            <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                            <li><a href="blog-without-sidebar.html">Blog Without Sidebar</a></li>
-                                             <li><a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
-                                            <li><a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
-                                            <li><a href="blog-grid-without-sidebar.html">Blog Grid Without Sidebar</a></li>
-                                            <li><a href="blog-details-left-sidebar.html">Blog Details Left Sidebar</a></li>
-                                            <li><a href="blog-details-right-sidebar.html">Blog Details Right Sidebar</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>  
-                            </nav>
-                        </div>
-                        <!--main menu end-->
-                        <div class="header_right_sidebar d-flex align-items-center">
-                            <div class="sing_up_btn">
-                                <a class="btn btn-link" href="registration.html">SIGN UP <img width="15" height="15" src="assets/img/icon/arrrow-icon2.webp" alt=""> </a>
-                            </div>
-                            <div class="canvas_open">
-                                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"><i class="icofont-navigation-menu"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!--header area end-->
-
+  
     <!--offcanvas menu area start-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
         <div class="offcanvas-header justify-content-end">
@@ -76,42 +11,36 @@
         <div class="offcanvas-body">
             <ul class="offcanvas_main_menu">
                 <li class="menu-item-has-children active">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                 </li>
-                <li class="menu-item-has-children"><a href="#">Match</a>
+                <li class="menu-item-has-children"><a href="#">Matches</a>
                     <ul class="sub-menu">
-                        <li><a href="match.html">Match Page</a></li>
-                        <li><a href="match-details.html">Match Details</a></li>
+                        <li><a href="/matches">Match Schedule</a></li>
+                        <li><a href="/match-details">Match Details</a></li>
                     </ul>
                 </li>
-                <li class="menu-item-has-children"><a href="#">Pages</a>
+                <li class="menu-item-has-children"><a href="#">Games</a>
                     <ul class="sub-menu">
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="all-game.html">All Game</a></li>
-                        <li><a href="game-details.html">Game Details</a></li>
-                        <li><a href="faq.html">Faq Page</a></li>
-                        <li><a href="players.html">Players</a></li>
-                        <li><a href="player-details.html">Player Details</a></li>
-                                            <li><a href="registration.html">Sign Up</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                        <li><a href="404.html">Error 404</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/games">Ethiopian Games</a></li>
+                        <li><a href="/game-details">Game Details</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="/players">Players</a></li>
+                        <li><a href="/player-details">Player Details</a></li>
+                        <li><a href="/register">Sign Up</a></li>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/support">Support</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children">
-                    <a href="#">blog</a>
+                    <a href="/blog">Blog</a>
                     <ul class="sub-menu">
-                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                        <li><a href="blog-without-sidebar.html">Blog Without Sidebar</a></li>
-                            <li><a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
-                            <li><a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
-                        <li><a href="blog-grid-without-sidebar.html">Blog Grid Without Sidebar</a></li>
-                        <li><a href="blog-details-left-sidebar.html">Blog Details Left Sidebar</a></li>
-                        <li><a href="blog-details-right-sidebar.html">Blog Details Right Sidebar</a></li>
-                        <li><a href="blog-details.html">Blog Details</a></li>
+                        <li><a href="/blog">Gaming News</a></li>
+                        <li><a href="/blog">Ethiopian Gaming Stories</a></li>
+                        <li><a href="/blog">Tournament Updates</a></li>
                     </ul>
                 </li>
-                <li class="menu-item-has-children"><a href="contact.html">Contact Us</a></li>
+                <li class="menu-item-has-children"><a href="/contact">Contact Us</a></li>
             </ul>
         </div>
     </div>
@@ -121,23 +50,23 @@
     <div class="page_wrapper">
 
         <!--slide banner section start-->
-        <section class="hero_banner_section d-flex align-items-center mb-130" data-bgimg="assets/img/bg/hero-bg1.webp">
+        <section class="hero_banner_section d-flex align-items-center mb-130" data-bgimg="{{ asset('assets/img/bg/hero-bg1.webp') }}">
             <div class="container">
                 <div class="hero_banner_inner">
                     <div class="row align-items-center">
                         <div class="col-12">
                             <div class="hero_content">
-                                <h1 class="wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">Best Game <br>
-                                    Playing Today.</h1>
-                                <p class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">Simply text of the printing and typesetting industry.</p>
-                                <a class="btn btn-link wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1.3s" href="all-game.html">Play Now <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                                <h1 class="wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">Ethiopia's Premier <br>
+                                    Gaming Platform</h1>
+                                <p class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">Join thousands of Ethiopian gamers on SheggerGames, the ultimate destination for gaming, tournaments, and community.</p>
+                                <a class="btn btn-link wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1.3s" href="/games">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>
                 </div>    
             </div>
             <div class="hero_position_img">
-                <img width="926" height="772" src="assets/img/bg/hero-position-img.webp" alt="">
+                <img width="926" height="772" src="{{ asset('assets/img/bg/hero-position-img.webp') }}" alt="Ethiopian gamers playing together">
             </div>
         </section>
         <!--slider area end-->
@@ -146,47 +75,41 @@
         <section class="gaming_world_section mb-140">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
-                    <h2>yOU ARE MOST WELCOME <br>
-                        IN GAMING WORLD.</h2>
+                    <h2>WELCOME TO <br>
+                        SHEGGERGAMES.</h2>
                 </div>
                 <div class="gaming_world_inner">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="single_gaming_world wow fadeInUp" data-bgimg="assets/img/others/gaming-world-bg1.webp" data-wow-delay="0.1s" data-wow-duration="1.1s">
+                            <div class="single_gaming_world wow fadeInUp" data-bgimg="{{ asset('assets/img/others/gaming-world-bg1.webp') }}" data-wow-delay="0.1s" data-wow-duration="1.1s">
                                 <div class="gaming_world_thumb">
-                                    <img width="141" height="157" src="assets/img/others/gaming-world1.webp" alt="">
+                                    <img width="141" height="157" src="{{ asset('assets/img/others/gaming-world1.webp') }}" alt="Ethiopian gamers streaming">
                                 </div>
                                 <div class="gaming_world_text">
-                                    <h3>Live Streaming</h3>
-                                    <p>When unknown printer took
-                                        type and scrambled it to make type
-                                    specimen book centuries,</p>
+                                    <h3>Ethiopian Live Streams</h3>
+                                    <p>Watch your favorite Ethiopian gamers stream the latest games and tournaments on SheggerGames.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="single_gaming_world wow fadeInUp" data-bgimg="assets/img/others/gaming-world-bg2.webp" data-wow-delay="0.2s" data-wow-duration="1.2s">
+                            <div class="single_gaming_world wow fadeInUp" data-bgimg="{{ asset('assets/img/others/gaming-world-bg2.webp') }}" data-wow-delay="0.2s" data-wow-duration="1.2s">
                                 <div class="gaming_world_thumb">
-                                    <img width="156" height="157" src="assets/img/others/gaming-world2.webp" alt="">
+                                    <img width="156" height="157" src="{{ asset('assets/img/others/gaming-world2.webp') }}" alt="Gaming news from Ethiopia">
                                 </div>
                                 <div class="gaming_world_text">
-                                    <h3>Game News</h3>
-                                    <p>When unknown printer took
-                                        type and scrambled it to make type
-                                    specimen book centuries,</p>
+                                    <h3>Gaming News</h3>
+                                    <p>Stay updated with the latest gaming news from Ethiopia and around the world, curated for our community.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="single_gaming_world wow fadeInUp" data-bgimg="assets/img/others/gaming-world-bg3.webp" data-wow-delay="0.3s" data-wow-duration="1.3s">
+                            <div class="single_gaming_world wow fadeInUp" data-bgimg="{{ asset('assets/img/others/gaming-world-bg3.webp') }}" data-wow-delay="0.3s" data-wow-duration="1.3s">
                                 <div class="gaming_world_thumb">
-                                    <img width="151" height="156" src="assets/img/others/gaming-world3.webp" alt="">
+                                    <img width="151" height="156" src="{{ asset('assets/img/others/gaming-world3.webp') }}" alt="Ethiopian gaming tournaments">
                                 </div>
                                 <div class="gaming_world_text">
-                                    <h3>Game Tournaments</h3>
-                                    <p>When unknown printer took
-                                        type and scrambled it to make type
-                                    specimen book centuries,</p>
+                                    <h3>Tournaments</h3>
+                                    <p>Compete in exciting tournaments featuring Ethiopian gamers from across the country and diaspora.</p>
                                 </div>
                             </div>
                         </div>
@@ -214,21 +137,21 @@
                             ]                                                     
                         }'>
                             <div class="gaming_video_thumb">
-                                <img width="1170" height="540" src="assets/img/bg/gaming-bg1.webp" alt="">
+                                <img width="1170" height="540" src="{{ asset('assets/img/bg/gaming-bg1.webp') }}" alt="Ethiopian gamers in action">
                                 <div class="gaming_video_paly_icon">
-                                    <a class="video_popup" href="https://www.youtube.com/watch?v=eS9Qm4AOOBY"><img width="134" height="140" src="assets/img/others/play-btn.webp" alt=""></a>
+                                    <a class="video_popup" href="https://www.youtube.com/watch?v=eS9Qm4AOOBY"><img width="134" height="140" src="{{ asset('assets/img/others/play-btn.webp') }}" alt="Play video"></a>
                                 </div>
                                 <div class="live_streaming_text">
-                                    <h3>Watch Live Streaming</h3>
+                                    <h3>Watch Ethiopian Gamers</h3>
                                 </div>
                             </div>
                             <div class="gaming_video_thumb">
-                                <img width="1170" height="540" src="assets/img/bg/gaming-bg1.webp" alt="">
+                                <img width="1170" height="540" src="{{ asset('assets/img/bg/gaming-bg1.webp') }}" alt="SheggerGames tournament highlights">
                                 <div class="gaming_video_paly_icon">
-                                    <a class="video_popup" href="https://www.youtube.com/watch?v=eS9Qm4AOOBY"><img width="134" height="140" src="assets/img/others/play-btn.webp" alt=""></a>
+                                    <a class="video_popup" href="https://www.youtube.com/watch?v=eS9Qm4AOOBY"><img width="134" height="140" src="{{ asset('assets/img/others/play-btn.webp') }}" alt="Play video"></a>
                                 </div>
                                 <div class="live_streaming_text">
-                                    <h3>Watch Live Streaming</h3>
+                                    <h3>Tournament Highlights</h3>
                                 </div>
                             </div>
                         </div>
@@ -242,9 +165,9 @@
         <section class="upcoming_gaming_section mb-125">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
-                    <h2>Upcoming Match</h2>
-                    <p>When unknown printer took type and scrambled it to make <br>
-                        type specimen book centuries,</p>
+                    <h2>Upcoming Ethiopian Tournaments</h2>
+                    <p>Join the most exciting gaming tournaments happening across Ethiopia <br>
+                        on SheggerGames platform.</p>
                 </div>
                 <div class="upcoming_gaming_inner">
                     <div class="upcoming_gaming_list wow fadeInUp d-flex justify-content-between align-items-center mb-30" data-wow-delay="0.1s" data-wow-duration="1.1s">
@@ -329,26 +252,26 @@
                         <div class="counterup_inner d-flex justify-content-center">
                             <div class="single_counterup one">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color1">8697</h2>
-                                    <span>TWITCH STREAMS</span>
+                                    <h2 class="counterup color1">2450</h2>
+                                    <span>ETHIOPIAN GAMERS</span>
                                 </div>
                             </div>
                             <div class="single_counterup two">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color2">428</h2>
-                                    <span>TOTAL GAMES</span>
+                                    <h2 class="counterup color2">128</h2>
+                                    <span>LOCAL GAMES</span>
                                 </div>
                             </div>
                             <div class="single_counterup three">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color3">5367</h2>
-                                    <span>YOUTUBE STREAMS</span>
+                                    <h2 class="counterup color3">1240</h2>
+                                    <span>TOURNAMENTS HELD</span>
                                 </div>
                             </div>
                             <div class="single_counterup four">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color4">249</h2>
-                                    <span>PRO TEAM</span>
+                                    <h2 class="counterup color4">89</h2>
+                                    <span>ETHIOPIAN TEAMS</span>
                                 </div>
                             </div>
                         </div>
@@ -362,44 +285,62 @@
         <section class="popular_gaming_section mb-140">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
-                    <h2>Popular GAME</h2>
-                    <p>When unknown printer took type and scrambled it to make <br>
-                        type specimen book centuries,</p>
+                    <h2>Popular Ethiopian Games</h2>
+                    <p>Discover the most played games by Ethiopian gamers on SheggerGames <br>
+                        platform.</p>
                 </div>
                 <div class="popular_gaming_inner wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="popular_gaming_thumb">
-                            <a href="#"><img width="570" height="330" src="assets/img/others/popular-game-thumb1.webp" alt=""></a>
-                            <div class="gaming_details_btn">
-                                    <a class="btn btn-link" href="game-details.html">Game Details <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="popular_gaming_thumb">
-                            <a href="#"><img width="570" height="330" src="assets/img/others/popular-game-thumb2.webp" alt=""></a>
-                            <div class="gaming_details_btn">
-                                    <a class="btn btn-link" href="game-details.html">Game Details <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                        @if(isset($popularGames) && count($popularGames) > 0)
+                            @foreach($popularGames as $game)
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="popular_gaming_thumb">
+                                        <a href="{{ $game['external_url'] }}" target="_blank">
+                                            <img width="570" height="330" src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
+                                        </a>
+                                        <div class="gaming_details_btn">
+                                            <a class="btn btn-link" href="{{ $game['external_url'] }}" target="_blank">
+                                                Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> 
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="popular_gaming_thumb">
-                            <a href="#"><img width="570" height="330" src="assets/img/others/popular-game-thumb3.webp" alt=""></a>
+                            @endforeach
+                        @else
+                            <!-- Fallback static content if no dynamic games are available -->
+                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="popular_gaming_thumb">
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb1.webp') }}" alt="Popular Ethiopian game 1"></a>
                                 <div class="gaming_details_btn">
-                                    <a class="btn btn-link" href="game-details.html">Game Details <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                                        <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="popular_gaming_thumb">
-                            <a href="#"><img width="570" height="330" src="assets/img/others/popular-game-thumb4.webp" alt=""></a>
+                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="popular_gaming_thumb">
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb2.webp') }}" alt="Popular Ethiopian game 2"></a>
                                 <div class="gaming_details_btn">
-                                    <a class="btn btn-link" href="game-details.html">Game Details <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                                        <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="popular_gaming_thumb">
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb3.webp') }}" alt="Popular Ethiopian game 3"></a>
+                                    <div class="gaming_details_btn">
+                                        <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="popular_gaming_thumb">
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb4.webp') }}" alt="Popular Ethiopian game 4"></a>
+                                    <div class="gaming_details_btn">
+                                        <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -542,13 +483,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="assets/img/bg/gaming-update.webp">
+                        <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="{{ asset('assets/img/bg/gaming-update.webp') }}">
                             <div class="gaming_update_text">
-                                <h2>Connect with us <br>
-                                    for gamING update.</h2>
+                                <h2>Connect with the <br>
+                                    Ethiopian Gaming Community.</h2>
                             </div>
                             <div class="gaming_update_btn">
-                                <a class="btn btn-link" href="contact.html">CONNECT NOW <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                                <a class="btn btn-link" href="/contact">JOIN NOW <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="logo"><img src="assets/logo.png" width="200" height="200"></div>
+        <div class="loading-text">Loading Game...</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div class="start-screen" id="start-screen">
+        <div class="logo"><img src="assets/logo.png" width="200" height="200"></div>
+        <h1 class="game-title">Math Quiz</h1>
+        <p class="game-description">Test your math skills with 100 addition and subtraction problems</p>
+        <div class="mode-buttons">
+            <button class="mode-button" id="normal-mode">Normal Mode</button>
+            <button class="mode-button" id="timer-mode">Timer Challenge</button>
+        </div>
+    </div>
+
+    <!-- Game Container -->
+    <div class="game-container" id="game-container">
+        <button class="home-button" id="home-button" title="Return to home"><img src="assets/back.png" width="40" height="40"></button>
+        <div class="header">
+            
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="question-number">Question <span id="current-question">1</span>/100</div>
+        </div>
+        
+        <div class="timer-container" id="timer-container"></div>
+        
+        <div class="feedback" id="feedback"></div>
+        
+        <div class="question" id="question"></div>
+        
+        <div class="options" id="options"></div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <!-- Ad Screen -->
+        <div class="ad-screen" id="ad-screen">
+            <div class="ad-content">
+                <h2 class="ad-title">Advertisement</h2>
+                <p class="ad-message"><img src="assets/ads.png"></p>
+                <p class="ad-timer">Closing in <span id="ad-timer">5</span> seconds</p>
+                <button class="close-ad" id="close-ad" disabled>Close Ad</button>
+            </div>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div class="game-over" id="game-over">
+            <h2>Game Over!</h2>
+            <div class="final-score">Your final score: <span id="final-score">0</span></div>
+            <button class="restart" id="restart">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

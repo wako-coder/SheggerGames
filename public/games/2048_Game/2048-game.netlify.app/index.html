@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>2048 | Puzzle Game 2020 | Play</title>
+    <script src="./js/serviceLoader.js"></script>
+    <meta name="description" content="2048 is a puzzle game in which you have to slide the number boxes to make 2048 number. The game can be played without installing but this addictive puzzle game can be installed on phones as well.">
+    <meta name="keywords" content="play2048.co, 2048 cupcakes, 2048 8x8, 2048 hacked, 2048 online, 2048 pokemon, 2048 dear jane, 2048 extension, 2048 ai, 2048 flappy, play 2048, puzzle games, 2048 god mode, puzzle games for kids, puzzle games for adults, puzzle game 2020, 2020">
+    <meta name="robot" content="index, follow" />
+    <meta name="subject" content="2048 online | Puzzle Game">
+    <meta name="author" content="Abhishek Kumar">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="rating" content="General">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="target" content="all">
+    <meta name="apple-mobile-web-app-title" content="2048 | Puzzle Game">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="application-name" content="2048 | Play puzzle game ">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content=" 2048 | puzzle game">
+    <meta name="twitter:description" content="2048 is a puzzle game where you have slide the number blocks to make 2048 number. An extreemly addictive game.">
+    <meta name="twitter:image" content="img/screenshot.png">
+    <meta property="og:title" content="2048 | puzzle game">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://2048-game.netlify.com">
+    <meta property="og:image" content="img/screenshot.png">
+    <link href="style/main.css" rel="stylesheet" type="text/css">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+    <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1 class="title">2048</h1>
+            <div class="scores-container">
+                <div class="score-container">0</div>
+                <div class="best-container">0</div>
+            </div>
+        </div>
+        <div class="above-game">
+            <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p><a class="restart-button">New Game</a></div>
+        <div class="game-container">
+            <div class="game-message">
+                <p></p>
+                <div class="lower"> <a class="keep-playing-button">Keep going</a> <a class="retry-button">Try again</a></div>
+            </div>
+            <div class="grid-container">
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+            </div>
+            <div class="tile-container"></div>
+        </div>
+        <p class="game-explanation"> <strong class="important">How to play:</strong> In order to play this game use your <strong>arrow keys</strong> to move the tiles and when two tiles with the same number touch, they <strong>merge into one!</strong>. The merged tile will have the added number of the two previous tiles.</p>
+    </div>
+    <script src="js/bind_polyfill.js"></script>
+    <script src="js/classlist_polyfill.js"></script>
+    <script src="js/animframe_polyfill.js"></script>
+    <script src="js/keyboard_input_manager.js"></script>
+    <script src="js/html_actuator.js"></script>
+    <script src="js/grid.js"></script>
+    <script src="js/tile.js"></script>
+    <script src="js/local_storage_manager.js"></script>
+    <script src="js/game_manager.js"></script>
+    <script src="js/application.js"></script>
+</body>
+
+</html>

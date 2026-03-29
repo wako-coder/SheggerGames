@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chicken Road Cross Casino 🐔</title>
+
+    <!-- --- SECURITY SCRIPT (UPDATED: BLANK & RELOAD) --- -->
+    <script>
+        // 1. Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. Disable Keyboard Shortcuts
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; } // F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U
+        }
+
+        // 3. Aggressive DevTools Detection (Dimension Check)
+        // Ye check karega agar window ka size achanak change hua (matlab inspect window khuli)
+        function checkDevTools() {
+            const widthThreshold = window.outerWidth - window.innerWidth > 160;
+            const heightThreshold = window.outerHeight - window.innerHeight > 160;
+            
+            // Agar DevTools detect hua:
+            if ((widthThreshold || heightThreshold) && (window.outerWidth > 600)) {
+                 nukePage(); // Sab gayab kar do
+            }
+        }
+
+        // 4. Function to Clear Page & Reload
+        function nukePage() {
+            try {
+                // Poora HTML content uda do
+                document.documentElement.innerHTML = ''; 
+                document.body.innerHTML = '';
+                
+                // Turant Reload (Force get from server)
+                window.location.reload(true);
+                
+                // Agar reload mein time lage, to 'about:blank' pe bhej do
+                window.location.href = "about:blank";
+            } catch(e) {
+                // Fallback
+                window.location.reload();
+            }
+        }
+
+        // Is check ko har 500ms (aadhe second) mein run karo
+        setInterval(checkDevTools, 500);
+        
+        // Window resize hone par bhi check karo
+        window.addEventListener('resize', checkDevTools);
+    </script>
+
+    <!-- --- GOOGLE ADSENSE SCRIPT --- -->
+    <!-- Replace 'YOUR_PUBLISHER_ID' with your actual ID (e.g., ca-pub-1234567890) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
+     <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --accent-color: #FFD700; /* Gold */
+            --danger-color: #FF4757;
+            --success-color: #2ED573;
+            --ui-bg: rgba(30, 30, 30, 0.95);
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --btn-shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        * { box-sizing: border-box; touch-action: none; user-select: none; -webkit-user-select: none; }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            overflow: hidden; /* Prevent scroll on mobile */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- SPLASH SCREEN --- */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .splash-content { text-align: center; animation: zoomIn 0.5s ease-out; }
+        .splash-logo { font-size: 5rem; margin-bottom: 20px; animation: bounce 2s infinite; }
+        .splash-title { font-family: 'Segoe UI Black', Impact, sans-serif; font-size: 2.5rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin: 0; line-height: 1; }
+        .splash-subtitle { color: var(--accent-color); font-size: 1.5rem; margin-bottom: 40px; font-weight: bold; }
+        .loading-container { width: 200px; height: 6px; background: #333; border-radius: 3px; margin: 0 auto; overflow: hidden; position: relative; }
+        .loading-bar-fill { width: 0%; height: 100%; background: var(--success-color); box-shadow: 0 0 10px var(--success-color); animation: loadProgress 2s ease-in-out forwards; }
+
+        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: linear-gradient(180deg, #1e1e1e, #000000);
+            border-bottom: 2px solid #333;
+            height: 60px;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            flex-wrap: nowrap;
+        }
+
+        .logo { font-size: 1.2rem; font-weight: 900; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 0 #000; white-space: nowrap; margin-right: 10px; }
+        .balance-group { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+        .balance-display { font-size: 1.2rem; font-weight: 800; color: var(--success-color); text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+        
+        .btn-free-money {
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white; border: none; padding: 6px 14px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 3px 0 #1a5276; transition: transform 0.1s; white-space: nowrap;
+        }
+        .btn-free-money:active { transform: translateY(3px); box-shadow: 0 0 0 #1a5276; }
+
+        .header-icons { display: flex; align-items: center; flex-shrink: 0; }
+        .header-icons button { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #aaa; margin-left: 10px; transition: color 0.2s; padding: 0; display: flex; }
+        .header-icons button:hover { color: #fff; }
+
+        /* MAIN GAME AREA */
+        #game-container { flex: 1; position: relative; background: #2c3e50; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        canvas { box-shadow: 0 0 30px rgba(0,0,0,0.6); max-width: 100%; max-height: 100%; }
+
+        /* UI OVERLAYS */
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 20; transition: opacity 0.3s; }
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        .panel {
+            background: var(--ui-bg); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center; max-width: 90%; width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); transform: scale(1); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        h2 { margin-top: 0; color: var(--accent-color); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        p { margin: 15px 0; line-height: 1.6; color: #ddd; }
+
+        /* --- GOOGLE AD SLOT CONTAINER --- */
+        #google-ad-slot {
+            width: 300px; 
+            height: 250px; 
+            background: #fff; /* White bg for visibility if ad fails */
+            margin: 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-size: 0.8rem;
+            border: 2px dashed #555;
+        }
+
+        /* --- CUSTOM MODAL STYLES --- */
+        #custom-modal { z-index: 2000; }
+        .modal-icon { font-size: 3rem; margin-bottom: 10px; display: block; }
+        .modal-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 25px; width: 100%; }
+        .modal-buttons button { flex: 1; margin-top: 0; }
+
+        /* CONTROLS AREA */
+        #controls-area { height: 200px; background: linear-gradient(180deg, #222, #111); display: flex; flex-direction: column; padding: 15px; border-top: 1px solid #333; z-index: 30; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); position: relative; }
+        .bet-row { display: flex; justify-content: center; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }
+        .game-controls { display: flex; justify-content: space-between; align-items: center; flex: 1; padding: 0 10px; width: 100%; }
+        .cashout-container { flex: 1; padding: 0 20px; }
+
+        /* 3D BUTTONS */
+        .btn-3d { border: none; border-radius: 12px; cursor: pointer; font-weight: 800; font-family: var(--font-family); transition: all 0.1s; position: relative; top: 0; text-transform: uppercase; letter-spacing: 0.5px; outline: none; -webkit-tap-highlight-color: transparent; }
+        .btn-3d:active { top: 4px; }
+
+        .btn-bet { background: #3a3a3a; color: #ccc; padding: 10px 16px; box-shadow: 0 4px 0 #222; }
+        .btn-bet:active { box-shadow: 0 0 0 #222; }
+        .btn-bet.active { background: var(--accent-color); color: #000; box-shadow: 0 4px 0 #b39700; }
+        .btn-bet.active:active { box-shadow: 0 0 0 #b39700; }
+        
+        .btn-primary { background: var(--success-color); color: #fff; padding: 14px 24px; font-size: 1.1rem; width: 100%; margin-top: 15px; box-shadow: 0 5px 0 #1e8e4c; }
+        .btn-primary:active { box-shadow: 0 0 0 #1e8e4c; }
+
+        .btn-danger { background: var(--danger-color); color: #fff; padding: 12px 20px; width: 100%; margin-top: 8px; box-shadow: 0 4px 0 #c0392b; }
+        .btn-danger:active { box-shadow: 0 0 0 #c0392b; }
+
+        .btn-secondary { background: #3498db; color: #fff; padding: 12px 20px; margin-top: 12px; width: 100%; box-shadow: 0 4px 0 #2980b9; }
+        .btn-secondary:active { box-shadow: 0 0 0 #2980b9; }
+        
+        .cashout-btn { background: linear-gradient(to bottom, #FFD700, #FFA500); color: #000; padding: 5px; font-size: 1.3rem; width: 100%; height: 80px; border-radius: 15px; box-shadow: 0 6px 0 #b87802, 0 10px 10px rgba(0,0,0,0.3); text-shadow: 0 1px 0 rgba(255,255,255,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1.2; }
+        .cashout-btn:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0 0 #b87802; }
+        .cashout-btn:disabled { background: #444; color: #888; box-shadow: 0 6px 0 #222; cursor: not-allowed; transform: none; }
+
+        input[type="number"] { padding: 10px; border-radius: 8px; border: 2px solid #444; background: #222; color: #fff; width: 70px; text-align: center; font-weight: bold; font-size: 1rem; }
+
+        .d-pad { display: flex; gap: 18px; }
+        .d-btn { width: 65px; height: 65px; background: linear-gradient(to bottom, #555, #444); color: #fff; font-size: 1.8rem; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: none; box-shadow: 0 6px 0 #222, 0 5px 5px rgba(0,0,0,0.3); cursor: pointer; transition: all 0.1s; }
+        .d-btn:active { transform: translateY(6px); box-shadow: 0 0 0 #222; }
+        
+        .jump-btn { width: 85px; height: 85px; background: radial-gradient(circle at 30% 30%, #2ecc71, #27ae60); border-radius: 50%; font-size: 2.5rem; color: #fff; border: 4px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 0 #1e8449, 0 10px 10px rgba(0,0,0,0.3); cursor: pointer; transition: all 0.1s; }
+        .jump-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #1e8449; }
+
+        /* AD SIMULATION */
+        #ad-progress-bar { width: 100%; height: 12px; background: #333; margin: 10px 0; border-radius: 10px; overflow: hidden; border: 1px solid #444; }
+        #ad-progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #f1c40f, #e67e22); transition: width 0.1s linear; }
+
+        /* HUD */
+        #hud { position: absolute; top: 20px; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+        .hud-multiplier { font-size: 3.5rem; font-weight: 900; color: #fff; text-shadow: 0 4px 0 #000, 0 0 20px rgba(255, 215, 0, 0.5); font-family: 'Segoe UI Black', Impact, sans-serif; margin-bottom: 10px; }
+        .hud-msg { font-size: 1.1rem; color: #fff; opacity: 0; font-weight: 800; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); padding: 8px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 1px; transform: translateY(10px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .hud-msg.show { opacity: 1; transform: translateY(0); }
+
+        /* THEMES */
+        .theme-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 15px 0; }
+        .theme-item { width: 40px; height: 40px; border-radius: 10px; border: 2px solid #555; cursor: pointer; position: relative; transition: transform 0.2s; box-shadow: 0 4px 0 rgba(0,0,0,0.3); }
+        .theme-item:hover { transform: translateY(-2px); }
+        .theme-item.locked::after { content: '🔒'; font-size: 14px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 1px 2px #000; }
+        .theme-item.active { border-color: #fff; transform: scale(1.1); box-shadow: 0 0 15px var(--accent-color); z-index: 2; }
+
+        .disclaimer { font-size: 0.75rem; color: #666; margin-top: 15px; font-style: italic; }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 600px) {
+            header { padding: 5px 10px; }
+            .logo { font-size: 0.9rem; margin-right: 5px; }
+            .balance-group { gap: 8px; }
+            .balance-display { font-size: 0.9rem; }
+            .btn-free-money { padding: 4px 8px; font-size: 0.7rem; }
+            .header-icons button { font-size: 1.2rem; margin-left: 5px; }
+            #controls-area { height: auto; min-height: 180px; padding: 10px 5px; }
+            .bet-row { gap: 6px; margin-bottom: 10px; }
+            .btn-3d { font-size: 0.8rem; padding: 8px 10px; }
+            .game-controls { padding: 0; }
+            .d-pad { gap: 8px; }
+            .d-btn { width: 50px; height: 50px; font-size: 1.4rem; box-shadow: 0 4px 0 #222, 0 3px 3px rgba(0,0,0,0.3); }
+            .d-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #222; }
+            .jump-btn { width: 70px; height: 70px; font-size: 2rem; box-shadow: 0 6px 0 #1e8449, 0 6px 6px rgba(0,0,0,0.3); }
+            .jump-btn:active { transform: translateY(6px); box-shadow: 0 0 0 #1e8449; }
+            .cashout-container { padding: 0 8px; }
+            .cashout-btn { height: 65px; }
+            .cashout-btn span:first-child { font-size: 0.75rem; }
+            #cashout-val { font-size: 1.1rem !important; }
+        }
+        
+    </style>
+   
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash-screen">
+    <div class="splash-content">
+        <div class="splash-logo"><img src="assets/chicken.png" width="100" height="140" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSI1MCUiIHg9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI4MCI+8J+QlDwvdGV4dD48L3N2Zz4='"></div>
+        <h1 class="splash-title">Chicken Cross</h1>
+        <div class="splash-subtitle">GAME</div>
+        <div class="loading-container">
+            <div class="loading-bar-fill"></div>
+        </div>
+        <p style="color:#666; font-size:0.8rem; margin-top:10px;">Loading Game...</p>
+    </div>
+</div>
+
+<!-- CUSTOM MODAL -->
+<div id="custom-modal" class="overlay hidden">
+    <div class="panel" style="min-width:320px; border-color:var(--accent-color);">
+        <span id="modal-icon" class="modal-icon">⚠️</span>
+        <h2 id="modal-title" style="margin-bottom:10px; color:#fff;">NOTICE</h2>
+        <p id="modal-msg" style="font-size:1.1rem; color:#ccc;">Message goes here</p>
+        
+        <div class="modal-buttons">
+            <button id="btn-modal-cancel" class="btn-3d btn-danger hidden" onclick="UI.closeModal()">CANCEL</button>
+            <button id="btn-modal-ok" class="btn-3d btn-primary" onclick="UI.confirmModal()">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Chicken Cross 🐔</div>
+    <div class="balance-group">
+        <div class="balance-display">₹<span id="ui-balance">0</span></div>
+        <button class="btn-free-money" onclick="Ads.watchAd('money')">📺 +₹100</button>
+    </div>
+    <div class="header-icons">
+        <button onclick="Game.toggleLeaderboard()" aria-label="Leaderboard">🏆</button>
+        <button onclick="Game.toggleSettings()" aria-label="Settings">⚙️</button>
+    </div>
+</header>
+
+<!-- GAME AREA -->
+<div id="game-container">
+    <canvas id="gameCanvas"></canvas>
+    <div id="hud">
+        <div class="hud-multiplier" id="hud-mult">1.00x</div>
+        <div class="hud-msg" id="hud-msg">Nice!</div>
+    </div>
+    <div id="start-overlay" class="overlay">
+        <div class="panel">
+            <h1>Chicken Road Cross</h1>
+            <p>Bet & Cross the road!</p>
+            <p style="color:var(--accent-color)">Win starts at 1.20x multiplier!</p>
+            <button class="btn-3d btn-primary" onclick="Game.startGame()">START ROUND</button>
+            <div class="disclaimer">Simulation only. No real money used.</div>
+        </div>
+    </div>
+    <div id="crash-overlay" class="overlay hidden">
+        <div class="panel">
+            <h1 style="color:var(--danger-color)">CRASHED! 💥</h1>
+            <p>Multiplier reached: <span id="crash-mult" style="font-weight:bold; color:var(--accent-color)">1.2x</span></p>
+            <p>Lost Bet: ₹<span id="crash-loss">0</span></p>
+            <p style="font-size:0.9rem; color:#aaa; margin-top:20px;">Short on cash?</p>
+            <button class="btn-3d btn-secondary" onclick="Ads.watchAd('money')">📺 Watch Ad (+₹100)</button>
+            <button class="btn-3d btn-danger" onclick="Game.resetGame()">Try Again</button>
+        </div>
+    </div>
+    <div id="win-overlay" class="overlay hidden">
+        <div class="panel">
+            <h1 style="color:var(--success-color)">CASHOUT! 💰</h1>
+            <p>Won: ₹<span id="win-amount">0</span></p>
+            <p>Multiplier: <span id="win-mult">2.5x</span></p>
+            <button class="btn-3d btn-primary" onclick="Game.resetGame()">New Round</button>
+        </div>
+    </div>
+    
+    <!-- AD SIMULATION OVERLAY (UPDATED FOR ADSENSE) -->
+    <div id="ad-overlay" class="overlay hidden">
+        <div class="panel">
+            <h2>ADVERTISEMENT</h2>
+            
+            <!-- GOOGLE AD SLOT -->
+            <div id="google-ad-slot">
+                <!-- PASTE YOUR GOOGLE ADSENSE <ins> CODE HERE -->
+                <p>Google Ad Placeholder<br>(Paste code in HTML)</p>
+                <!-- Example:
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:250px"
+                     data-ad-client="ca-pub-XXXXXX"
+                     data-ad-slot="XXXXXX"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> 
+                -->
+            </div>
+
+            <p>Reward in...</p>
+            <div id="ad-progress-bar"><div id="ad-progress-fill"></div></div>
+            <p id="ad-timer">5s</p>
+        </div>
+    </div>
+    
+    <div id="settings-overlay" class="overlay hidden">
+        <div class="panel">
+            <h2>Settings</h2>
+            <p>Themes (Watch Ad to Unlock)</p>
+            <div class="theme-grid" id="theme-container"></div>
+            <button class="btn-3d btn-secondary" onclick="Ads.watchAd('theme')">📺 Unlock Random Theme</button>
+            <hr style="border-color:#444; margin: 20px 0;">
+            <button class="btn-3d btn-primary" onclick="Game.toggleSettings()">Close</button>
+            <button class="btn-3d btn-danger" style="margin-top:10px; font-size:0.8rem; padding: 8px;" onclick="Game.resetData()">Reset Data</button>
+        </div>
+    </div>
+    <div id="leaderboard-overlay" class="overlay hidden">
+        <div class="panel">
+            <h2>🏆 Leaderboard</h2>
+            <ul id="leaderboard-list" style="text-align:left; list-style:none; padding:0; height: 200px; overflow-y:auto; font-size:0.9rem;"></ul>
+            <button class="btn-3d btn-primary" onclick="Game.toggleLeaderboard()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- CONTROLS -->
+<div id="controls-area">
+    <div id="bet-ui" class="bet-row">
+        <button class="btn-3d btn-bet" onclick="Game.setBet(10)">₹10</button>
+        <button class="btn-3d btn-bet" onclick="Game.setBet(20)">₹20</button>
+        <button class="btn-3d btn-bet" onclick="Game.setBet(50)">₹50</button>
+        <button class="btn-3d btn-bet" onclick="Game.setBet(100)">₹100</button>
+        <input type="number" id="custom-bet" value="10" min="1" onchange="Game.setBet(this.value)">
+    </div>
+    <div class="game-controls">
+        <div class="d-pad">
+            <button class="d-btn" id="btn-left" onpointerdown="Input.action('left')">⬅️</button>
+            <button class="d-btn" id="btn-right" onpointerdown="Input.action('right')">➡️</button>
+        </div>
+        <div class="cashout-container">
+            <button id="btn-cashout" class="btn-3d cashout-btn" onclick="Game.cashOut()" disabled>
+                <span style="font-size:0.9rem; opacity:0.8; margin-bottom:2px">CASH OUT</span>
+                <span id="cashout-val" style="font-weight:900; font-size:1.4rem">LOCKED</span>
+            </button>
+        </div>
+        <div class="d-pad">
+            <button class="jump-btn" id="btn-jump" onpointerdown="Input.action('up')">🐔</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const IMAGES = { chicken: 'assets/chicken.png', car: 'assets/car1.png', truck: 'assets/car2.png' };
+    const loadedImages = {};
+    // Load with error handling to fallback to emojis
+    ['chicken', 'car', 'truck'].forEach(key => {
+        const img = new Image(); 
+        img.src = IMAGES[key]; 
+        img.onload = () => loadedImages[key] = img;
+        // If image fails (404), we just don't set loadedImages, and the draw loop handles it by showing emojis.
+        img.onerror = () => console.log('Asset not found, using emoji fallback');
+    });
+
+    const CONSTANTS = { LANE_HEIGHT: 60, PLAYER_SIZE: 40, CAR_HEIGHT: 35, START_BALANCE: 500, STORAGE_KEY: 'crc_data_v3', SALT: 'chicken_salt_2025' };
+    const THEMES = [
+        { id: 0, name: "Night City", bg: "#2c3e50", road: "#34495e", lane: "#2c3e50", text: "#fff" },
+        { id: 1, name: "Sunset", bg: "#2d1b2e", road: "#b65d36", lane: "#cc7a50", text: "#fce" },
+        { id: 2, name: "Matrix", bg: "#000000", road: "#003300", lane: "#001100", text: "#0f0" },
+        { id: 3, name: "Desert", bg: "#e67e22", road: "#d35400", lane: "#f39c12", text: "#fff" },
+        { id: 4, name: "Ice", bg: "#dff9fb", road: "#c7ecee", lane: "#95afc0", text: "#333" },
+        { id: 5, name: "Candy", bg: "#ff9ff3", road: "#feca57", lane: "#ff9ff3", text: "#fff" },
+        { id: 6, name: "Neon", bg: "#000", road: "#111", lane: "#222", text: "#f0f" },
+        { id: 7, name: "Forest", bg: "#2ecc71", road: "#27ae60", lane: "#16a085", text: "#fff" },
+        { id: 8, name: "Ocean", bg: "#3498db", road: "#2980b9", lane: "#3498db", text: "#fff" },
+        { id: 9, name: "Retro", bg: "#bdc3c7", road: "#7f8c8d", lane: "#95a5a6", text: "#000" }
+    ];
+
+    const Storage = {
+        data: { balance: CONSTANTS.START_BALANCE, unlockedThemes: [0], currentTheme: 0, leaderboard: [], hash: '' },
+        init() {
+            const stored = localStorage.getItem(CONSTANTS.STORAGE_KEY);
+            if (stored) {
+                try {
+                    const parsed = JSON.parse(stored);
+                    const check = btoa(parsed.balance + CONSTANTS.SALT);
+                    if (check === parsed.hash) this.data = parsed;
+                    else { console.warn("Tampering detected."); this.save(); }
+                } catch (e) { console.error("Save error", e); }
+            } else this.save();
+        },
+        save() {
+            this.data.hash = btoa(this.data.balance + CONSTANTS.SALT);
+            localStorage.setItem(CONSTANTS.STORAGE_KEY, JSON.stringify(this.data));
+            UI.updateBalance(this.data.balance);
+        },
+        updateBalance(amount) { this.data.balance += amount; this.save(); },
+        addHistory(entry) { this.data.leaderboard.unshift(entry); this.data.leaderboard = this.data.leaderboard.slice(0, 10); this.save(); },
+        unlockTheme(id) { if (!this.data.unlockedThemes.includes(id)) { this.data.unlockedThemes.push(id); this.save(); return true; } return false; }
+    };
+
+    const Game = {
+        canvas: null, ctx: null, state: 'START', width: 0, height: 0,
+        player: { x: 0, y: 0, lane: 0, maxLane: 0, targetY: 0, isDead: false },
+        cars: [], lanes: [], particles: [],
+        bet: 10, multiplier: 1.0, difficulty: 1.0, scrollOffset: 0, lastTime: 0,
+        
+        init() {
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.opacity = '0';
+                setTimeout(() => { document.getElementById('splash-screen').style.display = 'none'; }, 500);
+            }, 2200);
+
+            this.canvas = document.getElementById('gameCanvas');
+            this.ctx = this.canvas.getContext('2d');
+            window.addEventListener('resize', () => this.resize());
+            window.addEventListener('keydown', (e) => Input.handleKey(e));
+            Storage.init(); UI.init(); this.resize();
+            requestAnimationFrame((t) => this.loop(t));
+        },
+
+        resize() {
+            const container = document.getElementById('game-container');
+            this.width = container.clientWidth; this.height = container.clientHeight;
+            const dpr = window.devicePixelRatio || 1;
+            this.canvas.width = this.width * dpr; this.canvas.height = this.height * dpr;
+            this.ctx.scale(dpr, dpr); this.ctx.font = "bold 30px Arial";
+        },
+
+        setBet(val) {
+            if (this.state !== 'START') return;
+            let v = parseInt(val); if (isNaN(v) || v < 1) v = 1; this.bet = v;
+            document.querySelectorAll('.btn-bet').forEach(b => {
+                b.classList.remove('active'); if(b.textContent.includes(v)) b.classList.add('active');
+            });
+            document.getElementById('custom-bet').value = v;
+        },
+
+        startGame() {
+            if (this.bet > Storage.data.balance) { 
+                UI.showAlert("Not enough balance! Watch an Ad."); 
+                return; 
+            }
+            if (this.bet <= 0) return;
+            Storage.updateBalance(-this.bet);
+            this.resetEntities();
+            this.state = 'PLAYING'; this.multiplier = 1.0; this.difficulty = 1.0;
+            UI.toggleOverlay('start-overlay', false); UI.setGameControls(true); UI.updateHUD(1.0); playSound('ui');
+        },
+
+        resetEntities() {
+            this.player = { x: this.width / 2, y: this.height - 100, lane: 0, maxLane: 0, targetX: this.width / 2, targetY: this.height - 100, isDead: false };
+            this.scrollOffset = 0; this.cars = []; this.particles = []; this.lanes = [];
+            for (let i = 0; i < 20; i++) this.addLane(i);
+        },
+
+        addLane(index) {
+            const isSafe = index < 2; 
+            this.lanes.push({
+                y: -index * CONSTANTS.LANE_HEIGHT, isSafe: isSafe,
+                direction: Math.random() > 0.5 ? 1 : -1,
+                speed: isSafe ? 0 : (Math.random() * 2 + 1.5) + (this.difficulty * 0.5),
+                color: isSafe ? THEMES[Storage.data.currentTheme].bg : THEMES[Storage.data.currentTheme].road
+            });
+        },
+
+        loop(timestamp) {
+            const dt = (timestamp - this.lastTime) / 1000; this.lastTime = timestamp;
+            if (this.state === 'PLAYING') this.update(dt);
+            this.draw();
+            requestAnimationFrame((t) => this.loop(t));
+        },
+
+        update(dt) {
+            this.difficulty += dt * 0.02;
+            const visibleLanesStart = this.player.lane - 2; const visibleLanesEnd = this.player.lane + 10;
+
+            for (let i = Math.max(2, visibleLanesStart); i < visibleLanesEnd; i++) {
+                if (i >= this.lanes.length) this.addLane(i);
+                const lane = this.lanes[i];
+                if (!lane.isSafe) {
+                    const carsInLane = this.cars.filter(c => c.laneIndex === i);
+                    let canSpawn = true;
+                    for(let c of carsInLane) {
+                        if (lane.direction === 1 && c.x < 150) canSpawn = false;
+                        if (lane.direction === -1 && c.x > this.width - 150) canSpawn = false;
+                    }
+                    if (canSpawn && Math.random() < 0.025 * this.difficulty) {
+                        const isTruck = Math.random() > 0.7;
+                        this.cars.push({
+                            x: lane.direction === 1 ? -60 : this.width + 60,
+                            laneIndex: i,
+                            speed: lane.speed * (1 + (Math.random() * 0.3)),
+                            width: isTruck ? 90 : 70,
+                            type: isTruck ? 'truck' : 'car'
+                        });
+                    }
+                }
+            }
+
+            this.cars.forEach(car => { const lane = this.lanes[car.laneIndex]; car.x += lane.direction * car.speed * (60 * dt) * 2; });
+            this.cars = this.cars.filter(c => c.x > -100 && c.x < this.width + 100);
+            this.player.x += (this.player.targetX - this.player.x) * 12 * dt;
+            this.player.y += (this.player.targetY - this.player.y) * 12 * dt;
+            const desiredCamY = this.player.lane * CONSTANTS.LANE_HEIGHT;
+            this.scrollOffset += (desiredCamY - this.scrollOffset) * 5 * dt;
+
+            // Collision
+            const pBox = { x: this.player.x - CONSTANTS.PLAYER_SIZE/2 + 12, y: this.player.y - CONSTANTS.PLAYER_SIZE/2 + 12, w: CONSTANTS.PLAYER_SIZE - 24, h: CONSTANTS.PLAYER_SIZE - 24 };
+            const getLaneY = (idx) => this.height - 100 - (idx * CONSTANTS.LANE_HEIGHT) + this.scrollOffset;
+
+            for (let car of this.cars) {
+                const laneScreenY = getLaneY(car.laneIndex);
+                if (Math.abs(laneScreenY - this.player.y) < 30) {
+                    const cBox = { x: car.x, y: laneScreenY - CONSTANTS.CAR_HEIGHT/2, w: car.width, h: CONSTANTS.CAR_HEIGHT };
+                    if (pBox.x < cBox.x + cBox.w && pBox.x + pBox.w > cBox.x && pBox.y < cBox.y + cBox.h && pBox.y + pBox.h > cBox.y) {
+                        this.handleCrash(); break;
+                    }
+                }
+            }
+        },
+
+        draw() {
+            this.ctx.fillStyle = THEMES[Storage.data.currentTheme].bg;
+            this.ctx.fillRect(0, 0, this.width, this.height);
+
+            this.lanes.forEach((lane, i) => {
+                const screenY = this.height - 100 - (i * CONSTANTS.LANE_HEIGHT) + this.scrollOffset;
+                if (screenY > this.height + 100 || screenY < -100) return;
+                this.ctx.fillStyle = lane.color;
+                this.ctx.fillRect(0, screenY - CONSTANTS.LANE_HEIGHT/2, this.width, CONSTANTS.LANE_HEIGHT - 2);
+                if (!lane.isSafe) {
+                    this.ctx.fillStyle = "rgba(255,255,255,0.2)";
+                    this.ctx.fillRect(0, screenY - 2, this.width, 4);
+                    if (i >= 2) {
+                        const visualMult = (1 + (i > 1 ? (i - 1) * 0.15 + Math.pow(i-1, 1.1)*0.05 : 0)).toFixed(2);
+                        this.ctx.fillStyle = "rgba(255,255,255,0.1)"; this.ctx.font = "12px Arial"; this.ctx.textAlign = "center";
+                        this.ctx.fillText(visualMult + "x", this.width / 2, screenY + 20);
+                    }
+                }
+            });
+
+            this.ctx.textAlign = "left"; this.ctx.textBaseline = "middle";
+            this.cars.forEach(car => {
+                const screenY = this.height - 100 - (car.laneIndex * CONSTANTS.LANE_HEIGHT) + this.scrollOffset;
+                if (screenY > this.height + 100 || screenY < -100) return;
+                const img = loadedImages[car.type]; 
+                this.ctx.save();
+                this.ctx.translate(car.x + car.width/2, screenY);
+                if (this.lanes[car.laneIndex].direction === -1) this.ctx.scale(-1, 1);
+                if (img) { this.ctx.drawImage(img, -car.width/2, -CONSTANTS.CAR_HEIGHT/2 - 10, car.width, CONSTANTS.CAR_HEIGHT + 20); } 
+                else { this.ctx.font = "30px Arial"; this.ctx.fillText(car.type === 'truck' ? '🚚' : '🚗', -15, 2); }
+                this.ctx.restore();
+            });
+
+            if (!this.player.isDead) {
+                this.ctx.save();
+                this.ctx.translate(this.player.x, this.player.y);
+                const bounce = Math.abs(Math.sin(Date.now() / 100)) * 5;
+                this.ctx.translate(0, -bounce);
+                this.ctx.fillStyle = "rgba(0,0,0,0.4)";
+                this.ctx.beginPath();
+                this.ctx.ellipse(0, 15 + bounce, 15, 5, 0, 0, Math.PI*2);
+                this.ctx.fill();
+                if (loadedImages.chicken) { this.ctx.drawImage(loadedImages.chicken, -25, -25, 50, 60); } 
+                else { this.ctx.font = "35px Arial"; this.ctx.textAlign = "center"; this.ctx.textBaseline = "middle"; this.ctx.fillText("🐔", 0, 0); }
+                this.ctx.restore();
+            } else {
+                this.particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.alpha -= 0.02;
+                    this.ctx.globalAlpha = p.alpha; this.ctx.fillStyle = p.color;
+                    this.ctx.fillRect(p.x, p.y, p.size, p.size);
+                    this.ctx.globalAlpha = 1.0;
+                });
+            }
+        },
+
+        handleCrash() {
+            this.state = 'CRASHED'; this.player.isDead = true; playSound('crash');
+            for(let i=0; i<30; i++) {
+                this.particles.push({ x: this.player.x, y: this.player.y, vx: (Math.random() - 0.5) * 15, vy: (Math.random() - 0.5) * 15, color: Math.random() > 0.5 ? '#fff' : '#e74c3c', size: Math.random() * 6 + 2, alpha: 1.0 });
+            }
+            setTimeout(() => {
+                document.getElementById('crash-mult').innerText = this.multiplier.toFixed(2) + 'x';
+                document.getElementById('crash-loss').innerText = this.bet;
+                UI.setGameControls(false); UI.toggleOverlay('crash-overlay', true);
+                Storage.addHistory({ result: 'LOSS', amount: this.bet, mult: this.multiplier, date: new Date().toLocaleTimeString() });
+            }, 800);
+        },
+
+        cashOut() {
+            if (this.state !== 'PLAYING') return;
+            if (this.multiplier < 1.20) return;
+            this.state = 'WIN'; playSound('cashout');
+            const winAmount = Math.floor(this.bet * this.multiplier);
+            Storage.updateBalance(winAmount);
+            document.getElementById('win-amount').innerText = winAmount;
+            document.getElementById('win-mult').innerText = this.multiplier.toFixed(2) + 'x';
+            UI.setGameControls(false); UI.toggleOverlay('win-overlay', true);
+            Storage.addHistory({ result: 'WIN', amount: winAmount, mult: this.multiplier, date: new Date().toLocaleTimeString() });
+            for(let i=0; i<60; i++) {
+                this.particles.push({ x: this.width/2, y: this.height/2, vx: (Math.random() - 0.5) * 25, vy: (Math.random() - 0.5) * 25, color: CONSTANTS.ACCENT_COLOR, size: 6, alpha: 1 });
+            }
+        },
+
+        resetGame() {
+            this.state = 'START';
+            UI.toggleOverlay('crash-overlay', false); UI.toggleOverlay('win-overlay', false); UI.toggleOverlay('start-overlay', true);
+        },
+        
+        resetData() {
+            UI.showConfirm("Are you sure you want to clear all data and progress?", () => {
+                localStorage.removeItem(CONSTANTS.STORAGE_KEY);
+                location.reload();
+            });
+        },
+        
+        downloadScreenshot() { const link = document.createElement('a'); link.download = `ChickenWin_${Date.now()}.png`; link.href = this.canvas.toDataURL(); link.click(); },
+        toggleSettings() {
+            const el = document.getElementById('settings-overlay');
+            if(el.classList.contains('hidden')) { UI.renderThemes(); UI.toggleOverlay('settings-overlay', true); }
+            else UI.toggleOverlay('settings-overlay', false);
+        },
+        toggleLeaderboard() {
+            const el = document.getElementById('leaderboard-overlay');
+            if(el.classList.contains('hidden')) { UI.renderLeaderboard(); UI.toggleOverlay('leaderboard-overlay', true); }
+            else UI.toggleOverlay('leaderboard-overlay', false);
+        }
+    };
+
+    const Input = {
+        handleKey(e) {
+            // Prevent scrolling with arrows/space
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].indexOf(e.code) > -1) {
+                e.preventDefault();
+            }
+
+            if (Game.state !== 'PLAYING') return;
+            switch(e.key) {
+                case 'ArrowUp': case 'w': case ' ': this.action('up'); break;
+                case 'ArrowLeft': case 'a': this.action('left'); break;
+                case 'ArrowRight': case 'd': this.action('right'); break;
+                case 'c': Game.cashOut(); break;
+            }
+        },
+        action(dir) {
+            if (Game.state !== 'PLAYING') return;
+            if (dir === 'up') {
+                Game.player.lane++; playSound('jump');
+                if (Game.player.lane > Game.player.maxLane) {
+                    Game.player.maxLane = Game.player.lane;
+                    if (Game.player.lane >= 2) {
+                        const l = Game.player.lane;
+                        const increase = (l - 1) * 0.15 + Math.pow(l-1, 1.1) * 0.05;
+                        Game.multiplier = 1 + increase;
+                        UI.updateHUD(Game.multiplier);
+                        if (Game.multiplier > 2.0) Game.scrollOffset += (Math.random()-0.5)*10;
+                    }
+                }
+            } else if (dir === 'left') Game.player.targetX = Math.max(30, Game.player.targetX - 40);
+            else if (dir === 'right') Game.player.targetX = Math.min(Game.width - 30, Game.player.targetX + 40);
+        }
+    };
+
+    const UI = {
+        currentCallback: null,
+
+        init() { this.updateBalance(Storage.data.balance); },
+        
+        // --- CUSTOM MODAL FUNCTIONS ---
+        showAlert(msg, type = 'info') {
+            const modal = document.getElementById('custom-modal');
+            const icon = document.getElementById('modal-icon');
+            const cancelBtn = document.getElementById('btn-modal-cancel');
+            
+            document.getElementById('modal-msg').innerText = msg;
+            document.getElementById('modal-title').innerText = type === 'confirm' ? 'CONFIRM' : 'NOTICE';
+            icon.innerText = type === 'confirm' ? '❓' : '⚠️';
+            
+            // Reset Buttons
+            cancelBtn.classList.add('hidden');
+            this.currentCallback = null;
+            
+            UI.toggleOverlay('custom-modal', true);
+        },
+
+        showConfirm(msg, callback) {
+            this.showAlert(msg, 'confirm');
+            document.getElementById('btn-modal-cancel').classList.remove('hidden');
+            this.currentCallback = callback;
+        },
+
+        confirmModal() {
+            if (this.currentCallback) this.currentCallback();
+            UI.closeModal();
+        },
+
+        closeModal() {
+            UI.toggleOverlay('custom-modal', false);
+            this.currentCallback = null;
+        },
+        // -------------------------------
+
+        updateBalance(val) {
+            document.getElementById('ui-balance').innerText = val;
+            if (Game.state === 'PLAYING') {
+                const currentWin = Math.floor(Game.bet * Game.multiplier);
+                const btn = document.getElementById('btn-cashout');
+                if(Game.multiplier >= 1.20) {
+                    document.getElementById('cashout-val').innerText = '₹' + currentWin;
+                    btn.disabled = false;
+                } else {
+                    document.getElementById('cashout-val').innerText = 'LOCKED';
+                    btn.disabled = true;
+                }
+            }
+        },
+        updateHUD(mult) {
+            const hudMult = document.getElementById('hud-mult');
+            hudMult.innerText = mult.toFixed(2) + 'x';
+            hudMult.style.transform = "scale(1.2)"; setTimeout(() => hudMult.style.transform = "scale(1)", 100);
+            
+            const btn = document.getElementById('btn-cashout');
+            const valDisplay = document.getElementById('cashout-val');
+            
+            if (mult < 1.20) {
+                valDisplay.innerText = "LOCKED";
+                btn.disabled = true;
+            } else {
+                valDisplay.innerText = '₹' + Math.floor(Game.bet * mult);
+                btn.disabled = false;
+            }
+
+            const msg = document.getElementById('hud-msg');
+            let txt = "";
+            if (mult >= 1.2) txt = "Unlocked! 🔓"; 
+            if (mult > 1.5) txt = "Awesome! 🔥";
+            if (mult > 2.0) txt = "JACKPOT! 💎";
+            
+            if(txt) {
+                msg.innerText = txt; 
+                msg.classList.add('show');
+                setTimeout(() => msg.classList.remove('show'), 1500);
+            }
+        },
+        toggleOverlay(id, show) {
+            const el = document.getElementById(id);
+            if (show) el.classList.remove('hidden'); else el.classList.add('hidden');
+        },
+        setGameControls(active) {
+            document.getElementById('bet-ui').style.display = active ? 'none' : 'flex';
+            const btn = document.getElementById('btn-cashout');
+            if(active) {
+                btn.disabled = true; document.getElementById('cashout-val').innerText = 'LOCKED';
+            } else {
+                btn.disabled = true; document.getElementById('cashout-val').innerText = 'LOCKED';
+            }
+        },
+        renderThemes() {
+            const container = document.getElementById('theme-container'); container.innerHTML = '';
+            THEMES.forEach(t => {
+                const div = document.createElement('div'); div.className = 'theme-item'; div.style.background = t.bg; div.title = t.name;
+                if (!Storage.data.unlockedThemes.includes(t.id)) div.classList.add('locked');
+                if (Storage.data.currentTheme === t.id) div.classList.add('active');
+                div.onclick = () => { 
+                    if (Storage.data.unlockedThemes.includes(t.id)) { 
+                        Storage.data.currentTheme = t.id; Storage.save(); this.renderThemes(); 
+                    } else {
+                        UI.showAlert("Locked! Watch an ad to unlock.");
+                    }
+                };
+                container.appendChild(div);
+            });
+        },
+        renderLeaderboard() {
+            const list = document.getElementById('leaderboard-list'); list.innerHTML = '';
+            if (Storage.data.leaderboard.length === 0) { list.innerHTML = '<li>No games played yet.</li>'; return; }
+            Storage.data.leaderboard.forEach(entry => {
+                const li = document.createElement('li'); li.style.borderBottom = '1px solid #333'; li.style.padding = '5px 0';
+                const color = entry.result === 'WIN' ? 'var(--success-color)' : 'var(--danger-color)';
+                li.innerHTML = `<span style="color:${color}; font-weight:bold">${entry.result}</span> <span style="float:right">${entry.date}</span><br> ₹${entry.amount} @ ${entry.mult.toFixed(2)}x`;
+                list.appendChild(li);
+            });
+        }
+    };
+
+    const Ads = {
+        watchAd(rewardType) {
+            document.querySelectorAll('.overlay').forEach(el => { if(el.id !== 'ad-overlay') el.classList.add('hidden'); });
+            UI.toggleOverlay('ad-overlay', true);
+            const bar = document.getElementById('ad-progress-fill'); const timerTxt = document.getElementById('ad-timer');
+            let width = 0; let timeLeft = 5; bar.style.width = '0%';
+            const interval = setInterval(() => {
+                width += 2; timeLeft = 5 - Math.floor(width / 20); bar.style.width = width + '%'; timerTxt.innerText = timeLeft + 's';
+                if (width >= 100) { clearInterval(interval); this.completeAd(rewardType); }
+            }, 100);
+        },
+        completeAd(type) {
+            UI.toggleOverlay('ad-overlay', false); playSound('coin');
+            if (type === 'money') {
+                Storage.updateBalance(100); 
+                UI.showAlert("Success! ₹100 added.");
+                if (Game.state === 'CRASHED') UI.toggleOverlay('crash-overlay', true); else if (Game.state === 'START') UI.toggleOverlay('start-overlay', true);
+            } else if (type === 'theme') {
+                const locked = THEMES.filter(t => !Storage.data.unlockedThemes.includes(t.id));
+                if (locked.length > 0) { 
+                    const random = locked[Math.floor(Math.random() * locked.length)]; 
+                    Storage.unlockTheme(random.id); 
+                    UI.showAlert(`Unlocked: ${random.name}!`); 
+                    Game.toggleSettings(); 
+                } else { 
+                    UI.showAlert("All themes unlocked!"); 
+                    Game.toggleSettings(); 
+                }
+            }
+        }
+    };
+
+    window.onload = () => Game.init();
+
+    //Audio Script
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const playSound = (type) => {
+        if (localStorage.getItem('crc_mute') === 'true') return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+
+        if (type === 'jump') {
+            osc.type = 'square'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.1); gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1); osc.start(now); osc.stop(now + 0.1);
+        } else if (type === 'crash') {
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(100, now); osc.frequency.exponentialRampToValueAtTime(10, now + 0.3); gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3); osc.start(now); osc.stop(now + 0.3);
+        } else if (type === 'cashout') {
+            osc.type = 'sine'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(800, now + 0.1); osc.frequency.linearRampToValueAtTime(1200, now + 0.3); gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0, now + 0.4); osc.start(now); osc.stop(now + 0.4);
+        } else if (type === 'coin') {
+            osc.type = 'sine'; osc.frequency.setValueAtTime(1000, now); osc.frequency.exponentialRampToValueAtTime(1500, now + 0.1); gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0, now + 0.1); osc.start(now); osc.stop(now + 0.1);
+        }
+    };
+</script>
+</body>
+</html>
