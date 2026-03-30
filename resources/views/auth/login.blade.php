@@ -1,67 +1,118 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login-form') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="tel" autofocus>
-
-                                @error('phone_number')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+   <!-- breadcrumbs area start -->
+    <div class="breadcrumbs_aree breadcrumbs_bg mb-140" data-bgimg="assets/img/bg/breadcrumbs-bg.webp">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs_text text-center">
+                        <h1>Login</h1>
+                        <ul class="d-flex justify-content-center">
+                            <li><a href="/">Home </a></li>
+                            <li> <span>//</span></li>
+                            <li>  Login</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- breadcrumbs area end -->
+<!-- page wrapper start -->
+<div class="page_wrapper">
+
+    <!-- contact section start -->
+    <section class="contact_page_section mb-140">
+        <div class="container">
+            <div class="row justify-content-between align-items-center mb-n50">
+                
+                <!-- Image -->
+                <div class="col-lg-6 col-md-8 col-12 mx-auto mb-50">
+                    <img width="550" height="550" src="{{ asset('assets/img/others/about-thumb.webp') }}" alt="">
+                </div>
+
+                <!-- Login Form -->
+                <div class="col-lg-5 col-md-8 col-12 mx-auto mb-50">
+                    
+                    <div class="section_title text-center mb-60">
+                        <h2>Login</h2>
+                    </div>
+
+                    <form method="POST" action="{{ route('login-form') }}">
+                        @csrf
+
+                        <!-- Phone Number -->
+                        <div class="form_input mb-3">
+                            <input 
+                                id="phone_number"
+                                type="text"
+                                name="phone_number"
+                                placeholder="Phone Number"
+                                value="{{ old('phone_number') }}"
+                                class="@error('phone_number') is-invalid @enderror"
+                                required
+                                autofocus
+                            >
+
+                            @error('phone_number')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form_input mb-3">
+                            <input 
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                class="@error('password') is-invalid @enderror"
+                                required
+                            >
+
+                            @error('password')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-check text-center mb-3">
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                name="remember" 
+                                id="remember" 
+                                {{ old('remember') ? 'checked' : '' }}
+                            >
+                            <label class="form-check-label" for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form_input_btn text-center mb-40">
+                            <button type="submit" class="btn btn-link">
+                                Login
+                                <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt="">
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Signup -->
+                    <p class="text-center">
+                        Don't have any account, 
+                        {{-- <a href="{{ route('register') }}">Signup here</a> --}}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- contact section end -->
+
 </div>
+<!-- page wrapper end -->
 @endsection
