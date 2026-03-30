@@ -309,11 +309,11 @@
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="popular_gaming_thumb">
                                         <a href="{{ route('game.details', ['id' => $index + 1]) }}">
-                                            <img width="570" height="330" src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
+                                            <img src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
                                         </a>
                                         <div class="gaming_details_btn">
                                             <a class="btn btn-link" href="{{ route('game.details', ['id' => $index + 1]) }}">
-                                                Game Details <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> 
+                                                Game Details  
                                             </a>
                                         </div>
                                     </div>
@@ -323,7 +323,7 @@
                             <!-- Fallback static content if no dynamic games are available -->
                             <div class="col-xl-3 col-lg-4 col-md-6">
                                 <div class="popular_gaming_thumb">
-                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb1.webp') }}" alt="Popular Ethiopian game 1"></a>
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img src="{{ asset('assets/img/others/popular-game-thumb1.webp') }}" alt="Popular Ethiopian game 1"></a>
                                 <div class="gaming_details_btn">
                                         <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                                 </div>
@@ -331,7 +331,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6">
                                 <div class="popular_gaming_thumb">
-                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb2.webp') }}" alt="Popular Ethiopian game 2"></a>
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img src="{{ asset('assets/img/others/popular-game-thumb2.webp') }}" alt="Popular Ethiopian game 2"></a>
                                 <div class="gaming_details_btn">
                                         <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                                 </div>
@@ -339,7 +339,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6">
                                 <div class="popular_gaming_thumb">
-                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb3.webp') }}" alt="Popular Ethiopian game 3"></a>
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img src="{{ asset('assets/img/others/popular-game-thumb3.webp') }}" alt="Popular Ethiopian game 3"></a>
                                     <div class="gaming_details_btn">
                                         <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                                     </div>
@@ -347,7 +347,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6">
                                 <div class="popular_gaming_thumb">
-                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb4.webp') }}" alt="Popular Ethiopian game 4"></a>
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img src="{{ asset('assets/img/others/popular-game-thumb4.webp') }}" alt="Popular Ethiopian game 4"></a>
                                     <div class="gaming_details_btn">
                                         <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                                     </div>
