@@ -12,14 +12,14 @@
                             <nav>  
                                 <ul class="d-flex">
                                     <li><a href="/">Home</a></li> 
-                                    <li><a href="/matches">Matches</a>
+                                    {{-- <li><a href="/matches">Matches</a>
                                         <ul class="sub_menu">
                                             <li><a href="/matches">Match Schedule</a></li>
                                             <li><a href="/match-details">Match Details</a></li>
                                         </ul>
-                                    </li>
-                                    <li><a href="#">Games</a>
-                                        <ul class="sub_menu">
+                                    </li> --}}
+                                    <li><a href="/all-games">Games</a>
+                                        {{-- <ul class="sub_menu">
                                             <li><a href="/about">About Us</a></li>
                                             <li><a href="/games">Ethiopian Games</a></li>
                                             <li><a href="/game-details">Game Details</a></li>
@@ -29,15 +29,15 @@
                                             <li><a href="/register">Sign Up</a></li>
                                             <li><a href="/login">Login</a></li>
                                             <li><a href="/support">Support</a></li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
-                                    <li><a href="/blog">Blog</a>
+                                    {{-- <li><a href="/blog">Blog</a>
                                         <ul class="sub_menu">
                                             <li><a href="/blog">Gaming News</a></li>
                                             <li><a href="/blog">Ethiopian Gaming Stories</a></li>
                                             <li><a href="/blog">Tournament Updates</a></li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <li><a href="/contact">Contact</a></li>
                                 </ul>  
                             </nav>

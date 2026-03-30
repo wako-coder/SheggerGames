@@ -85,7 +85,7 @@
         <!--slider area end-->
 
         <!-- gaming  world section start -->
-        <section class="gaming_world_section mb-140">
+        {{-- <section class="gaming_world_section mb-140">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
                     <h2>WELCOME TO <br>
@@ -129,11 +129,11 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- gaming  world section end -->
 
         <!-- gaming video section start -->
-        <section class="gaming_video_section mb-118 wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">
+        {{-- <section class="gaming_video_section mb-118 wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -171,11 +171,11 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- gaming video section end -->
 
         <!-- upcoming gaming section start -->
-        <section class="upcoming_gaming_section mb-125">
+        {{-- <section class="upcoming_gaming_section mb-125">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
                     <h2>Upcoming Ethiopian Tournaments</h2>
@@ -254,7 +254,7 @@
                     <a class="btn btn-link" href="match.html">Other’s Match </a>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- upcoming gaming section end -->
 
         <!-- counterup section start -->
@@ -265,26 +265,26 @@
                         <div class="counterup_inner d-flex justify-content-center">
                             <div class="single_counterup one">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color1">2450</h2>
+                                    <h2 class="counterup color1">20</h2> 
                                     <span>ETHIOPIAN GAMERS</span>
                                 </div>
                             </div>
                             <div class="single_counterup two">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color2">128</h2>
+                                    <h2 class="counterup color2">12</h2>
                                     <span>LOCAL GAMES</span>
                                 </div>
                             </div>
                             <div class="single_counterup three">
                                 <div class="counterup_text">
                                     <h2 class="counterup color3">1240</h2>
-                                    <span>TOURNAMENTS HELD</span>
+                                    <span> Total Games Played</span>
                                 </div>
                             </div>
                             <div class="single_counterup four">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color4">89</h2>
-                                    <span>ETHIOPIAN TEAMS</span>
+                                    <h2 class="counterup color4">689</h2>
+                                    <span>ETHIOPIAN GAMERS</span>
                                 </div>
                             </div>
                         </div>
@@ -361,7 +361,7 @@
         <!-- popular gaming section end -->
 
         <!-- testimonial section start -->
-        <section class="testimonial_section wow fadeInUp" data-bgimg="assets/img/others/testimonial-bg-fullwidth.webp" data-wow-delay="0.1s" data-wow-duration="1.1s">
+        {{-- <section class="testimonial_section wow fadeInUp" data-bgimg="assets/img/others/testimonial-bg-fullwidth.webp" data-wow-delay="0.1s" data-wow-duration="1.1s">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -417,11 +417,11 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- testimonial section end -->
 
         <!-- blog section start -->
-        <section class="blog_section mb-90">
+        {{-- <section class="blog_section mb-90">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-70" data-wow-delay="0.1s" data-wow-duration="1.1s">
                     <h2>Latest Blog</h2>
@@ -488,7 +488,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- blog section end -->
 
         <!-- gaming update section start -->
