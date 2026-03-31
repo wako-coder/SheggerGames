@@ -40,7 +40,7 @@
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="popular_gaming_thumb">
                                         <a href="{{ $game['url'] }}" target="_blank">
-                                            <img width="570" height="330" src="{{ $game['thumbnail'] }}" alt="{{ $game['name'] }}">
+                                            <img src="{{ $game['thumbnail'] }}" alt="{{ $game['name'] }}">
                                         </a>
                                         <div class="gaming_details_btn">
                                             <a class="btn btn-link" href="{{ $game['url'] }}" target="_blank">

@@ -64,40 +64,67 @@ class GamesController extends Controller
             ],
             [
                 'name'      => 'Onet Animals',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb5.webp'),
-                'url'       => asset('games/Onet_Animals/onet-animals.netlify.app/index.html'),
+                                'thumbnail'   => asset('games/Onet_Animals/onet-animals.netlify.app/img/game_title.png'),
+
+                'url'       => 'https://onet-animals.netlify.app/',
             ],
             [
                 'name'      => 'Panda Pop',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'       => asset('games/Panda_Pop/pandapopgameup.netlify.app/index.html'),
+                                'thumbnail'   => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
+
+                'url'       => 'https://pandapopgameup.netlify.app/',
             ],
 
             [
                 'name'      => 'Rolling Ball 3D',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb2.webp'),
-                'url'       => asset('games/Rolling_Ball_3D/rollingball3d.netlify.app/index.html'),
+                'thumbnail' => asset('games/Rolling_Ball_3D/rollingball3d.netlify.app/img/rb.png'),
+                'url'       => 'https://rollingball3d.netlify.app/',
             ],
             [
                 'name'      => 'Sport Quest',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb3.webp'),
-                'url'       => asset('games/Sport_Quest/sport-quest.netlify.app/index.html'),
+                'thumbnail' => asset('games/Sport_Quest/sport-quest.netlify.app/assets/Sport Quest.png'),
+                'url'       => 'https://sport-quest.netlify.app/',
             ],
             [
-                'name'      => 'Swiper Soccer 3D',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb4.webp'),
-                'url'       => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/index.html'),
+                'name'      => 'Emoji Crushed',
+                'thumbnail' => asset('games/other/ec.png'),
+                'url'       => 'https://emoji-crushed.netlify.app/',
+            ],
+           [
+                'name'        => 'Bubble Shooter',
+                'thumbnail'   => asset('games/other/bs.png'),
+                'url'         => 'https://bubble-shoots.netlify.app/',
+                'description' => 'Colorful bubble shooter game with various levels.',
+                'details'     => 'Shoot bubbles to match colors and clear the board in this vibrant bubble shooter game. Complete levels with the fewest shots possible.',
             ],
             [
-                'name'      => 'Cloned Website',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb5.webp'),
-                'url'       => asset('games/cloned_website/index.html'),
+                'name'      => 'Pet Crush',
+                'thumbnail' => asset('games/other/pc.png'),
+                'url'       => 'https://pet-crush.netlify.app/',
+                'description' => 'A fun puzzle game where you match pets to clear the board.',
+                'details'     => 'Match three or more pets of the same type to clear them from the board in this delightful puzzle game. Complete levels with the fewest moves possible.',
             ],
-            [
-                'name'      => 'Taupe Faloodeh',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'       => asset('games/taupe-faloodeh-5a6a13.netlify.app/taupe-faloodeh-5a6a13.netlify.app/index.html'),
-            ],
+              [
+                'name'        => 'Gun Bullets',
+               'thumbnail'   => asset('games/other/gb.png'),
+                'url'         => 'https://65eeee920045e641ae6f0c76--pocu.netlify.app/',
+                'description' => 'A shooting game where you test your aim and reflexes.',
+                'details'     => 'Gun Bullets is an exciting shooting game that challenges your aim and reflexes. Shoot targets as they appear on the screen and try to achieve the highest score possible.',
+          ],
+          [
+            'name'=> 'Arya`s Adventure',
+            'thumbnail'   => asset('games/other/thumb11.jpg'),
+            'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
+            'description' => 'Join Arya on an epic adventure through mystical lands.',
+            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.'
+          ],
+          [
+            'name'=> 'Block Vs Ball',
+            'thumbnail'   => asset('games/other/bb.png'),
+            'url'         => 'https://blockvsballgame.netlify.app/',
+            'description' => 'A fun physics-based game where you control a ball to hit blocks.',
+            'details'     => 'Block Vs Ball is an engaging physics-based game where you control a ball to hit blocks and clear the screen. Use your skills to achieve the highest score possible.'
+          ]
         ];
 
         // Add more games to reach 38 total, reusing existing games
@@ -108,7 +135,7 @@ class GamesController extends Controller
         }
 
         // Trim to exactly 38 games
-        $allGames = array_slice($allGames, 0, 38);
+        $allGames = array_slice($allGames, 0, 20);
 
         foreach ($allGames as $index => $game) {
             $popularGames[] = [
@@ -199,54 +226,69 @@ class GamesController extends Controller
             ],
             [
                 'name'        => 'Onet Animals',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb5.webp'),
-                'url'         => asset('games/Onet_Animals/onet-animals.netlify.app/index.html'),
+                'thumbnail'   => asset('games/Onet_Animals/onet-animals.netlify.app/assets/img/game_title.png'),
+                'url'         => 'https://onet-animals.netlify.app/',
                 'description' => 'Connect matching animal tiles to clear the board.',
                 'details'     => 'Find and connect pairs of matching animal tiles to remove them from the board. Clear all tiles to advance to the next level in this fun puzzle game.',
             ],
             [
                 'name'        => 'Panda Pop',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'         => asset('games/Panda_Pop/pandapopgameup.netlify.app/index.html'),
+                'thumbnail'   => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
+                'url'         => 'https://pandapopgameup.netlify.app/',
                 'description' => 'Colorful bubble shooter game with pandas.',
                 'details'     => 'Shoot bubbles to match colors and clear the board in this adorable panda-themed bubble shooter game. Complete levels with the fewest shots possible.',
             ],
 
             [
                 'name'        => 'Rolling Ball 3D',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb2.webp'),
-                'url'         => asset('games/Rolling_Ball_3D/rollingball3d.netlify.app/index.html'),
+                'thumbnail'   => asset('games/Rolling_Ball_3D/rollingball3d.netlify.app/img/rb.png'),
+                'url'         => 'https://rollingball3d.netlify.app/',
                 'description' => 'Challenging 3D maze game where you roll a ball to the exit.',
                 'details'     => 'Navigate the rolling ball through complex 3D mazes by tilting the platform. Avoid obstacles and reach the finish line in this physics-based puzzle game.',
             ],
             [
                 'name'        => 'Sport Quest',
                 'thumbnail'   => asset('assets/img/others/popular-game-thumb3.webp'),
-                'url'         => asset('games/Sport_Quest/sport-quest.netlify.app/index.html'),
+                'url'         => 'https://sport-quest.netlify.app/',
                 'description' => 'Multi-sports challenge game with various athletic events.',
                 'details'     => 'Participate in various sports challenges and competitions in this diverse sports game. Test your skills in different athletic events and aim for the highest scores.',
             ],
-            [
-                'name'        => 'Swiper Soccer 3D',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb4.webp'),
-                'url'         => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/index.html'),
-                'description' => 'Another version of the popular 3D soccer game.',
-                'details'     => 'Enjoy another variant of the popular 3D soccer game with swipe controls. Compete in matches and tournaments to become the ultimate soccer champion.',
+
+               [
+                'name'      => 'Emoji Crushed',
+                'thumbnail' => asset('games/other/ec.png'),
+                'url'       => 'https://emoji-crushed.netlify.app/',
+                'description' => 'Fun match-3 game with cute emojis.',
+                'details'     => 'Match three or more of the same emojis to clear them from the board. Enjoy colorful graphics and addictive gameplay in this charming emoji-themed puzzle game.',
             ],
             [
-                'name'        => 'Cloned Website',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb5.webp'),
-                'url'         => asset('games/cloned_website/index.html'),
-                'description' => 'A cloned website demonstration project.',
-                'details'     => 'This project showcases a cloned website with various features and functionalities. Explore the interface and interact with different elements.',
+                'name'        => 'Bubble Shooter',
+                'thumbnail'   => asset('games/other/bs.png'),
+                'url'         => 'https://bubble-shoots.netlify.app/',
+                'description' => 'Colorful bubble shooter game with various levels.',
+                'details'     => 'Shoot bubbles to match colors and clear the board in this vibrant bubble shooter game. Complete levels with the fewest shots possible.',
+            ],
+          [
+                'name'      => 'Pet Crush',
+                'thumbnail' => asset('games/other/pc.png'),
+                'url'       => 'https://pet-crush.netlify.app/',
+                'description' => 'A fun puzzle game where you match pets to clear the board.',
+                'details'     => 'Match three or more pets of the same type to clear them from the board in this delightful puzzle game. Complete levels with the fewest moves possible.',
             ],
             [
-                'name'        => 'Taupe Faloodeh',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'         => asset('games/taupe-faloodeh-5a6a13.netlify.app/taupe-faloodeh-5a6a13.netlify.app/index.html'),
-                'description' => 'Unique game with creative gameplay mechanics.',
-                'details'     => 'Experience this unique game with innovative mechanics and engaging gameplay. Discover new challenges and adventures in this creative title.',
-            ],
+                'name'        => 'Gun Bullets',
+               'thumbnail'   => asset('games/other/gb.png'),
+                'url'         => 'https://65eeee920045e641ae6f0c76--pocu.netlify.app/',
+                'description' => 'A shooting game where you test your aim and reflexes.',
+                'details'     => 'Gun Bullets is an exciting shooting game that challenges your aim and reflexes. Shoot targets as they appear on the screen and try to achieve the highest score possible.',
+          ],
+            [
+            'name'=> 'Aryas Adventure',
+            'thumbnail'   => asset('games/other/aa.png'),
+            'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
+            'description' => 'Join Arya on an epic adventure through mystical lands.',
+            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.'
+          ]
         ];
 
         // Add more games to reach 38 total, reusing existing games
@@ -347,13 +389,14 @@ class GamesController extends Controller
             [
                 'name'      => 'Rolling Ball 3D',
                 'thumbnail' => asset('assets/img/others/popular-game-thumb2.webp'),
-                'url'       => asset('games/Rolling_Ball_3D/rollingball3d.netlify.app/index.html'),
+                'url'       => '',
             ],
             [
                 'name'      => 'Sport Quest',
                 'thumbnail' => asset('assets/img/others/popular-game-thumb3.webp'),
-                'url'       => asset('games/Sport_Quest/sport-quest.netlify.app/index.html'),
+                'url'       => 'https://sport-quest.netlify.app/',
             ],
+
             [
                 'name'      => 'Swiper Soccer 3D',
                 'thumbnail' => asset('assets/img/others/popular-game-thumb4.webp'),
