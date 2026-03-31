@@ -324,38 +324,44 @@ class GamesController extends Controller
         $allGames = [];
 
         // Define all the games with their names, thumbnails, and local URLs
-        $gameList = [
+         $gameList = [
             [
-                'name'      => '2048 Game',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb1.webp'),
-                'url'       => asset('games/2048_Game/2048-game.netlify.app/index.html'),
+                'name'      => 'Swiper Soccer 3D',
+                'thumbnail' => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/soccer.png'),
+                'url'       => 'https://swipesoccer-game.netlify.app/',
             ],
             [
                 'name'      => 'Checkers Master',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb2.webp'),
+                'thumbnail' => asset('games/Checkers_Master/checkers-master-game-buy.netlify.app/img/logo.png'),
                 'url'       => asset('games/Checkers_Master/checkers-master-game-buy.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Chess Empire Online',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb3.webp'),
+                'thumbnail' => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/assets/loading.png'),
                 'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Chicken Cross Road Casino',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb4.webp'),
-                'url'       => asset('games/Chicken_Cross_Road_Casino/chicken-cross-game.netlify.app/index.html'),
+                'thumbnail' => asset('games/Chicken_Cross_Road_Casino/chicken-cross-game.netlify.app/assets/chicken.png'),
+                'url'       => 'https://chicken-cross-game.netlify.app/',
             ],
             [
                 'name'      => 'Dimension Escape 3D',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb5.webp'),
+                'thumbnail' => asset('games/Dimension_Escape_3D/dimension-escape.netlify.app/assets/main.avif'),
                 'url'       => asset('games/Dimension_Escape_3D/dimension-escape.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Jewels Quest',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'       => asset('games/Jewels_Quest/jewelsquestup.netlify.app/index.html'),
+                'thumbnail' => asset('games/Jewels_Quest/jewelsquestup.netlify.app/assets/jewels.png'),
+                'url'       => 'https://jewelsquestup.netlify.app/',
             ],
-        
+            [
+                'name'      => 'Plinko Pro Casino',
+                'thumbnail' => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/plinko.jpg'),
+
+                'url'       => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/index.html'),
+            ],
+           
             [
                 'name'      => 'Lights Out Puzzle',
                 'thumbnail' => asset('games/Lights_Out_Puzzle/lights-out-html5-game.netlify.app/assets/logo.png'),
@@ -363,66 +369,89 @@ class GamesController extends Controller
             ],
             [
                 'name'      => 'Math Quiz Addition & Subtraction',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb3.webp'),
+                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/logo.png'),
                 'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Neon Bounce Casino',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb4.webp'),
+                'thumbnail' => asset('games/Neon_Bounce_Casino/neon-bounce-game.netlify.app/neonbounce.png'),
                 'url'       => asset('games/Neon_Bounce_Casino/neon-bounce-game.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Onet Animals',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb5.webp'),
-                'url'       => asset('games/Onet_Animals/onet-animals.netlify.app/index.html'),
+                                'thumbnail'   => asset('games/Onet_Animals/onet-animals.netlify.app/img/game_title.png'),
+
+                'url'       => 'https://onet-animals.netlify.app/',
             ],
             [
                 'name'      => 'Panda Pop',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'       => asset('games/Panda_Pop/pandapopgameup.netlify.app/index.html'),
-            ],
-            [
-                'name'      => 'Plinko Pro Casino',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb1.webp'),
-                'url'       => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/index.html'),
-            ],
-            [
-                'name'      => 'Rolling Ball 3D',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb2.webp'),
-                'url'       => '',
-            ],
-            [
-                'name'      => 'Sport Quest',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb3.webp'),
-                'url'       => 'https://sport-quest.netlify.app/',
+                                'thumbnail'   => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
+
+                'url'       => 'https://pandapopgameup.netlify.app/',
             ],
 
             [
-                'name'      => 'Swiper Soccer 3D',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb4.webp'),
-                'url'       => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/index.html'),
+                'name'      => 'Rolling Ball 3D',
+                'thumbnail' => asset('games/Rolling_Ball_3D/rollingball3d.netlify.app/img/rb.png'),
+                'url'       => 'https://rollingball3d.netlify.app/',
             ],
             [
-                'name'      => 'Cloned Website',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb5.webp'),
-                'url'       => asset('games/cloned_website/index.html'),
+                'name'      => 'Sport Quest',
+                'thumbnail' => asset('games/Sport_Quest/sport-quest.netlify.app/assets/Sport Quest.png'),
+                'url'       => 'https://sport-quest.netlify.app/',
             ],
             [
-                'name'      => 'Taupe Faloodeh',
-                'thumbnail' => asset('assets/img/others/popular-game-thumb6.webp'),
-                'url'       => asset('games/taupe-faloodeh-5a6a13.netlify.app/taupe-faloodeh-5a6a13.netlify.app/index.html'),
+                'name'      => 'Emoji Crushed',
+                'thumbnail' => asset('games/other/ec.png'),
+                'url'       => 'https://emoji-crushed.netlify.app/',
             ],
+           [
+                'name'        => 'Bubble Shooter',
+                'thumbnail'   => asset('games/other/bs.png'),
+                'url'         => 'https://bubble-shoots.netlify.app/',
+                'description' => 'Colorful bubble shooter game with various levels.',
+                'details'     => 'Shoot bubbles to match colors and clear the board in this vibrant bubble shooter game. Complete levels with the fewest shots possible.',
+            ],
+            [
+                'name'      => 'Pet Crush',
+                'thumbnail' => asset('games/other/pc.png'),
+                'url'       => 'https://pet-crush.netlify.app/',
+                'description' => 'A fun puzzle game where you match pets to clear the board.',
+                'details'     => 'Match three or more pets of the same type to clear them from the board in this delightful puzzle game. Complete levels with the fewest moves possible.',
+            ],
+              [
+                'name'        => 'Gun Bullets',
+               'thumbnail'   => asset('games/other/gb.png'),
+                'url'         => 'https://65eeee920045e641ae6f0c76--pocu.netlify.app/',
+                'description' => 'A shooting game where you test your aim and reflexes.',
+                'details'     => 'Gun Bullets is an exciting shooting game that challenges your aim and reflexes. Shoot targets as they appear on the screen and try to achieve the highest score possible.',
+          ],
+          [
+            'name'=> 'Arya`s Adventure',
+            'thumbnail'   => asset('games/other/thumb11.jpg'),
+            'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
+            'description' => 'Join Arya on an epic adventure through mystical lands.',
+            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.'
+          ],
+          [
+            'name'=> 'Block Vs Ball',
+            'thumbnail'   => asset('games/other/bb.png'),
+            'url'         => 'https://blockvsballgame.netlify.app/',
+            'description' => 'A fun physics-based game where you control a ball to hit blocks.',
+            'details'     => 'Block Vs Ball is an engaging physics-based game where you control a ball to hit blocks and clear the screen. Use your skills to achieve the highest score possible.'
+          ]
         ];
 
         // Add more games to reach 38 total, reusing existing games
         $allGames = $gameList;
-        while (count($allGames) < 38) {
+        while (count($allGames) < 20) {
             // Cycle through the existing games to fill up to 38
             $allGames = array_merge($allGames, $gameList);
         }
 
         // Trim to exactly 38 games
-        $allGames = array_slice($allGames, 0, 38);
+        $allGames = array_slice($allGames, 0, 20);
+        shuffle($allGames);
 
         return view('allgames', compact('allGames'));
     }

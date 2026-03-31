@@ -14,6 +14,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Protected game routes (require authentication)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');
-    Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
     });
+    Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
+    Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');

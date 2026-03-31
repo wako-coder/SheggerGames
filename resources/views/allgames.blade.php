@@ -44,7 +44,7 @@
                                         </a>
                                         <div class="gaming_details_btn">
                                             <a class="btn btn-link" href="{{ $game['url'] }}" target="_blank">
-                                                Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> 
+                                                Play Now  
                                             </a>
                                         </div>
                                     </div>
