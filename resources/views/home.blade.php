@@ -309,7 +309,7 @@
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="popular_gaming_thumb">
                                         <a href="{{ route('game.details', ['id' => $index + 1]) }}">
-                                            <img src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
+                                            <img width="570" height="330" src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
                                         </a>
                                         <div class="gaming_details_btn">
                                             <a class="btn btn-link" href="{{ route('game.details', ['id' => $index + 1]) }}">
@@ -323,7 +323,7 @@
                             <!-- Fallback static content if no dynamic games are available -->
                             <div class="col-xl-3 col-lg-4 col-md-6">
                                 <div class="popular_gaming_thumb">
-                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img src="{{ asset('assets/img/others/popular-game-thumb1.webp') }}" alt="Popular Ethiopian game 1"></a>
+                                <a href="https://38-games-bundle.netlify.app/" target="_blank"><img width="570" height="330" src="{{ asset('assets/img/others/popular-game-thumb1.webp') }}" alt="Popular Ethiopian game 1"></a>
                                 <div class="gaming_details_btn">
                                         <a class="btn btn-link" href="https://38-games-bundle.netlify.app/" target="_blank">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                                 </div>
