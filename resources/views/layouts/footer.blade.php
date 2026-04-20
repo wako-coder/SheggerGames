@@ -17,7 +17,7 @@
                             <div class="footer_social">
                                 <ul class="d-flex">
                                     <li><a aria-label="facebook" class="facebook"
-                                            href="https://www.facebook.com/sheggergames"><i
+                                            href="#"><i
                                                 class="icofont-facebook"></i></a></li>
                                     <li><a aria-label="twitter" class="twitter"
                                             href="https://twitter.com/sheggergames"><i class="icofont-twitter"></i></a>
