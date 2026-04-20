@@ -11,6 +11,11 @@ class GamesController extends Controller
         // Define all the games with their names, thumbnails, and local URLs
         $gameList = [
             [
+                'name'      => 'Math Quiz Addition & Subtraction',
+                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/logo.png'),
+                'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
+            ],
+            [
                 'name'      => 'Swiper Soccer 3D',
                 'thumbnail' => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/soccer.png'),
                 'url'       => 'https://swipesoccer-game.netlify.app/',
@@ -23,7 +28,7 @@ class GamesController extends Controller
             [
                 'name'      => 'Chess Empire Online',
                 'thumbnail' => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/assets/loading.png'),
-                'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.html'),
+                'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.index.html'),
             ],
             [
                 'name'      => 'Ball Master
@@ -52,11 +57,6 @@ class GamesController extends Controller
                 'name'      => 'Lights Out Puzzle',
                 'thumbnail' => asset('games/Lights_Out_Puzzle/lights-out-html5-game.netlify.app/assets/logo.png'),
                 'url'       => asset('games/Lights_Out_Puzzle/lights-out-html5-game.netlify.app/index.html'),
-            ],
-            [
-                'name'      => 'Math Quiz Addition & Subtraction',
-                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/logo.png'),
-                'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Neon Bounce Casino',
@@ -91,7 +91,7 @@ class GamesController extends Controller
                 'thumbnail' => asset('games/other/ec.png'),
                 'url'       => 'https://emoji-crushed.netlify.app/',
             ],
-           [
+           [ 
                 'name'        => 'Bubble Shooter',
                 'thumbnail'   => asset('games/other/bs.png'),
                 'url'         => 'https://bubble-shoots.netlify.app/',
@@ -117,7 +117,7 @@ class GamesController extends Controller
             'thumbnail'   => asset('games/other/thumb11.jpg'),
             'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
             'description' => 'Join Arya on an epic adventure through mystical lands.',
-            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.'
+            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\\'s Adventure.'
           ],
           [
             'name'=> 'Block Vs Ball',
@@ -154,6 +154,13 @@ class GamesController extends Controller
     {
         // Define all the games with their names, thumbnails, and local URLs
         $gameList = [
+            [
+                'name'        => 'Math Quiz Addition & Subtraction',
+                'thumbnail'   => asset('assets/img/others/popular-game-thumb3.webp'),
+                'url'         => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
+                'description' => 'Educational game to practice addition and subtraction skills.',
+                'details'     => 'Test your math skills with this fun quiz game. Answer addition and subtraction problems as quickly as possible to earn points and improve your score.',
+            ],
             [
                 'name'        => 'Swiper Soccer 3D',
                 'thumbnail'   => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/soccer.png'),
@@ -210,13 +217,6 @@ class GamesController extends Controller
                 'url'         => asset('games/Lights_Out_Puzzle/lights-out-html5-game.netlify.app/index.html'),
                 'description' => 'Classic puzzle game where you toggle lights to turn them all off.',
                 'details'     => 'The objective of the game is to turn off all the lights on the grid. When you press a button, it toggles the light in that cell and its adjacent cells.',
-            ],
-            [
-                'name'        => 'Math Quiz Addition & Subtraction',
-                'thumbnail'   => asset('assets/img/others/popular-game-thumb3.webp'),
-                'url'         => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
-                'description' => 'Educational game to practice addition and subtraction skills.',
-                'details'     => 'Test your math skills with this fun quiz game. Answer addition and subtraction problems as quickly as possible to earn points and improve your score.',
             ],
             [
                 'name'        => 'Neon Bounce Casino',
@@ -327,6 +327,11 @@ class GamesController extends Controller
         // Define all the games with their names, thumbnails, and local URLs
          $gameList = [
             [
+                'name'      => 'Math Quiz Addition & Subtraction',
+                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/logo.png'),
+                'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
+            ],
+            [
                 'name'      => 'Swiper Soccer 3D',
                 'thumbnail' => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/soccer.png'),
                 'url'       => 'https://swipesoccer-game.netlify.app/',
@@ -368,11 +373,6 @@ class GamesController extends Controller
                 'name'      => 'Lights Out Puzzle',
                 'thumbnail' => asset('games/Lights_Out_Puzzle/lights-out-html5-game.netlify.app/assets/logo.png'),
                 'url'       => asset('games/Lights_Out_Puzzle/lights-out-html5-game.netlify.app/index.html'),
-            ],
-            [
-                'name'      => 'Math Quiz Addition & Subtraction',
-                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/logo.png'),
-                'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
             ],
             [
                 'name'      => 'Neon Bounce Casino',
