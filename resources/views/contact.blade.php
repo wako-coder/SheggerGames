@@ -1,5 +1,23 @@
 @extends('layouts.app')
 
+@section('styles')
+<style>
+    .map-responsive {
+        overflow: hidden;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        position: relative;
+        height: 0;
+    }
+    .map-responsive iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+</style>
+@endsection
+
 
 @section('content')
     
@@ -63,8 +81,7 @@
                                 <div class="contact_info_text">
                                     <h3>Phone:</h3>
                                     <p> 
-                                        <a href="tel:(402)685-5964"> (402) 685-5964</a>
-                                        <a href="tel:+88(00)4568457437"> +88 (00) 4568 457 437</a>
+                                        <a href="tel:++251911248351"> ++251 911 248 351</a>
                                     </p>
                                 </div>
                             </div>
@@ -119,7 +136,9 @@
 
         <!--contact map start-->
         <div class="contact_map mt-70">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.6701389278105!2d-0.13442558407566274!3d51.48256882033922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760532743b90e1%3A0x790260718555a20c!2sU.S.%20Embassy%2C%20London!5e0!3m2!1sen!2sbd!4v1623927462716!5m2!1sen!2sbd"  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="map-responsive">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.0000000000005!2d38.7578!3d9.0200!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85cef5ab402d%3A0x8467b6b037a24d49!2sAddis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus"  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
         <!--contact map end-->
 
