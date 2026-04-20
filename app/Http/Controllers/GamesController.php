@@ -26,9 +26,10 @@ class GamesController extends Controller
                 'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.html'),
             ],
             [
-                'name'      => 'Chicken Cross Road Casino',
-                'thumbnail' => asset('games/Chicken_Cross_Road_Casino/chicken-cross-game.netlify.app/assets/chicken.png'),
-                'url'       => 'https://chicken-cross-game.netlify.app/',
+                'name'      => 'Ball Master
+',
+                'thumbnail' => asset('games/Ball Master/ballmaster.png'),
+                'url'       => 'https://ballmastergame.netlify.app/',
             ],
             [
                 'name'      => 'Dimension Escape 3D',
@@ -175,11 +176,11 @@ class GamesController extends Controller
                 'details'     => 'Chess is a recreational and competitive board game played between two players. It is sometimes called international or Western chess to distinguish it from related games such as xiangqi and shogi.',
             ],
             [
-                'name'        => 'Chicken Cross Road Casino',
-                'thumbnail'   => asset('games/Chicken_Cross_Road_Casino/chicken-cross-game.netlify.app/assets/chicken.png'),
-                'url'         => 'https://chicken-cross-game.netlify.app/',
-                'description' => 'Fun variation of the classic crossing game with casino elements.',
-                'details'     => 'Help the chicken cross the road while avoiding traffic and collecting coins. This game combines the classic gameplay with casino-style rewards and challenges.',
+                'name'        => 'Ball Master',
+                'thumbnail'   => asset('games/Ball_Master/ball-master-game.netlify.app/assets/ball.png'),
+                'url'         => 'https://ballmastergame.netlify.app/',
+                'description' => 'Exciting ball rolling game with challenging levels.',
+                'details'     => 'Roll the ball through the levels, avoiding obstacles and collecting coins. This game offers a fun and engaging experience with beautiful graphics and smooth gameplay.',
             ],
             [
                 'name'        => 'Dimension Escape 3D',
@@ -341,9 +342,10 @@ class GamesController extends Controller
                 'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.html'),
             ],
             [
-                'name'      => 'Chicken Cross Road Casino',
-                'thumbnail' => asset('games/Chicken_Cross_Road_Casino/chicken-cross-game.netlify.app/assets/chicken.png'),
-                'url'       => 'https://chicken-cross-game.netlify.app/',
+                'name'      => 'Ball Master',
+                'thumbnail' => asset('games/Ball Master/ballmaster.png'),
+                'url'       => 'https://ballmastergame.netlify.app/',
+               
             ],
             [
                 'name'      => 'Dimension Escape 3D',
