@@ -13,33 +13,11 @@
                 <li class="menu-item-has-children active">
                     <a href="/">Home</a>
                 </li>
-                <li class="menu-item-has-children"><a href="#">Matches</a>
-                    <ul class="sub-menu">
-                        <li><a href="/matches">Match Schedule</a></li>
-                        <li><a href="/match-details">Match Details</a></li>
-                    </ul>
+             
+                <li class="menu-item-has-children"><a href="/all-games">Games</a>
+                  
                 </li>
-                <li class="menu-item-has-children"><a href="#">Games</a>
-                    <ul class="sub-menu">
-                        <li><a href="/about">About Us</a></li>
-                        <li><a href="/games">Ethiopian Games</a></li>
-                        <li><a href="/game-details">Game Details</a></li>
-                        <li><a href="/faq">FAQ</a></li>
-                        <li><a href="/players">Players</a></li>
-                        <li><a href="/player-details">Player Details</a></li>
-                        <li><a href="/register">Sign Up</a></li>
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/support">Support</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="/blog">Blog</a>
-                    <ul class="sub-menu">
-                        <li><a href="/blog">Gaming News</a></li>
-                        <li><a href="/blog">Ethiopian Gaming Stories</a></li>
-                        <li><a href="/blog">Tournament Updates</a></li>
-                    </ul>
-                </li>
+            
                 <li class="menu-item-has-children"><a href="/contact">Contact Us</a></li>
                 @auth
                     <li class="menu-item-has-children">
@@ -72,7 +50,7 @@
                                 <h1 class="wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">Ethiopia's Premier <br>
                                     Gaming Platform</h1>
                                 <p class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">Join thousands of Ethiopian gamers on SheggerGames, the ultimate destination for gaming, tournaments, and community.</p>
-                                <a class="btn btn-link wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1.3s" href="/games">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                <a class="btn btn-link wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1.3s" href="/all-games">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>
