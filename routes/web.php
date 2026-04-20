@@ -11,6 +11,7 @@ Route::get('/', [GamesController::class, 'home'])->name('home');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login-form');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::view('/contact', 'contact');
 
 // Protected game routes (require authentication)
 Route::middleware(['auth'])->group(function () {

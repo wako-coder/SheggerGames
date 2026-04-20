@@ -11,6 +11,16 @@ class GamesController extends Controller
         // Define all the games with their names, thumbnails, and local URLs
         $gameList = [
             [
+                'name' => 'Cross Math Link',
+                'thumbnail' => asset('games/cross math/image.png'),
+                'url' => 'https://toolsorcerer.com/codecanyon/cross_math_link/index.html',
+            ],
+            [
+                'name'      => 'Cricket Maths',
+                'thumbnail' => 'https://market-resized.envatousercontent.com/previews/files/657803006/CodeCanyon_590x300.jpg?w=590&h=300&cf_fit=crop&crop=top&format=auto&q=85&s=8256b291dbae6f8f90ccb4960460d58ff251e002a05d2c5d45421326246edcae',
+                'url'       => 'https://wandermindlabs.com/H5Games/CodeCanyon/CricketMaths/',
+            ],
+            [
                 'name'      => 'Math Quiz Addition & Subtraction',
                 'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/math.png'),
                 'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
@@ -32,11 +42,11 @@ class GamesController extends Controller
                 'thumbnail' => asset('games/Checkers_Master/checkers-master-game-buy.netlify.app/img/logo.png'),
                 'url'       => asset('games/Checkers_Master/checkers-master-game-buy.netlify.app/index.html'),
             ],
-            [
-                'name'      => 'Chess Empire Online',
-                'thumbnail' => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/assets/loading.png'),
-                'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.index.html'),
-            ],
+            // [
+            //     'name'      => 'Chess Empire Online',
+            //     'thumbnail' => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/assets/loading.png'),
+            //     'url'       => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.index.html'),
+            // ],
             [
                 'name'      => 'Ball Master
 ',
@@ -93,11 +103,11 @@ class GamesController extends Controller
                 'thumbnail' => asset('games/Sport_Quest/sport-quest.netlify.app/assets/Sport Quest.png'),
                 'url'       => 'https://sport-quest.netlify.app/',
             ],
-            [
-                'name'      => 'Emoji Crushed',
-                'thumbnail' => asset('games/other/ec.png'),
-                'url'       => 'https://emoji-crushed.netlify.app/',
-            ],
+            // [
+            //     'name'      => 'Emoji Crushed',
+            //     'thumbnail' => asset('games/other/ec.png'),
+            //     'url'       => 'https://emoji-crushed.netlify.app/',
+            // ],
             [
                 'name'        => 'Bubble Shooter',
                 'thumbnail'   => asset('games/other/bs.png'),
@@ -162,6 +172,21 @@ class GamesController extends Controller
         // Define all the games with their names, thumbnails, and local URLs
         $gameList = [
             [
+                'name' => 'Cross Math Link',
+                'thumbnail' => asset('games/cross math/image.png'),
+                'url' => 'https://toolsorcerer.com/codecanyon/cross_math_link/index.html',
+                'description' => 'A fun and addictive math puzzle game where you connect numbers to reach a target sum.',
+                'details' => 'Cross Math Link is a challenging puzzle game that tests your math skills and strategic thinking. Connect numbers in a grid to reach the target sum while avoiding obstacles and maximizing your score.',
+            ],
+
+        [
+            'name'        => 'Cricket Maths',
+            'thumbnail'   => asset('assets/img/others/popular-game-thumb1.webp'),
+            'url'         => 'https://wandermindlabs.com/H5Games/CodeCanyon/CricketMaths/',
+            'description' => 'Educational game to practice math skills with a cricket theme.',
+            'details'     => 'Cricket Maths is a fun and interactive game that helps players improve their math skills while enjoying a cricket-themed gaming experience. Solve math problems to score runs and win matches against opponents.',
+        ],
+            [
                 'name'        => 'Math Quiz Addition & Subtraction',
                 'thumbnail'   => asset('assets/img/others/popular-game-thumb3.webp'),
                 'url'         => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
@@ -189,13 +214,13 @@ class GamesController extends Controller
                 'description' => 'Traditional board game played between two players on an 8×8 checkerboard.',
                 'details'     => 'Checkers is a classic strategy game where players move their pieces diagonally across the board, capturing opponent pieces by jumping over them. The goal is to capture all of your opponent\'s pieces or block them so they cannot move.',
             ],
-            [
-                'name'        => 'Chess Empire Online',
-                'thumbnail'   => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/assets/loading.png'),
-                'url'         => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.html'),
-                'description' => 'Strategic board game played between two players, simulating medieval warfare.',
-                'details'     => 'Chess is a recreational and competitive board game played between two players. It is sometimes called international or Western chess to distinguish it from related games such as xiangqi and shogi.',
-            ],
+            // [
+            //     'name'        => 'Chess Empire Online',
+            //     'thumbnail'   => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/assets/loading.png'),
+            //     'url'         => asset('games/Chess_Empire_Online/chess-empire-game.netlify.app/index.html'),
+            //     'description' => 'Strategic board game played between two players, simulating medieval warfare.',
+            //     'details'     => 'Chess is a recreational and competitive board game played between two players. It is sometimes called international or Western chess to distinguish it from related games such as xiangqi and shogi.',
+            // ],
             [
                 'name'        => 'Ball Master',
                 'thumbnail'   => asset('games/Ball_Master/ball-master-game.netlify.app/assets/ball.png'),
@@ -269,13 +294,13 @@ class GamesController extends Controller
                 'details'     => 'Participate in various sports challenges and competitions in this diverse sports game. Test your skills in different athletic events and aim for the highest scores.',
             ],
 
-            [
-                'name'        => 'Emoji Crushed',
-                'thumbnail'   => asset('games/other/ec.png'),
-                'url'         => 'https://emoji-crushed.netlify.app/',
-                'description' => 'Fun match-3 game with cute emojis.',
-                'details'     => 'Match three or more of the same emojis to clear them from the board. Enjoy colorful graphics and addictive gameplay in this charming emoji-themed puzzle game.',
-            ],
+            // [
+            //     'name'        => 'Emoji Crushed',
+            //     'thumbnail'   => asset('games/other/ec.png'),
+            //     'url'         => 'https://emoji-crushed.netlify.app/',
+            //     'description' => 'Fun match-3 game with cute emojis.',
+            //     'details'     => 'Match three or more of the same emojis to clear them from the board. Enjoy colorful graphics and addictive gameplay in this charming emoji-themed puzzle game.',
+            // ],
             [
                 'name'        => 'Bubble Shooter',
                 'thumbnail'   => asset('games/other/bs.png'),
@@ -416,11 +441,11 @@ class GamesController extends Controller
                 'thumbnail' => asset('games/Sport_Quest/sport-quest.netlify.app/assets/Sport Quest.png'),
                 'url'       => 'https://sport-quest.netlify.app/',
             ],
-            [
-                'name'      => 'Emoji Crushed',
-                'thumbnail' => asset('games/other/ec.png'),
-                'url'       => 'https://emoji-crushed.netlify.app/',
-            ],
+            // [
+            //     'name'      => 'Emoji Crushed',
+            //     'thumbnail' => asset('games/other/ec.png'),
+            //     'url'       => 'https://emoji-crushed.netlify.app/',
+            // ],
             [
                 'name'        => 'Bubble Shooter',
                 'thumbnail'   => asset('games/other/bs.png'),
