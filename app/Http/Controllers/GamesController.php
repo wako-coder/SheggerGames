@@ -12,9 +12,16 @@ class GamesController extends Controller
         $gameList = [
             [
                 'name'      => 'Math Quiz Addition & Subtraction',
-                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/logo.png'),
+                'thumbnail' => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/assets/math.png'),
                 'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
             ],
+            [
+'name' => 'Rocket Bot'    ,
+                'thumbnail'   =>asset('games/RocketBot/rocketbot.png'),
+
+'url' => 'https://65ec9259899e16c3586e2681--superb-syrniki-9420d9.netlify.app/',
+
+],
             [
                 'name'      => 'Swiper Soccer 3D',
                 'thumbnail' => asset('games/Swiper_Soccer_3D/swipesoccer-game.netlify.app/soccer.png'),
@@ -117,7 +124,7 @@ class GamesController extends Controller
             'thumbnail'   => asset('games/other/thumb11.jpg'),
             'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
             'description' => 'Join Arya on an epic adventure through mystical lands.',
-            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\\'s Adventure.'
+            'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Aryas Adventure.'
           ],
           [
             'name'=> 'Block Vs Ball',
@@ -160,6 +167,13 @@ class GamesController extends Controller
                 'url'         => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
                 'description' => 'Educational game to practice addition and subtraction skills.',
                 'details'     => 'Test your math skills with this fun quiz game. Answer addition and subtraction problems as quickly as possible to earn points and improve your score.',
+            ],
+            [
+                'name'        => 'Rocket Bot',
+                'thumbnail'   =>asset('games/RocketBot/rocke-bot.png'),
+                'url'         => 'https://65ec9259899e16c3586e2681--superb-syrniki-9420d9.netlify.app/',
+                'description' => 'A fast-paced action game with rocket-powered characters.',
+                'details'     => 'Control your rocket-powered bot and navigate through challenging levels. Collect power-ups and avoid obstacles to achieve the highest score.',
             ],
             [
                 'name'        => 'Swiper Soccer 3D',
