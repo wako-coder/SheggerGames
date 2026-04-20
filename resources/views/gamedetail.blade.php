@@ -70,6 +70,56 @@
         width: 100%;
         height: 100%;
     }
+
+    /* Slick Carousel Navigation Styles */
+    .slick-prev,
+    .slick-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        width: 40px; /* Adjust as needed */
+        height: 40px; /* Adjust as needed */
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 20px; /* Adjust as needed */
+        line-height: 0; /* To center the icon */
+        transition: background-color 0.3s ease;
+    }
+
+    .slick-prev:hover,
+    .slick-next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .slick-prev {
+        left: 10px; /* Adjust as needed */
+    }
+
+    .slick-next {
+        right: 10px; /* Adjust as needed */
+    }
+
+    /* Ensure arrows are visible on smaller screens */
+    @media (max-width: 768px) {
+        .slick-prev {
+            left: 5px;
+        }
+        .slick-next {
+            right: 5px;
+        }
+        .slick-prev,
+        .slick-next {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
+    }
 </style>
 @endsection
 
