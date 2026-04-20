@@ -28,6 +28,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script>
+    window.AppConfig = {
+        prevArrow: "{{ asset('assets/img/icon/navigation-arrow2.webp') }}",
+        nextArrow: "{{ asset('assets/img/icon/navigation-arrow1.webp') }}"
+    };
+</script>
     @yield('styles')
 </head>
 

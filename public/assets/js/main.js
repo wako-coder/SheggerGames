@@ -31,10 +31,10 @@
     // Slick Slider Activation
     var $sliderActvation = $('.slick__activation');
     if($sliderActvation.length > 0){
-        $sliderActvation.slick({
-          prevArrow:'<button class="prev_arrow"><img width="17" height="24" src="assets/img/icon/navigation-arrow2.webp" alt=""></button>',
-          nextArrow:'<button class="next_arrow"><img width="17" height="24" src="assets/img/icon/navigation-arrow1.webp" alt=""></button>',
-        });
+      $sliderActvation.slick({
+    prevArrow: '<button class="prev_arrow"><img width="17" height="24" src="' + window.AppConfig.prevArrow + '" alt=""></button>',
+    nextArrow: '<button class="next_arrow"><img width="17" height="24" src="' + window.AppConfig.nextArrow + '" alt=""></button>',
+});
     };
 
     // Slick Slider Activation2
