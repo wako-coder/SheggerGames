@@ -4,6 +4,21 @@
 <style>
     .game-frame-container {
         position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio (height / width * 100) */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+        background: #000; /* Fallback background for loading */
+    }
+    
+    .game-frame-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
     }
     
     .fullscreen-btn {
@@ -33,51 +48,10 @@
         color: #fff;
     }
     
-    .game-frame-container:-webkit-full-screen {
-        width: 100%;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        background: #000;
-    }
-    
-    .game-frame-container:-webkit-full-screen iframe {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .game-frame-container:-moz-full-screen {
-        width: 100%;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        background: #000;
-    }
-    
-    .game-frame-container:-moz-full-screen iframe {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .game-frame-container:-ms-fullscreen {
-        width: 100%;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        background: #000;
-    }
-    
-    .game-frame-container:-ms-fullscreen iframe {
-        width: 100%;
-        height: 100%;
-    }
-    
+    /* Fullscreen styles for the container */
+    .game-frame-container:-webkit-full-screen,
+    .game-frame-container:-moz-full-screen,
+    .game-frame-container:-ms-fullscreen,
     .game-frame-container:fullscreen {
         width: 100%;
         height: 100vh;
@@ -86,8 +60,12 @@
         left: 0;
         z-index: 9999;
         background: #000;
+        padding-bottom: 0; /* Remove padding-bottom in fullscreen */
     }
     
+    .game-frame-container:-webkit-full-screen iframe,
+    .game-frame-container:-moz-full-screen iframe,
+    .game-frame-container:-ms-fullscreen iframe,
     .game-frame-container:fullscreen iframe {
         width: 100%;
         height: 100%;
@@ -206,7 +184,7 @@
                                 ]
                             }'>
                                 <div class="game_details_thumb position-relative game-frame-container">
-                                    <iframe id="gameFrame" src="{{ $gameUrl ?? '#' }}" width="1170" height="540" frameborder="0" allowfullscreen title="{{ $gameName ?? 'Game' }}"></iframe>
+                                    <iframe id="gameFrame" src="{{ $gameUrl ?? '#' }}" frameborder="0" allowfullscreen title="{{ $gameName ?? 'Game' }}"></iframe>
                                     <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
                                         <svg class="fullscreen-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
@@ -214,7 +192,7 @@
                                     </button>
                                 </div>
                                 <div class="game_details_thumb position-relative game-frame-container">
-                                    <iframe id="gameFrame2" src="{{ $gameUrl ?? '#' }}" width="1170" height="540" frameborder="0" allowfullscreen title="{{ $gameName ?? 'Game' }}"></iframe>
+                                    <iframe id="gameFrame2" src="{{ $gameUrl ?? '#' }}" frameborder="0" allowfullscreen title="{{ $gameName ?? 'Game' }}"></iframe>
                                     <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
                                         <svg class="fullscreen-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
