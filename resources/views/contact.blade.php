@@ -51,8 +51,7 @@
                                 </div>
                                 <div class="contact_info_text">
                                     <h3>Location:</h3>
-                                    <p>100 N Aurora Ave #APT 19
-                                        Oakland, Nebraska(NE), 68045</p>
+                                    <p>Addis Ababa, Ethiopia</p>
                                 </div>
                             </div>
                         </div>
