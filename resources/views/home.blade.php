@@ -30,7 +30,7 @@
                         </form>
                     </li>
                 @else
-                    <li class="menu-item-has-children"><a href="{{ route('login') }}">Login</a></li>
+                    {{-- <li class="menu-item-has-children"><a href="{{ route('login') }}">Login</a></li> --}}
                 @endauth
             </ul>
         </div>

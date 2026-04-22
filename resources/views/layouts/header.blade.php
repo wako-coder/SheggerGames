@@ -53,9 +53,9 @@
                                     </form>
                                 </div>
                             @else
-                                <div class="sing_up_btn">
+                                {{-- <div class="sing_up_btn">
                                     <a class="btn btn-link" href="{{ route('login') }}">Login <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""> </a>
-                                </div>
+                                </div> --}}
                             @endauth
                             <div class="canvas_open">
                                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"><i class="icofont-navigation-menu"></i></button>
