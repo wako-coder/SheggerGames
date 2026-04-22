@@ -224,7 +224,7 @@ class GamesController extends Controller
             ],
             [
                 'name'        => 'Ball Master',
-                'thumbnail'   => asset('games/Ball_Master/ball-master-game.netlify.app/assets/ball.png'),
+                'thumbnail'   => asset('games/Ball Master/ballmaster.png'),
                 'url'         => 'https://ballmastergame.netlify.app/',
                 'description' => 'Exciting ball rolling game with challenging levels.',
                 'details'     => 'Roll the ball through the levels, avoiding obstacles and collecting coins. This game offers a fun and engaging experience with beautiful graphics and smooth gameplay.',
@@ -346,7 +346,7 @@ class GamesController extends Controller
             ],
             [
                 'name'        => 'Aryas Adventure',
-                'thumbnail'   => asset('games/other/aa.png'),
+                'thumbnail'   => asset('games/other/thumb11.jpg'),
                 'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
                 'description' => 'Join Arya on an epic adventure through mystical lands.',
                 'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.',

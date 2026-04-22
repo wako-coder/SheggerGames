@@ -13,8 +13,6 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login-for
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::view('/contact', 'contact');
 
-// Protected game routes (require authentication)
-Route::middleware(['auth'])->group(function () {
-    });
-    Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
-    Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');
+// Game routes (public)
+Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
+Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');

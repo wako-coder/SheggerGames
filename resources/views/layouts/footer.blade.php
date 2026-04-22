@@ -49,34 +49,34 @@
                             <div class="footer_winners_gallery">
                                 <div class="footer_winners_list d-flex">
                                     <div class="footer_winners_thumb">
-                                        <a href="game-details.html"><img aria-label="game-team" width="75" height="75"
+                                        <a href="/all-games"><img aria-label="game-team" width="75" height="75"
                                                 src="{{ asset('assets/img/others/winners1.webp') }}"
                                                 alt="Ethiopian Gaming Champion"></a>
                                     </div>
                                     <div class="footer_winners_thumb">
-                                        <a href="game-details.html"><img aria-label="game-team" width="75" height="75"
+                                        <a href="/all-games"><img aria-label="game-team" width="75" height="75"
                                                 src="{{ asset('assets/img/others/winners2.webp') }}"
                                                 alt="Ethiopian Gaming Champion"></a>
                                     </div>
                                     <div class="footer_winners_thumb">
-                                        <a href="game-details.html"><img aria-label="game-team" width="75" height="75"
+                                        <a href="/all-games"><img aria-label="game-team" width="75" height="75"
                                                 src="{{ asset('assets/img/others/winners3.webp') }}"
                                                 alt="Ethiopian Gaming Champion"></a>
                                     </div>
                                 </div>
                                 <div class="footer_winners_list d-flex">
                                     <div class="footer_winners_thumb">
-                                        <a href="game-details.html"><img aria-label="game-team" width="75" height="75"
+                                        <a href="/all-games"><img aria-label="game-team" width="75" height="75"
                                                 src="{{ asset('assets/img/others/winners4.webp') }}"
                                                 alt="Ethiopian Gaming Champion"></a>
                                     </div>
                                     <div class="footer_winners_thumb">
-                                        <a href="game-details.html"><img aria-label="game-team" width="75" height="75"
+                                        <a href="/all-games"><img aria-label="game-team" width="75" height="75"
                                                 src="{{ asset('assets/img/others/winners5.webp') }}"
                                                 alt="Ethiopian Gaming Champion"></a>
                                     </div>
                                     <div class="footer_winners_thumb">
-                                        <a href="game-details.html"><img aria-label="game-team" width="75" height="75"
+                                        <a href="/all-games"><img aria-label="game-team" width="75" height="75"
                                                 src="{{ asset('assets/img/others/winners6.webp') }}"
                                                 alt="Ethiopian Gaming Champion"></a>
                                     </div>
@@ -87,11 +87,11 @@
                             <h3>Quick Links</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li><a href="/about"> About Us</a></li>
-                                    <li><a href="/games"> Ethiopian Games</a></li>
-                                    <li><a href="/tournaments"> Tournaments</a></li>
-                                    <li><a href="/community"> Community</a></li>
-                                    <li><a href="/support"> Support</a></li>
+                                    <li><a href="#"> About Us</a></li>
+                                    <li><a href="#"> Ethiopian Games</a></li>
+                                    <li><a href="#"> Tournaments</a></li>
+                                    <li><a href="#"> Community</a></li>
+                                    <li><a href="#"> Support</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -112,8 +112,8 @@
                         </div>
                         <div class="footer_bottom_link_menu">
                             <ul class="d-flex">
-                                <li><a href="/terms">Terms & Conditions</a></li>
-                                <li><a href="/privacy">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
                             </ul>
                         </div>
 
