@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  // More aggressive override of window.location
+  Object.defineProperty(window, 'location', {
+    value: window.location, // Keep the original value
+    writable: false,        // Make it read-only
+    configurable: false     // Prevent it from being reconfigured
+  });
+
+  // Override history methods to prevent URL changes
+  (function() {
+    var originalPushState = history.pushState;
+    var originalReplaceState = history.replaceState;
+
+    history.pushState = function() {
+      console.log('history.pushState prevented.');
+      // Optionally, call the original method without arguments if you want to prevent the state change but not break functionality
+      // return originalPushState.apply(history, arguments);
+    };
+
+    history.replaceState = function() {
+      console.log('history.replaceState prevented.');
+      // Optionally, call the original method without arguments
+      // return originalReplaceState.apply(history, arguments);
+    };
+  })();
+</script>
+<meta charset="UTF-8">
+<title>Basketball Mania</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+<meta name="generator" content="Scirra Construct">
+	<meta name="author" content="Mazap Labs">
+	<link rel="manifest" href="appmanifest.json">
+	<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
+	<link rel="apple-touch-icon" sizes="256x256" href="icons/icon-256.png">
+	<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+	<link rel="icon" type="image/png" href="icons/icon-512.png">
+
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+<script>
+if (location.protocol.substr(0, 4) === "file")
+{
+	alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+}
+</script>
+
+	<noscript>
+		<div id="notSupportedWrap">
+			<h2 id="notSupportedTitle">This content requires JavaScript</h2>
+			<p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+		</div>
+	</noscript>
+	<script src="scripts/supportcheck.js"></script>
+	<script src="scripts/offlineclient.js" type="module"></script>
+	<script src="scripts/main.js" type="module"></script>
+	<script src="scripts/register-sw.js" type="module"></script>
+
+</body>
+</html>

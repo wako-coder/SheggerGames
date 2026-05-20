@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Royal Snooker Championship</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&family=Cinzel:wght@600&family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+
+  <!-- Layer 1: original styles — untouched -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Layer 2: table/cue themes, popup system, game controls -->
+  <link rel="stylesheet" href="assets/css/enhancements.css">
+  <!-- Layer 3: shot log, stats, sound, charge glow, flash -->
+  <link rel="stylesheet" href="assets/css/features.css">
+
+  <script src="assets/js/anti-inspect.js"></script>
+
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Browser compatibility check — runs before anything else -->
+  <script src="assets/js/browser-check.js"></script>
+</head>
+
+<body>
+  <div id="hdr">
+    <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:2px">
+      <span style="color:#c9a84c;opacity:.6;letter-spacing:5px">✦ ✦ ✦</span>
+      <div id="title">ROYAL SNOOKER</div>
+      <span style="color:#c9a84c;opacity:.6;letter-spacing:5px">✦ ✦ ✦</span>
+    </div>
+    <div class="gline"></div>
+    <div id="sub">Championship Edition · Professional Series</div>
+  </div>
+
+  <div id="wrap">
+    <!-- LEFT PANEL -->
+    <div class="panel">
+      <div class="pb act" id="p1b">
+        <div class="abar"></div>
+        <div class="plbl">Player One</div>
+        <div class="pname" id="p1name">YOU</div>
+        <div class="pscore" id="p1s">0</div>
+        <div class="pturn">▸ at the table</div>
+      </div>
+      <div class="pb" id="p2b">
+        <div class="abar"></div>
+        <div class="plbl" id="p2lbl">Player Two</div>
+        <div class="pname" id="p2name">CONTENDER</div>
+        <div class="pscore" id="p2s">0</div>
+        <div class="pturn" id="p2turn">▸ at the table</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">Shot Power</div>
+        <div id="pwrOuter">
+          <div id="pwrInner"></div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="lbl">Cue Spin</div>
+        <div id="spinGrid">
+          <div class="sb" data-s="tl">↖</div>
+          <div class="sb" data-s="t">↑</div>
+          <div class="sb" data-s="tr">↗</div>
+          <div class="sb" data-s="l">←</div>
+          <div class="sb on" data-s="c">●</div>
+          <div class="sb" data-s="r">→</div>
+          <div class="sb" data-s="bl">↙</div>
+          <div class="sb" data-s="b">↓</div>
+          <div class="sb" data-s="br">↘</div>
+        </div>
+      </div>
+      <div class="sec" style="flex:1">
+        <div class="lbl">Status</div>
+        <div id="stmsg">Aim &amp; hold to charge</div>
+        <div id="aiDots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div id="aiLbl">AI thinking…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div id="tableWrap">
+      <div id="outerFrame">
+        <div class="cnr tl">❧</div>
+        <div class="cnr tr">❧</div>
+        <div class="cnr bl">❧</div>
+        <div class="cnr br">❧</div>
+        <div id="innerFrame"><canvas id="c"></canvas></div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="panel">
+      <div class="sec">
+        <div class="lbl">Break</div>
+        <div class="ival" id="brkVal">0</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">Next Target</div>
+        <div id="ntxt"
+          style="font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:2px;color:#c9a84c;margin-top:2px">Red</div>
+        <div id="ndot" class="nbd" style="background:#c0392b"></div>
+      </div>
+      <div class="sec">
+        <div class="lbl">Frame</div>
+        <div class="ival" style="font-size:1.3rem" id="frmVal">01</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">Reds Left</div>
+        <div class="ival" style="font-size:2.2rem" id="redsVal">15</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">Mode</div>
+        <div id="modeLbl"
+          style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:2px;color:#c9a84c;margin-top:2px">vs AI
+        </div>
+      </div>
+      <div class="sec" style="flex:1">
+        <div class="lbl">On Table</div>
+        <div id="rack"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ft">Move mouse to aim · Hold left-click for power · Release to shoot</div>
+
+  <!-- MAIN MENU OVERLAY -->
+  <div id="ov">
+    <div id="ovBox">
+      <span class="ovcr">♛</span>
+      <h1>ROYAL<br>SNOOKER</h1>
+      <div class="ovsub">Championship Edition</div>
+      <div class="mrow">
+        <div class="mbtn sel" id="mAI" onclick="setMode('ai')">
+          <div class="micon">🔥</div>
+          <div class="mtitle">vs AI</div>
+          <div class="mdesc">Challenge the computer</div>
+        </div>
+        <div class="mbtn" id="m2P" onclick="setMode('2p')">
+          <div class="micon">🧠</div>
+          <div class="mtitle">2 Players</div>
+          <div class="mdesc">Play with a friend</div>
+        </div>
+      </div>
+      <div id="diffSec">
+        <div class="dlbl">AI Difficulty</div>
+        <div id="drow">
+          <div class="dbtn" id="dE" onclick="setDiff('easy')">Easy</div>
+          <div class="dbtn sel" id="dM" onclick="setDiff('medium')">Medium</div>
+          <div class="dbtn" id="dH" onclick="setDiff('hard')">Expert</div>
+        </div>
+      </div>
+      <div class="igrid">
+        <div class="ic">
+          <div class="ick">Aim</div>
+          <div class="icd">Move mouse to aim the cue</div>
+        </div>
+        <div class="ic">
+          <div class="ick">Power</div>
+          <div class="icd">Hold left-click, release to shoot</div>
+        </div>
+        <div class="ic">
+          <div class="ick">Spin</div>
+          <div class="icd">Pick spin from 9-grid on left</div>
+        </div>
+        <div class="ic">
+          <div class="ick">Rules</div>
+          <div class="icd">Red then colour. Fouls = 4+ pts to opponent.</div>
+        </div>
+      </div>
+      <button id="startBtn" onclick="startGame()">BEGIN FRAME</button>
+    </div>
+  </div>
+
+  <!--
+    JS LOAD ORDER (strict):
+    1. script.js      — original game engine (untouched)
+    2. enhancements.js — table/cue themes, popup system, game controls
+    3. features.js    — shot log, stats modal, sound, charge glow, screen flash
+    4. fixes.js       — AI modal guard, BIH rebuild, aim slider, foul fix, physics
+  -->
+
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/enhancements.js"></script>
+  <script src="assets/js/features.js"></script>
+  <script src="assets/js/fixes.js"></script>
+  <script src="assets/js/aim-widget.js"></script>
+  
+  <script src="assets/js/anti-inspect.js"></script>
+</body>
+
+</html>

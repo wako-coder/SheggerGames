@@ -1,0 +1,300 @@
+/* ============================================================
+   ROYAL SNOOKER — FEATURES v2 (features.css)
+   Pure additions — no existing rule is modified or overridden.
+   ============================================================ */
+
+/* ── 1. SHOT HISTORY LOG ─────────────────────────────────── */
+#shotLog {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  flex: 1;
+  position: relative;
+}
+#shotLogList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,.15) transparent;
+  max-height: 160px;
+}
+#shotLogList::-webkit-scrollbar { width: 3px; }
+#shotLogList::-webkit-scrollbar-track { background: transparent; }
+#shotLogList::-webkit-scrollbar-thumb { background: rgba(201,168,76,.2); border-radius: 2px; }
+
+.slEntry {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 2px;
+  animation: slSlideIn .2s ease;
+  flex-shrink: 0;
+}
+@keyframes slSlideIn {
+  from { opacity:0; transform:translateX(-8px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+.slEntry.ok   { background: rgba(110,240,160,.05); }
+.slEntry.foul { background: rgba(220,80,80,.06); }
+.slEntry.miss { background: transparent; }
+
+.slDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: inset -1px -1px 2px rgba(0,0,0,.4);
+}
+.slText {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .62rem;
+  line-height: 1.3;
+  color: rgba(245,238,214,.45);
+  flex: 1;
+}
+.slText.ok   { color: rgba(110,240,160,.8); }
+.slText.foul { color: rgba(230,100,100,.8); }
+.slPts {
+  font-family: 'Cinzel', serif;
+  font-size: .52rem;
+  letter-spacing: 1px;
+  color: rgba(201,168,76,.5);
+  flex-shrink: 0;
+}
+.slPts.ok { color: #c9a84c; }
+.slEmpty {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: .65rem;
+  color: rgba(245,238,214,.18);
+  padding: 8px 6px;
+  letter-spacing: 2px;
+}
+
+/* ── 2. BALL-IN-HAND PLACEMENT ───────────────────────────── */
+#bihOverlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+#bihOverlay.active {
+  display: block;
+  pointer-events: all;
+  cursor: crosshair;
+}
+#bihBanner {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  background: rgba(6,4,2,.85);
+  border: 1px solid rgba(201,168,76,.25);
+  padding: 8px 18px;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: bihPulse 1.5s ease-in-out infinite;
+  z-index: 51;
+}
+#bihBanner.active { display: block; }
+@keyframes bihPulse {
+  0%,100% { opacity: .7; }
+  50%      { opacity: 1;  }
+}
+
+/* ── 3. STATS MODAL ──────────────────────────────────────── */
+#statsModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,1,0,.9);
+  z-index: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  animation: rsBackdropIn .22s ease;
+}
+#statsModal.open { display: flex; }
+
+#statsBox {
+  width: 520px;
+  max-width: 94vw;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: linear-gradient(160deg,#110e06,#1a1408,#0e0b04);
+  border: 1px solid rgba(201,168,76,.22);
+  padding: 32px 36px 28px;
+  position: relative;
+  animation: rsBoxIn .26s cubic-bezier(.22,.68,0,1.2);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,.15) transparent;
+}
+#statsBox::before {
+  content:''; position:absolute; inset:6px;
+  border:1px solid rgba(201,168,76,.06); pointer-events:none;
+}
+#statsBox::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,#c9a84c,transparent);
+}
+
+.statsTitle {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 1.1rem; letter-spacing: 4px;
+  color: #f0d080; text-align: center; margin-bottom: 22px;
+  text-shadow: 0 0 22px rgba(201,168,76,.35);
+}
+.statsClose {
+  position: absolute; top: 14px; right: 16px;
+  font-family: 'Cinzel', serif; font-size: .55rem; letter-spacing: 2px;
+  color: rgba(201,168,76,.45); cursor: pointer;
+  background: none; border: 1px solid rgba(201,168,76,.12);
+  padding: 4px 10px; transition: all .15s;
+}
+.statsClose:hover { color: #f0d080; border-color: rgba(201,168,76,.4); }
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+.statCard {
+  padding: 14px 16px;
+  background: rgba(201,168,76,.025);
+  border: 1px solid rgba(201,168,76,.07);
+  text-align: center;
+}
+.statVal {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 1.8rem; font-weight: 900;
+  color: #c9a84c; line-height: 1;
+  margin-bottom: 4px;
+}
+.statLbl {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .6rem; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(201,168,76,.38);
+}
+
+.statsPlayerRow {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  gap: 0;
+  margin-bottom: 20px;
+}
+.statsPlayerCol { padding: 16px 18px; }
+.statsPlayerCol:first-child {
+  background: rgba(201,168,76,.03);
+  border: 1px solid rgba(201,168,76,.08);
+}
+.statsPlayerCol:last-child {
+  background: rgba(201,168,76,.02);
+  border: 1px solid rgba(201,168,76,.06);
+}
+.statsPlayerDivider {
+  background: linear-gradient(180deg,transparent,rgba(201,168,76,.2),transparent);
+}
+.spName {
+  font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(201,168,76,.5); margin-bottom: 10px;
+}
+.spStat {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(201,168,76,.05);
+  font-family: 'Cormorant Garamond', serif; font-size: .85rem;
+}
+.spStat:last-child { border-bottom: none; }
+.spStatLbl { color: rgba(245,238,214,.4); }
+.spStatVal {
+  font-family: 'Cinzel', serif; font-size: .65rem;
+  letter-spacing: 1px; color: #c9a84c;
+}
+
+/* ── 4. SOUND CONTROLS ───────────────────────────────────── */
+#soundControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(201,168,76,.07);
+}
+.soundToggle {
+  font-size: .95rem; cursor: pointer;
+  background: none; border: none;
+  transition: opacity .15s; flex-shrink: 0;
+  filter: drop-shadow(0 0 4px rgba(201,168,76,.3));
+}
+.soundToggle.muted { opacity: .25; }
+.volSliderWrap {
+  flex: 1; position: relative; height: 14px;
+  display: flex; align-items: center;
+}
+.volSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; height: 3px;
+  background: rgba(201,168,76,.12);
+  border-radius: 2px; outline: none; cursor: pointer;
+}
+.volSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: linear-gradient(135deg,#c9a84c,#f0d080);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(201,168,76,.4);
+}
+.volSlider::-moz-range-thumb {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: linear-gradient(135deg,#c9a84c,#f0d080);
+  cursor: pointer; border: none;
+}
+.volLbl {
+  font-family: 'Cinzel', serif; font-size: .42rem;
+  letter-spacing: 2px; color: rgba(201,168,76,.3);
+  flex-shrink: 0;
+}
+
+/* ── 5. CHARGING GLOW (canvas overlay div) ───────────────── */
+/* Handled purely in JS/canvas — no extra CSS needed */
+
+/* ── 6. FLASH EFFECT ─────────────────────────────────────── */
+#flashOverlay {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 300;
+  opacity: 0;
+}
+
+/* ── STATS BUTTON IN CONTROLS BAR ────────────────────────── */
+.gcBtn.stats-btn {
+  color: rgba(136,204,255,.65);
+  border-color: rgba(136,204,255,.14);
+}
+.gcBtn.stats-btn:hover {
+  background: rgba(136,204,255,.08);
+  color: #88ccff;
+  border-color: rgba(136,204,255,.35);
+}
+
+/* ── BALL-IN-HAND INDICATOR IN STATUS ───────────────────── */
+.bih-hint {
+  display: inline-block;
+  font-family: 'Cinzel', serif; font-size: .52rem;
+  letter-spacing: 2px; color: #f0d080;
+  border: 1px solid rgba(240,208,128,.25);
+  background: rgba(240,208,128,.06);
+  padding: 3px 8px; margin-top: 4px;
+  animation: bihPulse 1.5s ease-in-out infinite;
+}

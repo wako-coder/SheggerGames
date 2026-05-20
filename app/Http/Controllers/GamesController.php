@@ -31,11 +31,31 @@ class GamesController extends Controller
                 'url'       => asset('games/Math_Quiz_Addition_&_Subtraction/math-quiz-challenge.netlify.app/index.html'),
             ],
             [
+                'name'      => 'Spider Solitaire',
+                'thumbnail' => asset('games/Spider_Solitaire/images/image copy 2.png'),
+                'url'       => asset('games/Spider_Solitaire/index.html'),
+            ],
+            [
                 'name'      => 'Rocket Bot',
                 'thumbnail' => asset('games/RocketBot/rocketbot.png'),
 
                 'url'       => 'https://65ec9259899e16c3586e2681--superb-syrniki-9420d9.netlify.app/',
 
+            ],
+            [
+                'name'      => 'royal-snooker-championship',
+                'thumbnail' => asset('games/royal-snooker-championship/assets/images/image.png'),
+                'url'       => asset('games/royal-snooker-championship/index.html'),
+            ],
+            [
+                'name' => 'Tripeaks Solitaire',
+                'thumbnail' => asset('games/Tripeaks/icons/image.png'),
+                'url'       => asset('games/Tripeaks/index.html'),
+
+            ],
+            ['name' => 'Basketball'
+                , 'thumbnail' => asset('games/game34-basketball_mania/icons/image.png'),
+                'url'       => asset('games/game34-basketball_mania/index.html'),
             ],
             [
                 'name'      => 'Swiper Soccer 3D',
@@ -88,6 +108,12 @@ class GamesController extends Controller
                 'thumbnail' => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/plinko.jpg'),
 
                 'url'       => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/index.html'),
+            ],
+            [
+                'name'      => 'Park Your Car',
+                'thumbnail' => asset('games/park_your_car/sprites/200x200.jpg'),
+                'url'       =>  asset('games/Park_Your_Car/index.html'),
+
             ],
 
             // [
@@ -161,7 +187,7 @@ class GamesController extends Controller
         }
 
         // Trim to exactly 38 games
-        $allGames = array_slice($allGames, 0, 20);
+        $allGames = array_slice($allGames, 0, 25);
 
         foreach ($allGames as $index => $game) {
             $popularGames[] = [
@@ -209,11 +235,41 @@ class GamesController extends Controller
                 'details'     => 'Test your math skills with this fun quiz game. Answer addition and subtraction problems as quickly as possible to earn points and improve your score.',
             ],
             [
+                'name' => 'Spider Solitaire',
+                'thumbnail' => asset('games/Spider_Solitaire/spider-solitaire.png'),
+                'url' => asset('games/Spider_Solitaire/index.html'),
+                'description' => 'A classic card game where you build sequences from King to Ace.',
+                'details' => 'Spider Solitaire is a challenging card game where you build sequences from King to Ace. Remove all cards from the tableau to win the game.',
+
+            ],
+            [
                 'name'        => 'Rocket Bot',
                 'thumbnail'   => asset('games/RocketBot/rocke-bot.png'),
                 'url'         => 'https://65ec9259899e16c3586e2681--superb-syrniki-9420d9.netlify.app/',
                 'description' => 'A fast-paced action game with rocket-powered characters.',
                 'details'     => 'Control your rocket-powered bot and navigate through challenging levels. Collect power-ups and avoid obstacles to achieve the highest score.',
+            ],
+
+            [
+                'name' => 'royal-snooker-championship',
+                'thumbnail' => asset('games/royal-snooker-championship/assets/images/image.png'),
+                'url' => asset('games/royal-snooker-championship/index.html'),
+                'description' => 'A classic snooker game with royal theme.',
+                'details' => 'Play the traditional snooker game with a royal twist. Score points by potting balls and try to win the championship.',
+
+            ],
+            [
+                'name' => 'Tripeaks Solitaire',
+                'thumbnail' => asset('games/Tripeaks/icons/image.png'),
+                'url' => asset('games/Tripeaks/index.html'),
+                'description' => 'A popular solitaire card game with a unique layout.',
+                'details' => 'Tripeaks Solitaire is a fun and addictive card game where you clear the board by selecting cards that are one rank higher or lower than the current card. Clear all cards to win the game.',
+            ],
+            [ 'name' => 'Basketball Mania'
+                , 'thumbnail' => asset('games/game34-basketball_mania/icons/image.png'),
+                'url'       => asset('games/game34-basketball_mania/index.html'),
+                'description' => 'An exciting basketball game with fun graphics and gameplay.',
+                'details'     => 'Basketball Mania is a fast-paced basketball game where you shoot hoops and score points. Compete against the clock and aim for the highest score possible.',
             ],
             [
                 'name'        => 'Swiper Soccer 3D',
@@ -277,6 +333,14 @@ class GamesController extends Controller
                 'url'         => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/index.html'),
                 'description' => 'Casino-style Plinko game with realistic physics.',
                 'details'     => 'Drop chips and watch them bounce off pegs in this classic Plinko game. Win prizes based on where your chip lands at the bottom of the board.',
+            ],
+
+            [
+                'name'        => 'Park Your Car',
+                'thumbnail'   => asset('games/park_your_car/sprites/200x200.png'),
+                'url'         =>  asset('games/park_your_car/index.html'),
+                'description' => 'Park your car in the designated spots.',
+                'details'     => 'Drive your car around the parking lot and park it in the correct spots. Complete levels with the fewest moves possible.',
             ],
 
             // [

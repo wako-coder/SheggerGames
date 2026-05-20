@@ -1,0 +1,316 @@
+/* ============================================================
+   ROYAL SNOOKER — ENHANCEMENT STYLES (ADDITIVE ONLY)
+   This file only adds new rules. Existing style.css is untouched.
+   ============================================================ */
+
+/* ── GAME CONTROLS BAR ─────────────────────────────────── */
+#gameControls {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+#gameControls.visible { display: flex; }
+
+.gcBtn {
+  font-family: "Cinzel", serif;
+  font-size: 0.48rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,.6);
+  background: rgba(201,168,76,.04);
+  border: 1px solid rgba(201,168,76,.14);
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.gcBtn:hover {
+  background: rgba(201,168,76,.1);
+  color: #f0d080;
+  border-color: rgba(201,168,76,.4);
+}
+.gcBtn.danger:hover {
+  background: rgba(200,50,50,.12);
+  color: #ff7070;
+  border-color: rgba(200,50,50,.3);
+}
+.gcBtn-sep {
+  width: 1px;
+  height: 14px;
+  background: rgba(201,168,76,.12);
+}
+
+/* ── PREMIUM POPUP SYSTEM ──────────────────────────────── */
+.rsPopupBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,1,0,.88);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rsBackdropIn .22s ease;
+}
+@keyframes rsBackdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.rsPopupBox {
+  width: 360px;
+  max-width: 92vw;
+  background: linear-gradient(160deg,#110e06,#1a1408,#0e0b04);
+  border: 1px solid rgba(201,168,76,.22);
+  padding: 34px 36px 28px;
+  position: relative;
+  text-align: center;
+  animation: rsBoxIn .26s cubic-bezier(.22,.68,0,1.2);
+}
+@keyframes rsBoxIn {
+  from { opacity: 0; transform: scale(.88) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.rsPopupBox::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,168,76,.06);
+  pointer-events: none;
+}
+.rsPopupBox::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,transparent,#c9a84c,transparent);
+}
+
+.rsPopupIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 14px rgba(201,168,76,.45));
+}
+.rsPopupTitle {
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 1.1rem;
+  color: #f0d080;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 22px rgba(201,168,76,.35);
+}
+.rsPopupMsg {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: .88rem;
+  color: rgba(245,238,214,.5);
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.rsPopupBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.rsPopupBtns button {
+  font-family: "Cinzel", serif;
+  font-size: .56rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  cursor: pointer;
+  border: none;
+  transition: all .18s;
+}
+.rsPopupBtns .rsConfirm {
+  background: linear-gradient(135deg,#c9a84c,#f0d080,#c9a84c);
+  color: #080502;
+  box-shadow: 0 3px 18px rgba(201,168,76,.3);
+}
+.rsPopupBtns .rsConfirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(201,168,76,.48);
+}
+.rsPopupBtns .rsCancel {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(201,168,76,.15) !important;
+  color: rgba(245,238,214,.45);
+}
+.rsPopupBtns .rsCancel:hover {
+  background: rgba(201,168,76,.08);
+  color: #c9a84c;
+}
+.rsPopupBtns .rsDanger {
+  background: rgba(180,40,40,.18);
+  border: 1px solid rgba(200,60,60,.3) !important;
+  color: #ff8080;
+}
+.rsPopupBtns .rsDanger:hover {
+  background: rgba(200,40,40,.3);
+  transform: translateY(-1px);
+}
+
+/* Pause overlay uses same design tokens */
+#pauseScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,1,0,.86);
+  z-index: 400;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+}
+#pauseScreen.active { display: flex; }
+#pauseScreen .rsPopupBox { width: 340px; }
+
+/* ── TABLE SELECTOR (inside #ovBox, after igrid) ───────── */
+.custSection {
+  margin-bottom: 14px;
+}
+.custSection .dlbl {
+  font-family: "Cormorant Garamond", serif;
+  font-size: .6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,.36);
+  margin-bottom: 8px;
+}
+.custRow {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Table cards */
+.tCard {
+  width: 68px;
+  cursor: pointer;
+  border: 1px solid rgba(201,168,76,.12);
+  background: rgba(0,0,0,.3);
+  padding: 4px;
+  transition: all .2s;
+  position: relative;
+}
+.tCard:hover, .tCard.sel {
+  border-color: #c9a84c;
+  box-shadow: 0 0 12px rgba(201,168,76,.22);
+}
+.tCard.sel::after {
+  content: "✓";
+  position: absolute;
+  top: 2px; right: 4px;
+  font-size: .55rem;
+  color: #c9a84c;
+  font-family: "Cinzel", serif;
+}
+.tCardFelt {
+  height: 28px;
+  border-radius: 2px;
+  margin-bottom: 4px;
+}
+.tCardLabel {
+  font-family: "Cinzel", serif;
+  font-size: .45rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,238,214,.5);
+  text-align: center;
+}
+.tCard.sel .tCardLabel { color: #c9a84c; }
+
+/* Cue cards */
+.cueCard {
+  width: 68px;
+  cursor: pointer;
+  border: 1px solid rgba(201,168,76,.12);
+  background: rgba(0,0,0,.3);
+  padding: 6px 4px;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.cueCard:hover, .cueCard.sel {
+  border-color: #c9a84c;
+  box-shadow: 0 0 12px rgba(201,168,76,.22);
+}
+.cueCard.sel::after {
+  content: "✓";
+  position: absolute;
+  top: 2px; right: 4px;
+  font-size: .55rem;
+  color: #c9a84c;
+  font-family: "Cinzel", serif;
+}
+.cuePreview {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.cueCardLabel {
+  font-family: "Cinzel", serif;
+  font-size: .44rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,238,214,.5);
+  text-align: center;
+}
+.cueCard.sel .cueCardLabel { color: #c9a84c; }
+
+/* ── TABLE THEME: MIDNIGHT (dark navy) ─────────────────── */
+.theme-midnight #innerFrame canvas { /* applied by JS rebuilding tableCache */ }
+/* felt swatch colors for tCard previews */
+.tFelt-classic  { background: linear-gradient(135deg,#0d5826,#1a7a3a); }
+.tFelt-midnight { background: linear-gradient(135deg,#0d2a5e,#1a3f8a); }
+.tFelt-burgundy { background: linear-gradient(135deg,#5e0d1a,#8a1f30); }
+.tFelt-slate    { background: linear-gradient(135deg,#2c3640,#3d4f5e); }
+
+/* Cue swatch gradients */
+.cuePrev-classic  { background: linear-gradient(90deg,#5bc8f5 2%,#e0d5b0 8%,#f5e8c2 18%,#d4a84b 52%,#8b4a14 78%,#1e0901 100%); }
+.cuePrev-ebony    { background: linear-gradient(90deg,#a0c8f0 2%,#ddd 8%,#eee 16%,#999 38%,#444 62%,#111 100%); }
+.cuePrev-crimson  { background: linear-gradient(90deg,#f59b5b 2%,#e8ccc0 8%,#f5e2c2 18%,#c94848 52%,#7a1414 78%,#1e0101 100%); }
+.cuePrev-jade     { background: linear-gradient(90deg,#5bf5a0 2%,#b0e8c2 8%,#c2f5d4 18%,#3aad6e 52%,#145e32 78%,#011e0a 100%); }
+
+/* ── FRAME END POPUP ────────────────────────────────────── */
+#frameEndPopup .rsPopupBox { width: 400px; }
+.frameScores {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin: 14px 0 20px;
+}
+.frameScoreItem {
+  text-align: center;
+}
+.frameScoreItem .fsName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: .65rem;
+  letter-spacing: 3px;
+  color: rgba(201,168,76,.45);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.frameScoreItem .fsVal {
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: rgba(201,168,76,.3);
+  line-height: 1;
+}
+.frameScoreItem.winner .fsName { color: rgba(201,168,76,.85); }
+.frameScoreItem.winner .fsVal  { color: #f0d080; text-shadow: 0 0 20px rgba(201,168,76,.4); }
+.frameDivider {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  color: rgba(201,168,76,.18);
+  align-self: center;
+}

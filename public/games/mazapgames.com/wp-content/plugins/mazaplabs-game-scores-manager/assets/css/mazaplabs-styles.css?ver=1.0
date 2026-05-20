@@ -1,0 +1,153 @@
+/* Importing Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+
+/* Styling the leaderboard container */
+.mazaplabs-leaderboard-container {
+  border: 4px solid #EF7E00;
+  border-radius: 25px;
+  padding: 80px 80px 40px 80px;
+  position: relative;
+}
+
+/* Styling the leaderboard heading */
+.mazaplabs-leaderboard-heading {
+  font-family: 'Boogaloo', cursive;
+  background-color: #FFE13C;
+  border: 6px solid #FC9812;
+  border-radius: 25px;
+  text-align: center;
+  padding: 20px 10px;
+  color: #11111a;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+
+/* Styling the leaderboard data rows */
+.mazaplabs-leaderboard-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Styling the leaderboard tags */
+.mazaplabs-leaderboard-tag {
+  width: 40px;
+  height: 40px;
+  margin-right: 30px;
+  object-fit: cover;
+}
+
+.mazaplabs-leaderboard-serial {
+  font-family: 'Boogaloo', cursive;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mazaplabs-leaderboard-avatar {
+  width: 60px;
+  height: 60px !important;
+  border-radius: 50% !important;
+  margin-right: 30px !important;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.mazaplabs-leaderboard-user {
+  background-color: #4A4A4A;
+  color: #FFFFFF;
+  border-radius: 10px;
+  padding: 15px 20px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mazaplabs-leaderboard-username {
+  font-size: 16px;
+}
+
+.mazaplabs-leaderboard-score {
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+/* Example styling for the leaderboard */
+.mazaplabs-leaderboard-container {
+  width: 70%;
+  margin: 40px auto;
+}
+
+.mazaplabs-leaderboard-heading {
+  font-size: 42px;
+}
+
+.mazaplabs-leaderboard-serial {
+  font-size: 24px;
+}
+
+/* Responsive Styles */
+
+/* Adjusting width and padding for smaller screens */
+@media (max-width: 768px) {
+  .mazaplabs-leaderboard-container {
+    width: 90%;
+    padding: 80px 40px 40px 40px;
+  }
+   .mazaplabs-leaderboard-heading {
+    font-size: 30px;
+  }
+  .mazaplabs-leaderboard-serial {
+    font-size: 18px;
+  }
+}
+
+/* Modifying font sizes for smaller screens */
+@media (max-width: 480px) {
+    .mazaplabs-leaderboard-container {
+    width: 90%;
+    padding: 60px 20px 20px 20px;
+  }
+  .mazaplabs-leaderboard-heading {
+  width: 80%;
+}
+  .mazaplabs-leaderboard-heading {
+    font-size: 24px;
+  }
+  .mazaplabs-leaderboard-serial {
+    font-size: 18px;
+  }
+  .mazaplabs-leaderboard-username,
+  .mazaplabs-leaderboard-score {
+    font-size: 14px;
+  }
+  .mazaplabs-leaderboard-tag {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+.mazaplabs-leaderboard-serial {
+    width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+.mazaplabs-leaderboard-avatar {
+  width: 30px;
+  height: 30px !important;
+  margin-right: 10px !important;
+}
+
+.mazaplabs-leaderboard-user {
+  padding: 15px 12px;
+}
+}

@@ -1,0 +1,31 @@
+(function ($) {
+    function receiveMessage(event) {
+        if (event.origin === mazaplabsGameScoresManager.websiteUrl) {
+            // Get the score from the message
+            var score = event.data;
+
+            // AJAX request to save the score
+            $.ajax({
+                url: mazaplabsGameScoresManager.ajaxUrl,
+                type: 'POST',
+                data: {
+                    action: 'save_game_score',
+                    score: score,
+                    game_id: mazaplabsGameScoresManager.gameId,
+                    user_id: mazaplabsGameScoresManager.userId
+                },
+                success: function (response) {
+                    // Score saved successfully
+                    console.log('Score saved successfully');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Error occurred while saving the score
+                    console.error('Error saving score:', errorThrown);
+                }
+            });
+        }
+    }
+
+    // Listen for postMessage events
+    window.addEventListener('message', receiveMessage, false);
+})(jQuery);
