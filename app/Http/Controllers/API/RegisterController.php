@@ -12,10 +12,9 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        // Validate incoming request
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|string|unique:users,phone_number',
-            'password' => 'required|string|min:6',
+            'phone_number'   => 'required|string',
+            'password'       => 'required|string|min:6',
             'product_number' => 'nullable|string',
         ]);
 
@@ -23,26 +22,25 @@ class RegisterController extends Controller
             return response()->json(['error' => $validator->errors()], 422);
         }
 
-        // Create user
+        $user = User::where('phone_number', $request->phone_number)->first();
+
+        if ($user) {
+            $user->update(['is_subscribed' => true]);
+            return response()->json(['message' => 'User re-subscribed successfully', 'phone_number' => $user->phone_number, 'is_subscribed' => true], 200);
+        }
+
         $user = User::create([
-            'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password),
+            'phone_number'   => $request->phone_number,
+            'password'       => Hash::make($request->password),
             'product_number' => $request->product_number,
+            'is_subscribed'  => true,
         ]);
 
-        return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+        return response()->json(['message' => 'User registered successfully', 'phone_number' => $user->phone_number, 'is_subscribed' => true], 201);
     }
-
-
-
-
-
-
 
     public function delete(Request $request)
     {
-        return $request->all();
-        // Validate phone number
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required|string',
         ]);
@@ -51,16 +49,14 @@ class RegisterController extends Controller
             return response()->json(['error' => $validator->errors()], 422);
         }
 
-        // Find and delete the user
         $user = User::where('phone_number', $request->phone_number)->first();
 
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
 
-        $user->delete();
+        $user->update(['is_subscribed' => false]);
 
-        return response()->json(['message' => 'User deleted successfully'], 200);
+        return response()->json(['message' => 'User unsubscribed successfully'], 200);
     }
 }
-
