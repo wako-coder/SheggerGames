@@ -14,5 +14,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::view('/contact', 'contact');
 
 // Game routes (public)
-Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
+Route::middleware(['auth', ])->group(function () {
+    
+    Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
+    });
 Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');
