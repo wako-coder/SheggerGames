@@ -1,0 +1,704 @@
+/* Global hidden class */
+.hidden {
+    display: none !important;
+}
+
+/* ===== URBAN BALL RUN - REALISTIC STYLING ===== */
+/* ===== RESET & BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Import modern sans-serif font */
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Russo+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap'); REMOVED ROBOTO */
+
+/* ===== CANVAS ===== */
+#game-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+}
+
+/* ===== SCREEN CONTAINERS ===== */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.95);
+    /* Darker industrial BG */
+    z-index: 100;
+    transition: opacity 0.3s ease;
+}
+
+.screen.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* ===== LOADING SCREEN ===== */
+#loading-screen {
+    background: #0a0a0a;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(0, 204, 255, 0.2);
+    border-top: 8px solid #00ccff;
+    /* Industrial Sky Blue */
+    border-radius: 0;
+    /* Square for industrial look */
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    color: #00ccff;
+    font-family: 'Black Ops One', cursive;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+}
+
+/* ===== START SCREEN ===== */
+#start-screen {
+    position: relative;
+    background: transparent;
+}
+
+/* Full-screen background image layer */
+#start-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Static Background */
+    background-image: url('assets/images/homepage/background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+/* Animation Removed */
+
+/* Ensure content is above background */
+#start-screen>* {
+    position: relative;
+    z-index: 1;
+}
+
+.title-container {
+    text-align: center;
+    margin-bottom: 50px;
+    border: 4px solid #00ccff;
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 30px rgba(0, 204, 255, 0.2);
+    transform: skew(-10deg);
+    /* Industrial skew */
+}
+
+.game-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: 5rem;
+    font-weight: 400;
+    color: #00ccff;
+    text-shadow: 4px 4px 0px #000;
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    transform: skew(10deg);
+    /* Un-skew text */
+}
+
+.game-subtitle {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.8rem;
+    color: #cccccc;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    transform: skew(10deg);
+}
+
+/* ===== INSTRUCTIONS ===== */
+.instructions {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #555;
+    padding: 30px;
+    border-radius: 0;
+    /* Sharp corners */
+    margin-bottom: 40px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.instruction-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: 1.5rem;
+    color: #00ccff;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.key {
+    background: #333;
+    border: 2px solid #777;
+    padding: 8px 15px;
+    border-radius: 2px;
+    font-family: 'Russo One', sans-serif;
+    color: #fff;
+    min-width: 60px;
+    text-align: center;
+    box-shadow: 0 4px 0 #111;
+}
+
+.action {
+    color: #aaa;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.mobile-note {
+    text-align: center;
+    color: #666;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+/* ===== BUTTONS ===== */
+.neon-btn {
+    background: #00ccff;
+    border: none;
+    color: #000;
+    padding: 15px 50px;
+    font-size: 1.5rem;
+    font-family: 'Black Ops One', cursive;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 10px;
+    border-radius: 0;
+    transform: skew(-10deg);
+    box-shadow: 5px 5px 0px #333;
+}
+
+.neon-btn:hover {
+    background: #33d6ff;
+    transform: skew(-10deg) translate(-2px, -2px);
+    box-shadow: 7px 7px 0px #333;
+}
+
+.neon-btn:active {
+    transform: skew(-10deg) translate(2px, 2px);
+    box-shadow: 2px 2px 0px #333;
+}
+
+.neon-btn.secondary {
+    background: #444;
+    color: #fff;
+    box-shadow: 5px 5px 0px #111;
+}
+
+.neon-btn.secondary:hover {
+    background: #555;
+    box-shadow: 7px 7px 0px #111;
+}
+
+/* ===== GAME HUD ===== */
+#game-hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    pointer-events: none;
+}
+
+#game-hud.hidden {
+    display: none;
+}
+
+.hud-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+    border-top: 4px solid #00ccff;
+    /* Industrial Sky Blue */
+}
+
+.hud-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #555;
+    padding: 10px 20px;
+    border-radius: 0;
+    min-width: 140px;
+    transform: skew(-10deg);
+}
+
+.hud-label {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    transform: skew(10deg);
+}
+
+.hud-value {
+    font-family: 'Black Ops One', cursive;
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    transform: skew(10deg);
+}
+
+.hud-bottom {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.shield-indicator,
+.boost-indicator {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid;
+    padding: 10px 20px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Black Ops One', cursive;
+    text-transform: uppercase;
+    transform: skew(-10deg);
+}
+
+.shield-indicator {
+    border-color: #00ccff;
+    color: #00ccff;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+}
+
+.boost-indicator {
+    border-color: #00ccff;
+    color: #00ccff;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+}
+
+/* ===== GAME OVER SCREEN ===== */
+#gameover-screen {
+    position: relative;
+    background: transparent;
+}
+
+/* Full-screen background image layer */
+#gameover-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Static Background */
+    background-image: url('assets/images/homepage/background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+/* Ensure content is above background */
+#gameover-screen>* {
+    position: relative;
+    z-index: 1;
+}
+
+.gameover-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: 4.5rem;
+    font-weight: 400;
+    color: #ff3333;
+    text-shadow: 4px 4px 0 #000;
+    letter-spacing: 0px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    border: 4px solid #ff3333;
+    padding: 10px 30px;
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(-2deg);
+}
+
+.score-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #555;
+    padding: 40px;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.score-label {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1rem;
+    color: #888;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.score-value {
+    font-family: 'Black Ops One', cursive;
+    font-size: 3.5rem;
+    color: #fff;
+}
+
+.new-record {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background: #00ccff;
+    border: none;
+    border-radius: 0;
+    transform: skew(-10deg);
+}
+
+.record-text {
+    font-family: 'Black Ops One', cursive;
+    font-size: 1.2rem;
+    color: #000;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transform: skew(10deg);
+}
+
+/* ===== CRASH MESSAGE ===== */
+.crash-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    border: 4px solid #ff3333;
+    padding: 40px;
+    z-index: 300;
+    transform: translate(-50%, -50%) skew(-5deg);
+    box-shadow: 20px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.crash-message.hidden {
+    display: none;
+}
+
+.crash-text {
+    font-family: 'Black Ops One', cursive;
+    font-size: 5rem;
+    font-weight: 400;
+    color: #ff3333;
+    text-shadow: 4px 4px 0 #000;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ===== POWER-UP MESSAGE & TIMER ===== */
+.powerup-message {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%) skew(-10deg);
+    background: #00ccff;
+    border: 4px solid #fff;
+    padding: 10px 40px;
+    border-radius: 0;
+    font-family: 'Black Ops One', cursive;
+    font-size: 2rem;
+    color: #000;
+    z-index: 200;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+}
+
+.powerup-timer {
+    display: none !important;
+    /* User requested removal */
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffcc00;
+    border-radius: 0;
+    transform: skew(-10deg);
+}
+
+.timer-bar-container {
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 0;
+}
+
+.timer-bar {
+    border-radius: 0;
+}
+
+.timer-seconds {
+    font-family: 'Black Ops One', cursive;
+    color: #00ccff;
+}
+
+/* ===== FULL SCREEN BACKGROUND FIX ===== */
+#start-screen,
+#gameover-screen {
+    /* Ensure full screen coverage */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2.5rem;
+        /* Smaller title */
+    }
+
+    .crash-text {
+        font-size: 2.5rem;
+    }
+
+    .gameover-title {
+        font-size: 2.5rem;
+        /* Smaller Game Over title */
+        border-width: 2px;
+        padding: 5px 20px;
+        margin-bottom: 20px;
+    }
+
+    .score-container {
+        padding: 20px;
+        width: 90%;
+        /* Ensure it fits width */
+        margin-bottom: 20px;
+    }
+
+    .score-value {
+        font-size: 2.5rem;
+        /* Smaller score numbers */
+    }
+
+    .score-label {
+        font-size: 0.8rem;
+    }
+
+    .neon-btn {
+        padding: 10px 30px;
+        /* Smaller buttons */
+        font-size: 1.2rem;
+        margin: 5px;
+    }
+
+    #gameover-screen .neon-btn {
+        display: block;
+        /* Stack buttons on mobile if needed */
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .crash-message {
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* HUD Fixes for Mobile */
+    .hud-top {
+        padding: 10px;
+        gap: 5px;
+    }
+
+    .hud-item {
+        min-width: 0;
+        /* Override 140px min-width */
+        flex: 1;
+        padding: 5px;
+    }
+
+    .hud-label {
+        font-size: 0.6rem;
+        white-space: nowrap;
+    }
+
+    .hud-value {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===== SALES POPUP (ENVATO TOP BAR STYLE) ===== */
+#start-screen .sales-popup {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100%;
+    height: 54px;
+    /* Standard Envato header height */
+    background: #262626;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 200;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Remove previous skew/transform */
+    transform: none;
+    border: none;
+    max-width: none;
+}
+
+.sales-logo {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    /* Simplified font for logo */
+    font-size: 1.2rem;
+    cursor: default;
+}
+
+.envato-icon {
+    color: #82b440;
+    /* Envato Green */
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+.envato-text {
+    color: #fff;
+}
+
+.envato-text strong {
+    font-weight: bold;
+}
+
+.sales-btn {
+    display: inline-block;
+    background: #82b440;
+    /* Envato Green Button */
+    color: #fff;
+    padding: 6px 20px;
+    font-family: 'Arial', sans-serif;
+    /* Simple sans-serif */
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    /* Rounded corners like Envato */
+    border: none;
+    transition: background 0.2s ease;
+    text-shadow: none;
+    box-shadow: none;
+    transform: none;
+}
+
+.sales-btn:hover {
+    background: #90c44a;
+    /* Lighter green */
+    transform: none;
+    box-shadow: none;
+}
+
+.sales-btn:active {
+    background: #6f9a37;
+    transform: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjust logo text font to be cleaner */
+.sales-text {
+    display: none;
+    /* Hide old text class if present */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sales-popup {
+        padding: 0 10px;
+        bottom: auto;
+        /* Reset bottom */
+        right: auto;
+    }
+
+    .envato-text {
+        font-size: 1rem;
+    }
+}

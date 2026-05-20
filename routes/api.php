@@ -14,6 +14,9 @@ Route::get('/user', function (Request $request) {
 
 
 
-// Route::post('/register', [RegisterController::class, 'register']);
-// Route::post('/delete', [RegisterController::class, 'delete']);
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/delete', [RegisterController::class, 'delete']);
+
+
+
 
