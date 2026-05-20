@@ -11,6 +11,14 @@ class GamesController extends Controller
         // Define all the games with their names, thumbnails, and local URLs
         $gameList = [
             [
+                'name'      => 'Archers Ragdoll Physics',
+                'thumbnail' => asset('games/other/arrow.png'),    
+                'url'       => 'https://neplingamestudio.github.io/Archers-Ragdoll-Physic/',
+
+
+
+            ],
+            [
                 'name'      => 'Cross Math Link',
                 'thumbnail' => asset('games/cross math/image.png'),
                 'url'       => 'https://toolsorcerer.com/codecanyon/cross_math_link/index.html',
@@ -48,14 +56,14 @@ class GamesController extends Controller
                 'url'       => asset('games/royal-snooker-championship/index.html'),
             ],
             [
-                'name' => 'Tripeaks Solitaire',
+                'name'      => 'Tripeaks Solitaire',
                 'thumbnail' => asset('games/Tripeaks/icons/image.png'),
                 'url'       => asset('games/Tripeaks/index.html'),
 
             ],
             ['name' => 'Basketball'
                 , 'thumbnail' => asset('games/game34-basketball_mania/icons/image.png'),
-                'url'       => asset('games/game34-basketball_mania/index.html'),
+                'url'   => asset('games/game34-basketball_mania/index.html'),
             ],
             [
                 'name'      => 'Swiper Soccer 3D',
@@ -96,12 +104,12 @@ class GamesController extends Controller
                 'thumbnail' => asset('games/Jewels_Quest/jewelsquestup.netlify.app/assets/jewels.png'),
                 'url'       => 'https://jewelsquestup.netlify.app/',
             ],
-            [
-                'name'      => 'Panda Pop',
-                'thumbnail' => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
+            // [
+            //     'name'      => 'Panda Pop',
+            //     'thumbnail' => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
 
-                'url'       => 'https://pandapopgameup.netlify.app/',
-            ],
+            //     'url'       => 'https://pandapopgameup.netlify.app/',
+            // ],
 
             [
                 'name'      => 'Plinko Pro Casino',
@@ -112,7 +120,7 @@ class GamesController extends Controller
             [
                 'name'      => 'Park Your Car',
                 'thumbnail' => asset('games/park_your_car/sprites/200x200.jpg'),
-                'url'       =>  asset('games/Park_Your_Car/index.html'),
+                'url'       => asset('games/Park_Your_Car/index.html'),
 
             ],
 
@@ -162,21 +170,68 @@ class GamesController extends Controller
                 'description' => 'A fun puzzle game where you match pets to clear the board.',
                 'details'     => 'Match three or more pets of the same type to clear them from the board in this delightful puzzle game. Complete levels with the fewest moves possible.',
             ],
+            [
+                'name'        => 'Gun Bullets',
+                'thumbnail'   => asset('games/other/gb.png'),
+                'url'         => 'https://65eeee920045e641ae6f0c76--pocu.netlify.app/',
+                'description' => 'A shooting game where you test your aim and reflexes.',
+                'details'     => 'Gun Bullets is an exciting shooting game that challenges your aim and reflexes. Shoot targets as they appear on the screen and try to achieve the highest score possible.',
+            ],
 
             [
-                'name'        => 'Arya`s Adventure',
-                'thumbnail'   => asset('games/other/thumb11.jpg'),
-                'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
-                'description' => 'Join Arya on an epic adventure through mystical lands.',
-                'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Aryas Adventure.',
+                'name'        => 'PinBall',
+                'thumbnail'   => asset('games/other/extremepinball_bg.jpg'),
+                'url'         => 'https://demonisblack.com/code/2026/extremepinball/game/',
+                'description' => 'A classic pinball game with modern graphics and gameplay.',
+                'details'     => 'PinBall is a nostalgic take on the classic pinball experience, featuring vibrant graphics and smooth gameplay. Test your skills as you aim to score the highest points possible.',
             ],
+            ['name'       => 'Color Ball Game'
+
+                , 'thumbnail' => asset('games/other/collor-ball.png'),
+                'url'         => 'https://lukedev2.github.io/ColorBallGame/',
+                'description' => 'In the game, the player collect the three stars and avoid the obstacles to advance to the next level.',
+                'details'     => 'Color Ball Game is an engaging and addictive game where you control a ball that changes color.In the game, the player collect the three stars and avoid the obstacles to advance to the next level.',
+            ],
+            // [
+            //     'name'        => 'Block Vs Ball',
+            //     'thumbnail'   => asset('games/other/bb.png'),
+            //     'url'         => 'https://blockvsballgame.netlify.app/',
+            //     'description' => 'A fun physics-based game where you control a ball to hit blocks.',
+            //     'details'     => 'Block Vs Ball is an engaging physics-based game where you control a ball to hit blocks and clear the screen. Use your skills to achieve the highest score possible.',
+            // ],
+
             [
-                'name'        => 'Block Vs Ball',
-                'thumbnail'   => asset('games/other/bb.png'),
-                'url'         => 'https://blockvsballgame.netlify.app/',
-                'description' => 'A fun physics-based game where you control a ball to hit blocks.',
-                'details'     => 'Block Vs Ball is an engaging physics-based game where you control a ball to hit blocks and clear the screen. Use your skills to achieve the highest score possible.',
+    'name'        => 'Dron Rush ',
+    'thumbnail'   => asset('games/other/drone.png'),
+    'url'         => 'https://neon-drone-rush.vercel.app/',
+    'description' => 'An exciting drone racing game with neon visuals.',
+    'details'     => 'Dron Rush is a thrilling drone racing game that combines fast-paced action with stunning neon visuals. Navigate through challenging courses, avoid obstacles, and compete for the best times in this adrenaline-pumping game.',
             ],
+            // [
+            //     'name'        => 'Arya`s Adventure',
+            //     'thumbnail'   => asset('games/other/thumb11.jpg'),
+            //     'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
+            //     'description' => 'Join Arya on an epic adventure through mystical lands.',
+            //     'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Aryas Adventure.',
+            // ],
+
+            [
+                'name'        => 'Urban Ball Run',
+                'thumbnail'   => asset('games/other/urban.png'),
+                'url'         => 'https://urban-ball-run.vercel.app/',
+                'description' => 'A fast-paced ball rolling game set in a bustling city environment.',
+                'details'     => 'Urban Ball Run is an exciting game where you control a ball rolling through the streets of a vibrant city. Avoid obstacles, collect coins, and try to achieve the highest score possible in this dynamic and engaging game.',
+            ],
+
+            [ 
+                'name'        => 'Road Rush Racer',
+                'thumbnail'   => asset('games/other/race.png'),
+                'url'         => 'https://road-rush-racer.vercel.app/',
+                'description' => 'A high-speed racing game where you navigate through busy roads.',
+                'details'     => 'Road Rush Racer is an adrenaline-pumping racing game where you control a car speeding through busy streets. Avoid collisions, overtake other vehicles, and strive to achieve the fastest time in this exciting game.',
+            ]
+
+
         ];
 
         // Add more games to reach 38 total, reusing existing games
@@ -187,7 +242,7 @@ class GamesController extends Controller
         }
 
         // Trim to exactly 38 games
-        $allGames = array_slice($allGames, 0, 25);
+        $allGames = array_slice($allGames, 0, 30);
 
         foreach ($allGames as $index => $game) {
             $popularGames[] = [
@@ -205,6 +260,13 @@ class GamesController extends Controller
     {
         // Define all the games with their names, thumbnails, and local URLs
         $gameList = [
+            [
+                'name'        => 'Archers Ragdoll Physics',
+                'thumbnail'   => asset('games/other/arrow.png'),
+                'url'         => 'https://neplingamestudio.github.io/Archers-Ragdoll-Physic/',
+                'description' => 'A fun and physics-based archery game with ragdoll mechanics.',
+                'details'     => 'Archers Ragdoll Physics is an entertaining game where you control an archer and shoot arrows at targets. The game features ragdoll physics, making it both challenging and amusing as you aim for the bullseye.',
+            ],
             [
                 'name'        => 'Cross Math Link',
                 'thumbnail'   => asset('games/cross math/image.png'),
@@ -235,11 +297,11 @@ class GamesController extends Controller
                 'details'     => 'Test your math skills with this fun quiz game. Answer addition and subtraction problems as quickly as possible to earn points and improve your score.',
             ],
             [
-                'name' => 'Spider Solitaire',
-                'thumbnail' => asset('games/Spider_Solitaire/spider-solitaire.png'),
-                'url' => asset('games/Spider_Solitaire/index.html'),
+                'name'        => 'Spider Solitaire',
+                'thumbnail'   => asset('games/Spider_Solitaire/spider-solitaire.png'),
+                'url'         => asset('games/Spider_Solitaire/index.html'),
                 'description' => 'A classic card game where you build sequences from King to Ace.',
-                'details' => 'Spider Solitaire is a challenging card game where you build sequences from King to Ace. Remove all cards from the tableau to win the game.',
+                'details'     => 'Spider Solitaire is a challenging card game where you build sequences from King to Ace. Remove all cards from the tableau to win the game.',
 
             ],
             [
@@ -251,23 +313,23 @@ class GamesController extends Controller
             ],
 
             [
-                'name' => 'royal-snooker-championship',
-                'thumbnail' => asset('games/royal-snooker-championship/assets/images/image.png'),
-                'url' => asset('games/royal-snooker-championship/index.html'),
+                'name'        => 'royal-snooker-championship',
+                'thumbnail'   => asset('games/royal-snooker-championship/assets/images/image.png'),
+                'url'         => asset('games/royal-snooker-championship/index.html'),
                 'description' => 'A classic snooker game with royal theme.',
-                'details' => 'Play the traditional snooker game with a royal twist. Score points by potting balls and try to win the championship.',
+                'details'     => 'Play the traditional snooker game with a royal twist. Score points by potting balls and try to win the championship.',
 
             ],
             [
-                'name' => 'Tripeaks Solitaire',
-                'thumbnail' => asset('games/Tripeaks/icons/image.png'),
-                'url' => asset('games/Tripeaks/index.html'),
+                'name'        => 'Tripeaks Solitaire',
+                'thumbnail'   => asset('games/Tripeaks/icons/image.png'),
+                'url'         => asset('games/Tripeaks/index.html'),
                 'description' => 'A popular solitaire card game with a unique layout.',
-                'details' => 'Tripeaks Solitaire is a fun and addictive card game where you clear the board by selecting cards that are one rank higher or lower than the current card. Clear all cards to win the game.',
+                'details'     => 'Tripeaks Solitaire is a fun and addictive card game where you clear the board by selecting cards that are one rank higher or lower than the current card. Clear all cards to win the game.',
             ],
-            [ 'name' => 'Basketball Mania'
+            ['name'       => 'Basketball Mania'
                 , 'thumbnail' => asset('games/game34-basketball_mania/icons/image.png'),
-                'url'       => asset('games/game34-basketball_mania/index.html'),
+                'url'         => asset('games/game34-basketball_mania/index.html'),
                 'description' => 'An exciting basketball game with fun graphics and gameplay.',
                 'details'     => 'Basketball Mania is a fast-paced basketball game where you shoot hoops and score points. Compete against the clock and aim for the highest score possible.',
             ],
@@ -320,13 +382,13 @@ class GamesController extends Controller
                 'description' => 'Match-3 puzzle game with beautiful jewels and challenging levels.',
                 'details'     => 'Swap adjacent jewels to make sets of three or more of the same jewel. Complete objectives in each level while enjoying beautiful graphics and smooth gameplay.',
             ],
-            [
-                'name'        => 'Panda Pop',
-                'thumbnail'   => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
-                'url'         => 'https://pandapopgameup.netlify.app/',
-                'description' => 'Colorful bubble shooter game with pandas.',
-                'details'     => 'Shoot bubbles to match colors and clear the board in this adorable panda-themed bubble shooter game. Complete levels with the fewest shots possible.',
-            ],
+            // [
+            //     'name'        => 'Panda Pop',
+            //     'thumbnail'   => asset('games/Panda_Pop/pandapopgameup.netlify.app/media/graphics/splash/mobile/cover-start.png'),
+            //     'url'         => 'https://pandapopgameup.netlify.app/',
+            //     'description' => 'Colorful bubble shooter game with pandas.',
+            //     'details'     => 'Shoot bubbles to match colors and clear the board in this adorable panda-themed bubble shooter game. Complete levels with the fewest shots possible.',
+            // ],
             [
                 'name'        => 'Plinko Pro Casino',
                 'thumbnail'   => asset('games/Plinko_Pro_Casino/plinko-pro-game.netlify.app/plinko.jpg'),
@@ -338,7 +400,7 @@ class GamesController extends Controller
             [
                 'name'        => 'Park Your Car',
                 'thumbnail'   => asset('games/park_your_car/sprites/200x200.png'),
-                'url'         =>  asset('games/park_your_car/index.html'),
+                'url'         => asset('games/park_your_car/index.html'),
                 'description' => 'Park your car in the designated spots.',
                 'details'     => 'Drive your car around the parking lot and park it in the correct spots. Complete levels with the fewest moves possible.',
             ],
@@ -408,12 +470,46 @@ class GamesController extends Controller
                 'description' => 'A shooting game where you test your aim and reflexes.',
                 'details'     => 'Gun Bullets is an exciting shooting game that challenges your aim and reflexes. Shoot targets as they appear on the screen and try to achieve the highest score possible.',
             ],
+            // [
+            //     'name'        => 'Aryas Adventure',
+            //     'thumbnail'   => asset('games/other/thumb11.jpg'),
+            //     'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
+            //     'description' => 'Join Arya on an epic adventure through mystical lands.',
+            //     'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.',
+            // ],
             [
-                'name'        => 'Aryas Adventure',
+                'name'        => 'PinBall',
+                'thumbnail'   => asset('games/other/pb.png'),
+                'url'         => 'https://demonisblack.com/code/2026/extremepinball/game/',
+                'description' => 'A classic pinball game with modern graphics and gameplay.',
+                'details'     => 'PinBall is a nostalgic take on the classic pinball experience, featuring vibrant graphics and smooth gameplay. Test your skills as you aim to score the highest points possible.',
+            ],
+            ['name'       => 'Color Ball Game'
+
+                , 'thumbnail' => asset('games/other/cb.png'),
+                'url'         => 'https://lukedev2.github.io/ColorBallGame/',
+                'description' => 'In the game, the player collect the three stars and avoid the obstacles to advance to the next level.',
+                'details'     => 'Color Ball Game is an engaging and addictive game where you control a ball that changes color.In the game, the player collect the three stars and avoid the obstacles to advance to the next level.'],
+            [
+                'name'        => 'Block Vs Ball',
+                'thumbnail'   => asset('games/other/bb.png'),
+                'url'         => 'https://blockvsballgame.netlify.app/',
+                'description' => 'A fun physics-based game where you control a ball to hit blocks.',
+                'details'     => 'Block Vs Ball is an engaging physics-based game where you control a ball to hit blocks and clear the screen. Use your skills to achieve the highest score possible.',
+            ],
+            [
+                'name'        => 'Dron Rush ',
+                'thumbnail'   => asset('games/other/drone.png'),
+                'url'         => 'https://neon-drone-rush.vercel.app/',
+                'description' => 'An exciting drone racing game with neon visuals.',
+                'details'     => 'Dron Rush is a thrilling drone racing game that combines fast-paced action with stunning neon visuals. Navigate through challenging courses, avoid obstacles, and compete for the best times in this adrenaline-pumping game.',
+            ],
+             [
+                'name'        => 'Arya`s Adventure',
                 'thumbnail'   => asset('games/other/thumb11.jpg'),
                 'url'         => 'https://taupe-faloodeh-5a6a13.netlify.app/',
                 'description' => 'Join Arya on an epic adventure through mystical lands.',
-                'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Arya\'s Adventure.',
+                'details'     => 'Embark on a thrilling journey with Arya as you explore mystical lands, solve puzzles, and battle enemies in this action-packed adventure game. Uncover secrets and become a hero in Aryas Adventure.',
             ],
         ];
 
