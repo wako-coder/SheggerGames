@@ -13,7 +13,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone_number'   => 'required|string',
+            'phone_number'   => ['required', 'string', 'regex:/^251[0-9]{9}$/'],
             'password'       => 'required|string|min:6',
             'product_number' => 'nullable|string',
         ]);
@@ -42,7 +42,7 @@ class RegisterController extends Controller
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|string',
+            'phone_number' => ['required', 'string', 'regex:/^251[0-9]{9}$/'],
         ]);
 
         if ($validator->fails()) {
