@@ -260,7 +260,7 @@ class GamesController extends Controller
 
     public function allGames()
     {
-        $allGames = array_slice($this->gameList(), 0, 20);
+        $allGames = array_slice($this->gameList(), 0, 30);
 
         return view('allgames', compact('allGames'));
     }

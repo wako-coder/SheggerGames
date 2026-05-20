@@ -1,5 +1,100 @@
 @extends('layouts.app')
 
+@section('styles')
+<style>
+    .game-card {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 24px;
+        background: #0a0a14;
+        transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s ease;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+
+    .game-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 45px rgba(0,0,0,0.7), 0 0 0 1.5px rgba(232,25,44,0.5);
+        z-index: 2;
+    }
+
+    .game-card-img-wrap { overflow: hidden; line-height: 0; }
+
+    .game-card img {
+        width: 100%;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.45s ease;
+    }
+
+    .game-card:hover img { transform: scale(1.1); }
+
+    .game-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+            rgba(5,5,18,0.97) 0%,
+            rgba(5,5,18,0.45) 40%,
+            transparent 70%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 14px 12px 12px;
+    }
+
+    .game-card-name {
+        color: #f0f0f0;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin: 0 0 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+    }
+
+    .game-card-play {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: linear-gradient(135deg, #e8192c 0%, #ff4e2a 100%);
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        padding: 5px 13px;
+        border-radius: 20px;
+        text-decoration: none;
+        align-self: flex-start;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 3px 12px rgba(232,25,44,0.5);
+    }
+
+    .game-card:hover .game-card-play {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .game-card-num {
+        position: absolute;
+        top: 8px;
+        right: 9px;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(4px);
+        color: rgba(255,255,255,0.75);
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 10px;
+        letter-spacing: 0.5px;
+    }
+</style>
+@endsection
 
 @section('content')
   
@@ -243,7 +338,7 @@
                         <div class="counterup_inner d-flex justify-content-center">
                             <div class="single_counterup one">
                                 <div class="counterup_text">
-                                    <h2 class="counterup color1">20</h2> 
+                                    <h2 class="counterup color1">30</h2> 
                                     <span>ETHIOPIAN GAMERS</span>
                                 </div>
                             </div>
@@ -284,15 +379,17 @@
                     <div class="row">
                         @if(isset($popularGames) && count($popularGames) > 0)
                             @foreach($popularGames as $index => $game)
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="popular_gaming_thumb">
-                                        <a href="{{ route('game.details', ['id' => $index + 1]) }}">
-                                            <img width="570" height="330" src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}">
-                                        </a>
-                                        <div class="gaming_details_btn">
-                                            <a class="btn btn-link" href="{{ route('game.details', ['id' => $index + 1]) }}">
-                                                Game Details  
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                                    <div class="game-card">
+                                        <span class="game-card-num">#{{ $index + 1 }}</span>
+                                        <div class="game-card-img-wrap">
+                                            <a href="{{ route('game.details', ['id' => $index + 1]) }}">
+                                                <img src="{{ $game['image_url'] }}" alt="{{ $game['name'] }}" loading="lazy">
                                             </a>
+                                        </div>
+                                        <div class="game-card-overlay">
+                                            <p class="game-card-name">{{ $game['name'] }}</p>
+                                            <a class="game-card-play" href="{{ route('game.details', ['id' => $index + 1]) }}">▶ Play Now</a>
                                         </div>
                                     </div>
                                 </div>
