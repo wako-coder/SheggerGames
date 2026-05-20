@@ -26,7 +26,7 @@ class LatestUsers extends BaseWidget
             TextColumn::make('name')
                 ->searchable()
                 ->sortable(),
-            TextColumn::make('email')
+            TextColumn::make('phone_number')
                 ->searchable()
                 ->sortable(),
             IconColumn::make('is_subscribed')
