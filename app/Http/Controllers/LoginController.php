@@ -18,10 +18,19 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         // Validate input
-        $request->validate([
-            'phone_number' => ['required', 'regex:/^251\d*$/'],
-            'password' => 'required',
-        ]);
+    
+$request->validate([
+    'phone_number' => [
+        'required', 
+        'string',
+        // Matches exactly 251 followed by exactly 9 digits
+        'regex:/^251\d{9}$/' 
+    ],
+    'password' => 'required',
+], [
+    // Custom error message so the user knows exactly what went wrong
+    'phone_number.regex' => 'The phone number must start with 251 followed by exactly 9 digits.',
+]);
 
         // Attempt login
         if (Auth::attempt(['phone_number' => $request->phone_number, 'password' => $request->password])) {
