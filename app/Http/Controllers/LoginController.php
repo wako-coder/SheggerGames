@@ -19,7 +19,7 @@ class LoginController extends Controller
     {
         // Validate input
         $request->validate([
-            'phone_number' => 'required',
+            'phone_number' => ['required', 'regex:/^251\d*$/'],
             'password' => 'required',
         ]);
 
