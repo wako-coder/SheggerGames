@@ -25,9 +25,9 @@ protected string | int | array $columnSpan = 'full';
     protected function getTableColumns(): array
     {
         return [
-            TextColumn::make('name')
-                ->searchable()
-                ->sortable(),
+            // TextColumn::make('name')
+            //     ->searchable()
+            //     ->sortable(),
             TextColumn::make('phone_number')
                 ->searchable()
                 ->sortable(),
