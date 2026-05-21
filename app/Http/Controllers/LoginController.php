@@ -33,9 +33,17 @@ $request->validate([
 ]);
 
         // Attempt login
-        if (Auth::attempt(['phone_number' => $request->phone_number, 'password' => $request->password])) {
+        if (Auth::attempt(['phone_number' => $request->phone_number, 'password' => $request->password, 'is_subscribed' => true])) {
             // Redirect to dashboard on success
             return redirect()->intended('/');
+        }
+
+        // Check if user exists but is not subscribed
+        $user = \App\Models\User::where('phone_number', $request->phone_number)->first();
+        if ($user && !$user->is_subscribed) {
+            return redirect()->route('subscribe.page')->withErrors([
+                'phone_number' => 'Your account is not subscribed. Please send OK to 6462 to activate your subscription.',
+            ])->onlyInput('phone_number');
         }
 
         // Return back with error if login fails
