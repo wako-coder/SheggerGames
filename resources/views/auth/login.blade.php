@@ -49,7 +49,8 @@
                                 id="phone_number"
                                 type="text"
                                 name="phone_number"
-                                placeholder="Phone Number"
+                              placeholder="251XXXXXXXXX"
+                              title="Phone number must start with 251 followed by exactly 9 digits."
                                 value="{{ old('phone_number') }}"
                                 class="@error('phone_number') is-invalid @enderror"
                                 required
@@ -73,7 +74,7 @@
                             >
 
 
-                            
+
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
