@@ -14,6 +14,8 @@ class LatestUsers extends BaseWidget
 
     protected int | string $contentGridColumns = 2;
     protected static ?int $sort = 2;
+protected string | int | array $columnSpan = 'full';
+
 
     protected function getTableQuery(): \Illuminate\Database\Eloquent\Builder
     {

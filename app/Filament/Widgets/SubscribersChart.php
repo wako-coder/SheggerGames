@@ -15,6 +15,8 @@ class SubscribersChart extends ChartWidget
     public ?string $filter = 'month';
 
     protected static ?int $sort = 1;
+    // This makes the widget take up all available horizontal columns
+protected string | int | array $columnSpan = 'full';
 
     protected function getFilters(): ?array
     {
