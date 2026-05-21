@@ -40,11 +40,11 @@ $request->validate([
 
         // Check if user exists but is not subscribed
         $user = \App\Models\User::where('phone_number', $request->phone_number)->first();
-        if ($user && !$user->is_subscribed) {
-            return redirect()->route('subscribe.page')->withErrors([
-                'phone_number' => 'Your account is not subscribed. Please send OK to 6462 to activate your subscription.',
-            ])->onlyInput('phone_number');
-        }
+     if ($user && !$user->is_subscribed) {
+    return back()->withErrors([
+        'phone_number' => 'Your account is not subscribed. Please send OK to 6462 to activate your subscription.',
+    ])->withInput();
+}
 
         // Return back with error if login fails
         return back()->withErrors([
