@@ -98,39 +98,7 @@
 
 @section('content')
   
-    <!--offcanvas menu area start-->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
-        <div class="offcanvas-header justify-content-end">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="offcanvas_main_menu">
-                <li class="menu-item-has-children active">
-                    <a href="/">Home</a>
-                </li>
-             
-                <li class="menu-item-has-children"><a href="/all-games">Games</a>
-                  
-                </li>
-            
-                <li class="menu-item-has-children"><a href="/contact">Contact Us</a></li>
-                @auth
-                    <li class="menu-item-has-children">
-                        <span class="text-white">Welcome, {{ Auth::user()->name }}</span>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="btn btn-link text-white">Logout</button>
-                        </form>
-                    </li>
-                @else
-                    {{-- <li class="menu-item-has-children"><a href="{{ route('login') }}">Login</a></li> --}}
-                @endauth
-            </ul>
-        </div>
-    </div>
-    <!--offcanvas menu area end-->
+  
 
     <!-- page wrapper start -->
     <div class="page_wrapper">
