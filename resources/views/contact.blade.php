@@ -28,11 +28,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs_text text-center">
-                        <h1>Contact Sheger Games</h1>
+                        <h1>{{ __('messages.contact_title') }}</h1>
                         <ul class="d-flex justify-content-center">
-                            <li><a href="index.html">Home </a></li>
+                            <li><a href="/">{{ __('messages.home') }} </a></li>
                             <li> <span>//</span></li>
-                            <li>  PAGES</li>
+                            <li>  {{ __('messages.contact') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                     <img width="115" height="115" src="assets/img/icon/email.webp" alt="">
                                 </div>
                                 <div class="contact_info_text">
-                                    <h3>Email:</h3>
+                                <h3>{{ __('messages.contact_email_label') }}:</h3>
                                     <p>
                                         <a href="mailto:sheggergames@gmail.com">sheggergames@gmail.com</a>  <br>
                                         <a href="mailto:support@sheggergames.com">support@sheggergames.com</a>
@@ -68,8 +68,8 @@
                                     <img width="115" height="115" src="assets/img/icon/location.webp" alt="">
                                 </div>
                                 <div class="contact_info_text">
-                                    <h3>Location:</h3>
-                                    <p>Addis Ababa, Ethiopia</p>
+                                <h3>{{ __('messages.location') }}:</h3>
+                                    <p>{{ __('messages.contact_address') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -79,9 +79,9 @@
                                     <img width="115" height="115" src="assets/img/icon/phone.webp" alt="">
                                 </div>
                                 <div class="contact_info_text">
-                                    <h3>Phone:</h3>
+                                <h3>{{ __('messages.phone') }}:</h3>
                                     <p> 
-                                        <a href="tel:++251911248351"> ++251 911 248 351</a>
+                                        <a href="tel:++251911248351"> +251 911 248 351</a>
                                     </p>
                                 </div>
                             </div>
@@ -92,42 +92,47 @@
                 
                 <div class="contact_form_area">
                     <div class="section_title text-center mb-60">
-                        <h2>GET IN TOUCH</h2>
-                        <p>When unknown printer took type and scrambled it to make <br>
-                            type specimen book centuries,</p>
+                        <h2>{{ __('messages.get_in_touch') }}</h2>
+                        <p>{{ __('messages.contact_form_subtitle') }}</p>
                     </div>
                     <div class="contact_form_inner">
-                        <form id="contact-form" action="https://htmldemo.net/bonx/bonx/assets/mail.php">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form_input">
-                                        <input name="con_name" placeholder="Name" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form_input">
-                                        <input name="con_email"  placeholder="E-Mail" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form_input">
-                                        <input name="con_phone"  placeholder="Phone" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form_input">
-                                        <input name="con_address"  placeholder="Address" type="text">
-                                    </div>
-                                </div>
+                        <form method="POST" action="{{ route('contact.store') }}">
+                        @csrf
+
+                        @if (session('success'))
+                            <div class="alert alert-success mb-3">
+                                {{ session('success') }}
                             </div>
-                            <div class="form_textarea">
-                                <textarea name="con_message" placeholder="Write a review from here"></textarea>
-                            </div>
-                            <div class="form_input_btn text-center">
-                                <button type="submit" class="btn btn-link">SUBMIT NOW <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""></button>
-                            </div>
-                            <p class="form-message"></p>
-                        </form>
+                        @endif
+
+                        <div class="form_input mb-3">
+                            <input name="name" placeholder="{{ __('messages.contact_name') }}" type="text" value="{{ old('name') }}">
+                            @error('name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form_input mb-3">
+                            <input name="email" placeholder="{{ __('messages.contact_email') }}" type="text" value="{{ old('email') }}">
+                            @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form_input mb-3">
+                            <input name="subject" placeholder="{{ __('messages.contact_subject') }}" type="text" value="{{ old('subject') }}">
+                            @error('subject')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form_input mb-3">
+                            <textarea name="message" placeholder="{{ __('messages.contact_message') }}">{{ old('message') }}</textarea>
+                            @error('message')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form_input_btn text-center">
+                            <button type="submit" class="btn btn-link">{{ __('messages.send_message') }} <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""></button>
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -149,11 +154,10 @@
                     <div class="col-12">
                         <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="assets/img/bg/gaming-update.webp">
                             <div class="gaming_update_text">
-                                <h2>Connect with Sheger Games <br>
-                                    for updates.</h2>
+                                <h2>{{ __('messages.community_cta') }}</h2>
                             </div>
                             <div class="gaming_update_btn">
-                                <a class="btn btn-link" href="#">CONNECT NOW <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                                <a class="btn btn-link" href="/contact">{{ __('messages.join_now') }} <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
                             </div>
                         </div>
                     </div>

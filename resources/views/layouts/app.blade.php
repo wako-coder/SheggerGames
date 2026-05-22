@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        .btn.btn-link { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+        .btn.btn-link img { flex-shrink: 0; }
+    </style>
     <script>
     window.AppConfig = {
         prevArrow: "{{ asset('assets/img/icon/navigation-arrow2.webp') }}",
@@ -48,26 +52,26 @@
         <div class="offcanvas-body">
             <ul class="offcanvas_main_menu">
                 <li class="menu-item-has-children active">
-                    <a href="/">Home</a>
+                    <a href="/">{{ __('messages.home') }}</a>
                 </li>
              
-                <li class="menu-item-has-children"><a href="/all-games">Games</a>
+                <li class="menu-item-has-children"><a href="/all-games">{{ __('messages.games') }}</a>
                   
                 </li>
             
-                <li class="menu-item-has-children"><a href="/contact">Contact Us</a></li>
+                <li class="menu-item-has-children"><a href="/contact">{{ __('messages.contact') }}</a></li>
                 @auth
                     <li class="menu-item-has-children">
-                        <span class="text-white">Welcome, {{ Auth::user()->name }}</span>
+                        <span class="text-white">{{ __('messages.welcome', ['name' => Auth::user()->name]) }}</span>
                     </li>
                     <li class="menu-item-has-children">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="btn btn-link text-white">Logout</button>
+                            <button type="submit" class="btn btn-link text-white">{{ __('messages.logout') }}</button>
                         </form>
                     </li>
                 @else
-                    {{-- <li class="menu-item-has-children"><a href="{{ route('login') }}">Login</a></li> --}}
+                    <li class="menu-item-has-children"><a href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
                 @endauth
             </ul>
         </div>

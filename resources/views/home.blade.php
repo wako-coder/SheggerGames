@@ -110,10 +110,9 @@
                     <div class="row align-items-center">
                         <div class="col-12">
                             <div class="hero_content">
-                                <h1 class="wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">Ethiopia's Premier <br>
-                                    Gaming Platform</h1>
-                                <p class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">Join thousands of Ethiopian gamers on SheggerGames, the ultimate destination for gaming, tournaments, and community.</p>
-                                <a class="btn btn-link wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1.3s" href="/all-games">Play Now <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                <h1 class="wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">{!! __('messages.hero_title') !!}</h1>
+                                <p class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">{{ __('messages.hero_desc') }}</p>
+                                <a class="btn btn-link wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1.3s" href="/all-games">{{ __('messages.play_now') }} <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>
@@ -125,7 +124,7 @@
         </section>
         <!--slider area end-->
 
-        <!-- gaming  world section start -->
+        <!-- counterup section start -->
         {{-- <section class="gaming_world_section mb-140">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
@@ -307,25 +306,25 @@
                             <div class="single_counterup one">
                                 <div class="counterup_text">
                                     <h2 class="counterup color1">30</h2> 
-                                    <span>ETHIOPIAN GAMERS</span>
+                                    <span>{{ __('messages.stat_games') }}</span>
                                 </div>
                             </div>
                             <div class="single_counterup two">
                                 <div class="counterup_text">
                                     <h2 class="counterup color2">12</h2>
-                                    <span>LOCAL GAMES</span>
+                                    <span>{{ __('messages.stat_local') }}</span>
                                 </div>
                             </div>
                             <div class="single_counterup three">
                                 <div class="counterup_text">
                                     <h2 class="counterup color3">1240</h2>
-                                    <span> Total Games Played</span>
+                                    <span>{{ __('messages.stat_played') }}</span>
                                 </div>
                             </div>
                             <div class="single_counterup four">
                                 <div class="counterup_text">
                                     <h2 class="counterup color4">689</h2>
-                                    <span>ETHIOPIAN GAMERS</span>
+                                    <span>{{ __('messages.stat_gamers') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -335,13 +334,80 @@
         </section>
         <!-- counterup section end -->
 
+        <!-- about section start -->
+        <section class="mb-140">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s" data-wow-duration="1.1s">
+                        <div class="section_title mb-30">
+                            <h2 style="font-size:2rem; line-height:1.3;">{{ __('messages.about_heading') }}</h2>
+                            <p class="mt-20" style="color:#b0b0c0; line-height:1.8;">{{ __('messages.about_desc') }}</p>
+                            <a class="btn btn-link mt-30 d-inline-flex align-items-center gap-2" href="/all-games">
+                                {{ __('messages.play_now') }} 
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s" data-wow-duration="1.2s">
+                        <div class="row g-3">
+                            @foreach([
+                                ['icon'=>'🎮', 'title'=>__('messages.feature_variety_title'), 'desc'=>__('messages.feature_variety_desc')],
+                                ['icon'=>'🔑', 'title'=>__('messages.feature_free_title'),    'desc'=>__('messages.feature_free_desc')],
+                                ['icon'=>'⚡', 'title'=>__('messages.feature_instant_title'), 'desc'=>__('messages.feature_instant_desc')],
+                                ['icon'=>'🌍', 'title'=>__('messages.feature_local_title'),   'desc'=>__('messages.feature_local_desc')],
+                            ] as $f)
+                            <div class="col-6">
+                                <div style="background:#0d0d1f; border:1px solid rgba(232,25,44,0.2); border-radius:12px; padding:20px 16px;">
+                                    <div style="font-size:1.8rem; margin-bottom:10px;">{{ $f['icon'] }}</div>
+                                    <h5 style="color:#fff; font-size:0.9rem; font-weight:700; margin-bottom:6px;">{{ $f['title'] }}</h5>
+                                    <p style="color:#8888a0; font-size:0.78rem; margin:0; line-height:1.6;">{{ $f['desc'] }}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- about section end -->
+       <!-- how it works section start -->
+        <section class="mb-140 wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="1.1s">
+            <div style="background: linear-gradient(135deg, #0d0d1f 0%, #12001a 100%); border-top: 1px solid rgba(232,25,44,0.2); border-bottom: 1px solid rgba(232,25,44,0.2); padding: 70px 0;">
+                <div class="container">
+                    <div class="section_title text-center mb-60">
+                        <h2>{{ __('messages.how_title') }}</h2>
+                        <p style="color:#8888a0;">{{ __('messages.how_subtitle') }}</p>
+                    </div>
+                    <div class="row g-4 justify-content-center">
+                        @foreach([
+                            ['step'=>'01', 'title'=>__('messages.how_step1_title'), 'desc'=>__('messages.how_step1_desc'), 'icon'=>'📱'],
+                            ['step'=>'02', 'title'=>__('messages.how_step2_title'), 'desc'=>__('messages.how_step2_desc'), 'icon'=>'🔐'],
+                            ['step'=>'03', 'title'=>__('messages.how_step3_title'), 'desc'=>__('messages.how_step3_desc'), 'icon'=>'🎮'],
+                        ] as $s)
+                        <div class="col-lg-4 col-md-6 text-center">
+                            <div style="position:relative; padding: 36px 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(232,25,44,0.15); border-radius: 16px; height:100%;">
+                                <div style="position:absolute; top:-18px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#e8192c,#ff4e2a); color:#fff; font-size:0.7rem; font-weight:900; letter-spacing:2px; padding:4px 16px; border-radius:20px;">
+                                    {{ $s['step'] }}
+                                </div>
+                                <div style="font-size:2.5rem; margin: 16px 0 14px;">{{ $s['icon'] }}</div>
+                                <h4 style="color:#fff; font-weight:700; margin-bottom:10px; font-size:1rem;">{{ $s['title'] }}</h4>
+                                <p style="color:#8888a0; font-size:0.82rem; line-height:1.7; margin:0;">{{ $s['desc'] }}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="text-center mt-50">
+                        <a class="btn btn-link" href="/all-games">{{ __('messages.play_now') }} <img width="18" height="18" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- how it works section end -->
+
         <!-- popular gaming  section start -->
         <section class="popular_gaming_section mb-140">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
-                    <h2>Popular Ethiopian Games</h2>
-                    <p>Discover the most played games by Ethiopian gamers on SheggerGames <br>
-                        platform.</p>
+                    <h2>{{ __('messages.featured_games') }}</h2>
                 </div>
                 <div class="popular_gaming_inner wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.2s">
                     <div class="row">
@@ -357,7 +423,7 @@
                                         </div>
                                         <div class="game-card-overlay">
                                             <p class="game-card-name">{{ $game['name'] }}</p>
-                                            <a class="game-card-play" href="{{ route('game.details', ['id' => $index + 1]) }}">▶ Play Now</a>
+                                            <a class="game-card-play" href="{{ route('game.details', ['id' => $index + 1]) }}">▶ {{ __('messages.play_now') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -403,6 +469,7 @@
         </section>
         <!-- popular gaming section end -->
 
+ 
         <!-- testimonial section start -->
         {{-- <section class="testimonial_section wow fadeInUp" data-bgimg="assets/img/others/testimonial-bg-fullwidth.webp" data-wow-delay="0.1s" data-wow-duration="1.1s">
             <div class="container">
@@ -541,11 +608,10 @@
                     <div class="col-12">
                         <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="{{ asset('assets/img/bg/gaming-update.webp') }}">
                             <div class="gaming_update_text">
-                                <h2>Connect with the <br>
-                                    Ethiopian Gaming Community.</h2>
+                                <h2>{{ __('messages.community_cta') }}</h2>
                             </div>
                             <div class="gaming_update_btn">
-                                <a class="btn btn-link" href="/contact">JOIN NOW <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                <a class="btn btn-link" href="/contact">{{ __('messages.join_now') }} <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>

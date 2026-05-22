@@ -120,11 +120,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs_text text-center">
-                        <h1>All Games</h1>
+                        <h1>{{ __('messages.all_games') }}</h1>
                         <ul class="d-flex justify-content-center">
-                            <li><a href="/">Home </a></li>
+                            <li><a href="/">{{ __('messages.home') }} </a></li>
                             <li> <span>//</span></li>
-                            <li>  Games</li>
+                            <li>  {{ __('messages.games') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -140,9 +140,7 @@
         <section class="all_games_section mb-125">
             <div class="container">
                 <div class="section_title text-center wow fadeInUp mb-60" data-wow-delay="0.1s" data-wow-duration="1.1s">
-                    <h2>Ethiopian Games Collection</h2>
-                    <p>Explore our collection of 30 amazing games for Ethiopian gamers <br>
-                        platform.</p>
+                    <h2>{{ __('messages.all_games') }}</h2>
                 </div>
                 <div class="all_games_inner">
                     <div class="row">
@@ -158,14 +156,14 @@
                                         </div>
                                         <div class="game-card-overlay">
                                             <p class="game-card-name">{{ $game['name'] }}</p>
-                                            <a class="game-card-play" href="{{ route('game.details', ['id' => $loop->index + 1]) }}">▶ Play Now</a>
+                                            <a class="game-card-play" href="{{ route('game.details', ['id' => $loop->index + 1]) }}">▶ {{ __('messages.play_now') }}</a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         @else
                             <div class="col-12">
-                                <p>No games available at the moment.</p>
+                                <p>{{ __('messages.no_games') }}</p>
                             </div>
                         @endif
                     </div>
@@ -181,11 +179,10 @@
                     <div class="col-12">
                         <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="{{ asset('assets/img/bg/gaming-update.webp') }}">
                             <div class="gaming_update_text">
-                                <h2>Connect with the <br>
-                                    Ethiopian Gaming Community.</h2>
+                                <h2>{{ __('messages.community_cta') }}</h2>
                             </div>
                             <div class="gaming_update_btn">
-                                <a class="btn btn-link" href="/contact">JOIN NOW <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                <a class="btn btn-link" href="/contact">{{ __('messages.join_now') }} <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>

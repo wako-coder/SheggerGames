@@ -3,8 +3,7 @@
 @section('content')
 <div class="container">
     <div class="section_title text-center mb-60">
-        <h2>All Ethiopian Games</h2>
-        <p>Explore all 38 games available on SheggerGames platform</p>
+        <h2>{{ __('messages.all_games') }}</h2>
     </div>
 
     <div class="row">
@@ -17,14 +16,14 @@
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">{{ Str::limit($game['name'], 30) }}</h5>
-                        <a href="{{ $game['external_url'] }}" target="_blank" class="btn btn-primary">Play Now</a>
+                        <a href="{{ $game['external_url'] }}" target="_blank" class="btn btn-primary">{{ __('messages.play_now') }}</a>
                     </div>
                 </div>
             </div>
             @endforeach
         @else
             <div class="col-12">
-                <p class="text-center">No games available at the moment. Please try again later.</p>
+                <p class="text-center">{{ __('messages.no_games') }}</p>
             </div>
         @endif
     </div>

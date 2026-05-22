@@ -11,14 +11,14 @@
                         <div class="main_menu d-none d-lg-block"> 
                             <nav>  
                                 <ul class="d-flex">
-                                    <li><a href="/">Home</a></li> 
+                                    <li><a href="/">{{ __('messages.home') }}</a></li> 
                                     {{-- <li><a href="/matches">Matches</a>
                                         <ul class="sub_menu">
                                             <li><a href="/matches">Match Schedule</a></li>
                                             <li><a href="/match-details">Match Details</a></li>
                                         </ul>
                                     </li> --}}
-                                    <li><a href="/all-games">Games</a>
+                                    <li><a href="/all-games">{{ __('messages.games') }}</a>
                                         {{-- <ul class="sub_menu">
                                             <li><a href="/about">About Us</a></li>
                                             <li><a href="/games">Ethiopian Games</a></li>
@@ -38,7 +38,7 @@
                                             <li><a href="/blog">Tournament Updates</a></li>
                                         </ul>
                                     </li> --}}
-                                    <li><a href="/contact">Contact</a></li>
+                                    <li><a href="/contact">{{ __('messages.contact') }}</a></li>
                                 </ul>  
                             </nav>
                         </div>
@@ -46,19 +46,25 @@
                         <div class="header_right_sidebar d-flex align-items-center">
                             @auth
                                 <div class="sing_up_btn">
-                                    <span class="text-white me-3">Welcome, {{ Auth::user()->name }}</span>
+                                    <span class="text-white me-3">{{ __('messages.welcome', ['name' => Auth::user()->name]) }}</span>
                                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                         @csrf
-                                        <button type="submit" class="btn btn-link">Logout <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""></button>
+                                        <button type="submit" class="btn btn-link">{{ __('messages.logout') }} <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""></button>
                                     </form>
                                 </div>
                             @else
-                                {{-- <div class="sing_up_btn">
-                                    <a class="btn btn-link" href="{{ route('login') }}">Login <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""> </a>
-                                </div> --}}
+                                <div class="sing_up_btn d-none d-lg-block">
+                                    <a class="btn btn-link" href="{{ route('login') }}">{{ __('messages.login') }} <img width="15" height="15" src="{{ asset('assets/img/icon/arrrow-icon2.webp') }}" alt=""> </a>
+                                </div>
                             @endauth
                             <div class="canvas_open">
                                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"><i class="icofont-navigation-menu"></i></button>
+                            </div>
+                            <!-- Language Switcher -->
+                            <div class="lang-switcher ms-3 d-flex gap-1">
+                                <a href="{{ route('locale.switch', 'en') }}" class="btn btn-sm {{ app()->getLocale() === 'en' ? 'btn-danger' : 'btn-outline-secondary' }} text-white py-0 px-2" style="font-size:0.75rem;">EN</a>
+                                <a href="{{ route('locale.switch', 'am') }}" class="btn btn-sm {{ app()->getLocale() === 'am' ? 'btn-danger' : 'btn-outline-secondary' }} text-white py-0 px-2" style="font-size:0.75rem;">አማ</a>
+                                <a href="{{ route('locale.switch', 'om') }}" class="btn btn-sm {{ app()->getLocale() === 'om' ? 'btn-danger' : 'btn-outline-secondary' }} text-white py-0 px-2" style="font-size:0.75rem;">OM</a>
                             </div>
                         </div>
                     </div>

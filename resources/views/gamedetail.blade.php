@@ -187,11 +187,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs_text text-center">
-                        <h1>Game Details</h1>
+                        <h1>{{ __('messages.game_details') }}</h1>
                         <ul class="d-flex justify-content-center">
-                            <li><a href="/">Home </a></li>
+                            <li><a href="/">{{ __('messages.home') }} </a></li>
                             <li> <span>//</span></li>
-                            <li>  Game</li>
+                            <li>  {{ __('messages.game_details') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                     <div class="col-12">
                         <div class="game_details_inner">
                             <div class="game_details_content top">
-                                <span>SheggerGames Studio</span>
+                                <span>{{ __('messages.studio') }}</span>
                                 <h2 class="game_details_title">{{ $gameName ?? 'Ethiopian Game Title' }}</h2>
                                 <div class="game_details_desc">
                                     <p>{{ $gameDescription ?? 'This is a popular Ethiopian game from our 38-games bundle collection. Experience the thrill and excitement of this amazing game that has been enjoyed by thousands of Ethiopian gamers.' }}
@@ -267,11 +267,10 @@
                     <div class="col-12">
                         <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="{{ asset('assets/img/bg/gaming-update.webp') }}">
                             <div class="gaming_update_text">
-                                <h2>Connect with the <br>
-                                    Ethiopian Gaming Community.</h2>
+                                <h2>{{ __('messages.community_cta') }}</h2>
                             </div>
                             <div class="gaming_update_btn">
-                                <a class="btn btn-link" href="/contact">JOIN NOW <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
+                                <a class="btn btn-link" href="/contact">{{ __('messages.join_now') }} <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>

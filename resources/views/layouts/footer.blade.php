@@ -11,8 +11,7 @@
                                         src="{{ asset('assets/img/logo/newlogo.png') }}" alt="SheggerGames Logo"></a>
                             </div>
                             <div class="footer_contact_desc">
-                                <p>Connecting gamers across Ethiopia and beyond.
-                                    SheggerGames is the premier gaming platform for Ethiopian gamers.</p>
+                                <p>{{ __('messages.footer_desc') }}</p>
                             </div>
                             <div class="footer_social">
                                 <ul class="d-flex">
@@ -32,20 +31,20 @@
                             </div>
                         </div>
                         <div class="footer_widget_list contact">
-                            <h3>Contact Us</h3>
+                            <h3>{{ __('messages.footer_contact') }}</h3>
                             <div class="footer_contact_info">
                                 <div class="footer_contact_info_list">
-                                    <span>Headquarters:</span>
-                                    <p>Addis Ababa, Ethiopia</p>
+                                    <span>{{ __('messages.contact_hq') }}:</span>
+                                    <p>{{ __('messages.contact_address') }}</p>
                                 </div>
                                 <div class="footer_contact_info_list">
-                                    <span>Email:</span>
+                                    <span>{{ __('messages.contact_email_label') }}:</span>
                                     <p><a href="mailto:info@sheggergames.com">info@sheggergames.com</a></p>
                                 </div>
                             </div>
                         </div>
                         <div class="footer_widget_list">
-                            <h3>Ethiopian Gaming Champions</h3>
+                            <h3>{{ __('messages.footer_champions') }}</h3>
                             <div class="footer_winners_gallery">
                                 <div class="footer_winners_list d-flex">
                                     <div class="footer_winners_thumb">
@@ -84,14 +83,12 @@
                             </div>
                         </div>
                         <div class="footer_widget_list footer_list_menu">
-                            <h3>Quick Links</h3>
+                            <h3>{{ __('messages.footer_quick_links') }}</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li><a href="#"> About Us</a></li>
-                                    <li><a href="#"> Ethiopian Games</a></li>
-                                    <li><a href="#"> Tournaments</a></li>
-                                    <li><a href="#"> Community</a></li>
-                                    <li><a href="#"> Support</a></li>
+                                    <li><a href="{{ route('about') }}"> {{ __('messages.about_us') }}</a></li>
+                                    <li><a href="{{ route('games.all') }}"> {{ __('messages.all_games') }}</a></li>
+                                    <li><a href="{{ url('/contact') }}"> {{ __('messages.contact') }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -106,14 +103,12 @@
                 <div class="col-12">
                     <div class="footer_bottom_inner d-flex justify-content-between">
                         <div class="copyright_right">
-                            <p> © @php
-                                echo date('Y');
-                                @endphp SheggerGames - Ethiopia's Premier Gaming Platform</p>
+                            <p>{{ __('messages.copyright', ['year' => date('Y')]) }}</p>
                         </div>
                         <div class="footer_bottom_link_menu">
                             <ul class="d-flex">
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="{{ route('terms') }}">{{ __('messages.terms') }}</a></li>
+                                {{-- <li><a href="#">{{ __('messages.privacy') }}</a></li> --}}
                             </ul>
                         </div>
 

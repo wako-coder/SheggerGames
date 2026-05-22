@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs_text text-center">
-                        <h1>Login</h1>
+                        <h1>{{ __('messages.login') }}</h1>
                         <ul class="d-flex justify-content-center">
-                            <li><a href="/">Home </a></li>
+                            <li><a href="/">{{ __('messages.home') }} </a></li>
                             <li> <span>//</span></li>
-                            <li>  Login</li>
+                            <li>  {{ __('messages.login') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="col-lg-5 col-md-8 col-12 mx-auto mb-50">
                     
                     <div class="section_title text-center mb-60">
-                        <h2>Login</h2>
+                        <h2>{{ __('messages.login') }}</h2>
                     </div>
 
                     <form method="POST" action="{{ route('login-form') }}">
@@ -68,7 +68,7 @@
                                 id="password"
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder="{{ __('messages.password') }}"
                                 class="@error('password') is-invalid @enderror"
                                 required
                             >
@@ -90,14 +90,14 @@
                                 {{ old('remember') ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="remember">
-                                Remember Me
+                                {{ __('messages.remember_me') }}
                             </label>
                         </div>
 
                         <!-- Submit Button -->
                         <div class="form_input_btn text-center mb-40">
                             <button type="submit" class="btn btn-link">
-                                Login
+                                {{ __('messages.login') }}
                                 <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt="">
                             </button>
                         </div>
