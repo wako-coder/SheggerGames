@@ -17,8 +17,8 @@ Route::view('/about', 'pages.about')->name('about');
 Route::view('/terms-and-conditions', 'pages.terms')->name('terms');
 
 // Game routes (public)
-Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
 Route::middleware(['auth', ])->group(function () {
+    Route::get('/game-details/{id?}', [GamesController::class, 'showGame'])->name('game.details');
     
     });
 Route::get('/all-games', [GamesController::class, 'allGames'])->name('games.all');
