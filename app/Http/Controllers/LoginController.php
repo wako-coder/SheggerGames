@@ -14,39 +14,34 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    // Handle login submission
     public function authenticate(Request $request)
     {
-        // Validate input
-    
-$request->validate([
-    'phone_number' => [
-        'required', 
-        'string',
-        // Matches exactly 251 followed by exactly 9 digits
-        'regex:/^251\d{9}$/' 
-    ],
-    'password' => 'required',
-], [
-    // Custom error message so the user knows exactly what went wrong
-    'phone_number.regex' => 'The phone number must start with 251 followed by exactly 9 digits.',
-]);
+        $request->validate([
+            'phone_number' => ['required', 'string', 'regex:/^(251\d{9}|09\d{8}|9\d{8})$/'],
+            'password'     => 'required',
+        ], [
+            'phone_number.regex' => 'Enter a valid Ethiopian phone number (e.g. 251912345678, 0912345678, or 912345678).',
+        ]);
 
-        // Attempt login
-        if (Auth::attempt(['phone_number' => $request->phone_number, 'password' => $request->password, 'is_subscribed' => true])) {
-            // Redirect to dashboard on success
+        // Normalize to 251 format
+        $phone = $request->phone_number;
+        if (str_starts_with($phone, '09')) {
+            $phone = '251' . substr($phone, 1);
+        } elseif (str_starts_with($phone, '9') && strlen($phone) === 9) {
+            $phone = '251' . $phone;
+        }
+
+        if (Auth::attempt(['phone_number' => $phone, 'password' => $request->password, 'is_subscribed' => true])) {
             return redirect()->intended('/');
         }
 
-        // Check if user exists but is not subscribed
-        $user = \App\Models\User::where('phone_number', $request->phone_number)->first();
-     if ($user && !$user->is_subscribed) {
-    return back()->withErrors([
-        'phone_number' => 'Your account is not subscribed. Please send OK to 6462 to activate your subscription.',
-    ])->withInput();
-}
+        $user = \App\Models\User::where('phone_number', $phone)->first();
+        if ($user && !$user->is_subscribed) {
+            return back()->withErrors([
+                'phone_number' => 'Your account is not subscribed. Please send OK to 6462 to activate your subscription.',
+            ])->withInput();
+        }
 
-        // Return back with error if login fails
         return back()->withErrors([
             'phone_number' => 'Invalid phone number or password.',
         ])->onlyInput('phone_number');

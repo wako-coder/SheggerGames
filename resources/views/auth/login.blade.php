@@ -49,14 +49,12 @@
                                 id="phone_number"
                                 type="text"
                                 name="phone_number"
-                              placeholder="251XXXXXXXXX"
-                              title="Phone number must start with 251 followed by exactly 9 digits."
-                                value="{{ old('phone_number') }}"
+                                placeholder="251XXXXXXXXX"
+                                value="{{ old('phone_number', '251') }}"
                                 class="@error('phone_number') is-invalid @enderror"
                                 required
                                 autofocus
                             >
-
                             @error('phone_number')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -121,36 +119,4 @@
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const phoneNumberInput = document.getElementById('phone_number');
-        const loginForm = phoneNumberInput.closest('form');
-        let validationMessage = document.createElement('small');
-        validationMessage.classList.add('text-danger');
-        validationMessage.style.display = 'none';
-        phoneNumberInput.parentNode.insertBefore(validationMessage, phoneNumberInput.nextSibling);
-
-        function validatePhoneNumber() {
-            const phoneNumber = phoneNumberInput.value;
-            if (!phoneNumber.startsWith('251')) {
-                validationMessage.textContent = 'Phone number must start with 251.';
-                validationMessage.style.display = 'block';
-                phoneNumberInput.setCustomValidity('Invalid'); // Mark as invalid for form submission
-            } else {
-                validationMessage.textContent = '';
-                validationMessage.style.display = 'none';
-                phoneNumberInput.setCustomValidity(''); // Mark as valid
-            }
-        }
-
-        phoneNumberInput.addEventListener('input', validatePhoneNumber);
-
-        loginForm.addEventListener('submit', function (event) {
-            validatePhoneNumber(); // Re-validate on submit
-            if (!phoneNumberInput.checkValidity()) {
-                event.preventDefault(); // Prevent form submission if invalid
-            }
-        });
-    });
-</script>
 @endpush
