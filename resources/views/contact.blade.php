@@ -23,7 +23,7 @@
     
 
     <!-- breadcrumbs area start -->
-    <div class="breadcrumbs_aree breadcrumbs_bg mb-140" data-bgimg="assets/img/bg/breadcrumbs-bg.webp">
+    <div class="breadcrumbs_aree breadcrumbs_bg mb-140" data-bgimg="{{ asset('assets/img/bg/breadcrumbs-bg.webp') }}">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -49,9 +49,9 @@
                 <div class="contact_info_area">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="contact_info_list left wow fadeInUp" data-bgimg="assets/img/others/gaming-world-bg1.webp" data-wow-delay="0.1s" data-wow-duration="1.1s">
+                            <div class="contact_info_list left wow fadeInUp" data-bgimg="{{ asset('assets/img/others/gaming-world-bg1.webp') }}" data-wow-delay="0.1s" data-wow-duration="1.1s">
                                 <div class="contact_info_thumb">
-                                    <img width="115" height="115" src="assets/img/icon/email.webp" alt="">
+                                    <img width="115" height="115" src="{{ asset('assets/img/icon/email.webp') }}" alt="">
                                 </div>
                                 <div class="contact_info_text">
                                 <h3>{{ __('messages.contact_email_label') }}:</h3>
@@ -63,9 +63,9 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="contact_info_list center wow fadeInUp" data-bgimg="assets/img/others/gaming-world-bg2.webp" data-wow-delay="0.2s" data-wow-duration="1.2s">
+                            <div class="contact_info_list center wow fadeInUp" data-bgimg="{{ asset('assets/img/others/gaming-world-bg2.webp') }}" data-wow-delay="0.2s" data-wow-duration="1.2s">
                                 <div class="contact_info_thumb">
-                                    <img width="115" height="115" src="assets/img/icon/location.webp" alt="">
+                                    <img width="115" height="115" src="{{ asset('assets/img/icon/location.webp') }}" alt="">
                                 </div>
                                 <div class="contact_info_text">
                                 <h3>{{ __('messages.location') }}:</h3>
@@ -74,9 +74,9 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="contact_info_list right wow fadeInUp" data-bgimg="assets/img/others/gaming-world-bg3.webp" data-wow-delay="0.3s" data-wow-duration="1.3s">
+                            <div class="contact_info_list right wow fadeInUp" data-bgimg="{{ asset('assets/img/others/gaming-world-bg3.webp') }}" data-wow-delay="0.3s" data-wow-duration="1.3s">
                                 <div class="contact_info_thumb">
-                                    <img width="115" height="115" src="assets/img/icon/phone.webp" alt="">
+                                    <img width="115" height="115" src="{{ asset('assets/img/icon/phone.webp') }}" alt="">
                                 </div>
                                 <div class="contact_info_text">
                                 <h3>{{ __('messages.phone') }}:</h3>
@@ -123,14 +123,14 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form_input mb-3">
+                        <div class="form_textarea mb-3">
                             <textarea name="message" placeholder="{{ __('messages.contact_message') }}">{{ old('message') }}</textarea>
                             @error('message')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form_input_btn text-center">
-                            <button type="submit" class="btn btn-link">{{ __('messages.send_message') }} <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""></button>
+                            <button type="submit" class="btn btn-link">{{ __('messages.send_message') }} <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""></button>
                         </div>
                     </form>
                     </div>
@@ -152,12 +152,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="assets/img/bg/gaming-update.webp">
+                        <div class="gaming_update_inner d-flex justify-content-between align-items-center" data-bgimg="{{ asset('assets/img/bg/gaming-update.webp') }}">
                             <div class="gaming_update_text">
                                 <h2>{{ __('messages.community_cta') }}</h2>
                             </div>
                             <div class="gaming_update_btn">
-                                <a class="btn btn-link" href="/contact">{{ __('messages.join_now') }} <img width="20" height="20" src="assets/img/icon/arrrow-icon.webp" alt=""> </a>
+                                <a class="btn btn-link" href="/contact">{{ __('messages.join_now') }} <img width="20" height="20" src="{{ asset('assets/img/icon/arrrow-icon.webp') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>
