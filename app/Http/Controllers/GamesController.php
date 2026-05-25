@@ -146,7 +146,7 @@ class GamesController extends Controller
                 'slug'        => 'park_your_car',
                 'name'        => 'Park Your Car',
                 'thumbnail'   => asset('games/park_your_car/sprites/200x200.jpg'),
-                'url'         => asset('games/Park_Your_Car/index.html'),
+                'url'         => asset('games/park_your_car/index.html'),
                 'description' => 'Park your car in the designated spots.',
                 'details'     => 'Drive your car around the parking lot and park it in the correct spots. Complete levels with the fewest moves possible.',
             ],
